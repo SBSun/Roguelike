@@ -4,16 +4,21 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerInputHandler : MonoBehaviour //플레이어의 입력값에 따른 기능 실행
 {
-    private Vector2 movementInput;
+    public Vector2 RawMovementInput { get; private set; }
+    public int NormInputX { get; private set; }
+    public int NormInputY { get; private set; }
 
     //WASD를 누르면 실행
-    public void OnMoveInput(InputAction.CallbackContext context)
+    public void OnMovexinput(InputAction.CallbackContext context)
     {
-        movementInput = context.ReadValue<Vector2>();
+        RawMovementInput = context.ReadValue<Vector2>();
+
+        NormInputX = (int)(RawMovementInput.x * Vector2.right).normalized.x;
+        NormInputY = (int)(RawMovementInput.y * Vector2.up).normalized.y;
     }
 
     //Space를 누르면 실행
-    public void OnJumpInput(InputAction.CallbackContext context)
+    public void OnJumpxinput(InputAction.CallbackContext context)
     {
 
     }

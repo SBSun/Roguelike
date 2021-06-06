@@ -2141,7 +2141,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 823054009}
         m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
-        m_MethodName: OnMouseInput
+        m_MethodName: OnMovexinput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2157,7 +2157,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 823054009}
         m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
-        m_MethodName: OnJumpInput
+        m_MethodName: OnJumpxinput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2317,7 +2317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41c28f5cffbf88747bb10495b38127b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerData: {fileID: 0}
+  playerData: {fileID: 11400000, guid: 41d6c482e7dc1ed498ff2825de7ccdd7, type: 2}
 --- !u!1 &1841983576
 GameObject:
   m_ObjectHideFlags: 0
@@ -2328,6 +2328,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1841983578}
   - component: {fileID: 1841983577}
+  - component: {fileID: 1841983579}
   m_Layer: 0
   m_Name: Global Light 2D
   m_TagString: Untagged
@@ -2390,3 +2391,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1841983579
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1841983576}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 45731ca4bd46b3840ace36ea71190fd9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
