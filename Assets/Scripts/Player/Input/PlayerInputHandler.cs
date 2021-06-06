@@ -4,11 +4,26 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerInputHandler : MonoBehaviour //플레이어의 입력값에 따른 기능 실행
 {
+    private Player player;
+
     public Vector2 RawMovementInput { get; private set; }
     public int NormInputX { get; private set; }
     public int NormInputY { get; private set; }
     public bool JumpInput { get; private set; }
+    public bool JumpInputStop { get; private set; } //점프의 가중치를 주기 위한 변수
 
+    [SerializeField]
+    private float inputHoldTime = 0.2f;
+    private float jumpInputStartTime;
+
+    private void Start()
+    {
+        player = GetComponent<Player>();
+    }
+    private void Update()
+    {
+        CheckJumpInputHoldTime(); 
+    }
     //WASD를 누르면 실행
     public void OnMovexinput(InputAction.CallbackContext context)
     {
@@ -24,9 +39,20 @@ public class PlayerInputHandler : MonoBehaviour //플레이어의 입력값에 따른 기능 
         if(context.started)
         {
             JumpInput = true;
+            JumpInputStop = false;
+            jumpInputStartTime = Time.time;
         }
+
+        if (context.canceled)
+            JumpInputStop = true;
     }
 
     public void UseJumpInput() => JumpInput = false;
 
+    //땅에 닿아있을 때 점프키를 빠르게 2번 누르면 점프가 2번 되는걸 막아주기 위함 -> 점프 최대 가능 횟수가 1일 때 적용
+    private void CheckJumpInputHoldTime()
+    {
+        if (Time.time >= jumpInputStartTime)
+            JumpInput = false;
+    }
 }

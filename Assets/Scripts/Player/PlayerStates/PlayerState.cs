@@ -8,6 +8,8 @@ public class PlayerState
     protected PlayerStateMachine stateMachine;
     protected PlayerData playerData;
 
+    protected bool isAnimationFinished;
+
     protected float startTime;
 
     private string animBoolName;
@@ -27,6 +29,7 @@ public class PlayerState
         DoChecks();
         player.Anim.SetBool(animBoolName, true);
         startTime = Time.time;
+        isAnimationFinished = false; //새로운 상태로 변경 될 때 애니메이션 시작
     }
 
     //해당 State가 끝날 때 한 번 실행
@@ -42,11 +45,21 @@ public class PlayerState
 
     public virtual void PhysicsUpdate()
     {
-
+        DoChecks();
     }
 
     public virtual void DoChecks()
     {
 
+    }
+
+    public virtual void AnimationTrigger()
+    {
+        
+    }
+
+    public virtual void AnimationFinishTrigger()
+    {
+        isAnimationFinished = true;
     }
 }
