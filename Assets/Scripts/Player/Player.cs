@@ -8,6 +8,9 @@ public class Player : MonoBehaviour
     public PlayerStateMachine StateMachine { get; private set; }
     public PlayerIdleState IdleState { get; private set; }
     public PlayerMoveState MoveState { get; private set; }
+    public PlayerJumpState JumpState { get; private set; }
+    public PlayerInAirState InAirState { get; private set; }
+    public PlayerLandState LandState { get; private set; }
     #endregion
 
     #region 컴포넌트
@@ -23,6 +26,9 @@ public class Player : MonoBehaviour
     public int FacingDirection { get; private set; }
 
     private Vector2 workSpace;
+
+    [SerializeField]
+    private Transform groundCheck;
     #endregion
 
     #region 유니티 콜백 함수
@@ -31,6 +37,9 @@ public class Player : MonoBehaviour
         StateMachine = new PlayerStateMachine();
         IdleState = new PlayerIdleState(this, StateMachine, playerData, "idle");
         MoveState = new PlayerMoveState(this, StateMachine, playerData, "move");
+        JumpState = new PlayerJumpState(this, StateMachine, playerData, "inAir");
+        InAirState = new PlayerInAirState(this, StateMachine, playerData, "inAir");
+        LandState = new PlayerLandState(this, StateMachine, playerData, "land");
     }
 
     private void Start()
@@ -56,6 +65,11 @@ public class Player : MonoBehaviour
     #endregion   
 
     #region 체크 함수
+
+    public bool CheckIfGrounded()
+    {
+        return Physics2D.OverlapCircle(groundCheck.position, playerData.groundCheckRadius, playerData.whatIsGround);
+    }
     public void CheckIfShouldFlip(int xInput)
     {
         if (xInput != 0 && xInput != FacingDirection)
@@ -67,6 +81,13 @@ public class Player : MonoBehaviour
     public void SetVelocityX(float velocity)
     {
         workSpace.Set(velocity, CurrentVelocity.y);
+        RB.velocity = workSpace;
+        CurrentVelocity = workSpace;
+    }
+
+    public void SetVelocityY(float velocity)
+    {
+        workSpace.Set(CurrentVelocity.x, velocity);
         RB.velocity = workSpace;
         CurrentVelocity = workSpace;
     }
