@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     public PlayerInAirState InAirState { get; private set; }
     public PlayerLandState LandState { get; private set; }
     #endregion
-
+    
     #region ÄÄÆ÷³ÍÆ®
     public Animator Anim { get; private set; }
     public PlayerInputHandler InputHandler { get; private set; }

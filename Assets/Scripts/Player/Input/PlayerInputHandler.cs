@@ -52,7 +52,7 @@ public class PlayerInputHandler : MonoBehaviour //플레이어의 입력값에 따른 기능 
     //땅에 닿아있을 때 점프키를 빠르게 2번 누르면 점프가 2번 되는걸 막아주기 위함 -> 점프 최대 가능 횟수가 1일 때 적용
     private void CheckJumpInputHoldTime()
     {
-        if (Time.time >= jumpInputStartTime)
+        if (Time.time >= jumpInputStartTime + inputHoldTime)
             JumpInput = false;
     }
 }
