@@ -7,6 +7,7 @@ public class PlayerInAirState : PlayerState
     private bool isGrounded;
     private int xInput;
     private bool jumpInput;
+    private bool grabInput;
     private bool jumpInputStop;
     private bool isJumping;
     private bool isTouchingWall;
@@ -39,6 +40,7 @@ public class PlayerInAirState : PlayerState
         xInput = player.InputHandler.NormInputX;
         jumpInput = player.InputHandler.JumpInput;
         jumpInputStop = player.InputHandler.JumpInputStop;
+        grabInput = player.InputHandler.GrabInput;
 
         CheckJumpMultiplier();
 
@@ -47,6 +49,10 @@ public class PlayerInAirState : PlayerState
         else if(jumpInput && player.JumpState.CanJump())
         {
             stateMachine.ChangeState(player.JumpState);
+        }
+        else if(isTouchingWall && grabInput)
+        {
+            stateMachine.ChangeState(player.WallGrabState);
         }
         else if(isTouchingWall && xInput == player.FacingDirection && player.CurrentVelocity.y <= 0)
         {

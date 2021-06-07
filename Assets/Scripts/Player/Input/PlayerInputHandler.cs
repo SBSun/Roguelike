@@ -11,6 +11,7 @@ public class PlayerInputHandler : MonoBehaviour //플레이어의 입력값에 따른 기능 
     public int NormInputY { get; private set; }
     public bool JumpInput { get; private set; }
     public bool JumpInputStop { get; private set; } //점프의 가중치를 주기 위한 변수
+    public bool GrabInput { get; private set; }
 
     [SerializeField]
     private float inputHoldTime = 0.2f;
@@ -25,16 +26,31 @@ public class PlayerInputHandler : MonoBehaviour //플레이어의 입력값에 따른 기능 
         CheckJumpInputHoldTime(); 
     }
     //WASD를 누르면 실행
-    public void OnMovexinput(InputAction.CallbackContext context)
+    public void OnMoveInput(InputAction.CallbackContext context)
     {
         RawMovementInput = context.ReadValue<Vector2>();
 
-        NormInputX = (int)(RawMovementInput.x * Vector2.right).normalized.x;
-        NormInputY = (int)(RawMovementInput.y * Vector2.up).normalized.y;
+        if (Mathf.Abs(RawMovementInput.x) > 0.5f)
+        {
+            NormInputX = (int)(RawMovementInput.x * Vector2.right).normalized.x;
+        }
+        else
+        {
+            NormInputX = 0;
+        }
+
+        if (Mathf.Abs(RawMovementInput.y) > 0.5f)
+        {
+            NormInputY = (int)(RawMovementInput.y * Vector2.up).normalized.y;
+        }
+        else
+        {
+            NormInputY = 0;
+        }
     }
 
     //Space를 누르면 실행
-    public void OnJumpxinput(InputAction.CallbackContext context)
+    public void OnJumpInput(InputAction.CallbackContext context)
     {
         if(context.started)
         {
@@ -45,6 +61,19 @@ public class PlayerInputHandler : MonoBehaviour //플레이어의 입력값에 따른 기능 
 
         if (context.canceled)
             JumpInputStop = true;
+    }
+
+    public void OnGrabInput(InputAction.CallbackContext context)
+    {
+        if(context.started)
+        {
+            GrabInput = true;
+        }
+        
+        if(context.canceled)
+        {
+            GrabInput = false;
+        }
     }
 
     public void UseJumpInput() => JumpInput = false;

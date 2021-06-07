@@ -6,7 +6,9 @@ public class PlayerGroundedState : PlayerState
 {
     protected int xInput;
     private bool jumpInput;
+    private bool grabinput;
     private bool isGrounded;
+    private bool isTouchingWall;
 
     public PlayerGroundedState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
     {
@@ -17,6 +19,7 @@ public class PlayerGroundedState : PlayerState
     {
         base.DoChecks();
         isGrounded = player.CheckIfGrounded();
+        isTouchingWall = player.CheckIfTouchingWall();
     }
 
     public override void Enter()
@@ -37,7 +40,7 @@ public class PlayerGroundedState : PlayerState
 
         xInput = player.InputHandler.NormInputX;
         jumpInput = player.InputHandler.JumpInput;
- 
+        grabinput = player.InputHandler.GrabInput;
 
         if(jumpInput && player.JumpState.CanJump())
         {
@@ -46,9 +49,13 @@ public class PlayerGroundedState : PlayerState
         }
         else if(!isGrounded)
         {
-            //땅에 있다가 떨어지면 점프를 못하도록 점프할 수 있는 최대횟수를 빼준다.
+            //땅에 있다가 떨어지면 점프를 못하도록 점프할 수 있는 최대횟수를 빼준다. 
             player.JumpState.DecreaseAmountOfJumpsLeft(playerData.amountOfJumps);
             stateMachine.ChangeState(player.InAirState);
+        }
+        else if(isTouchingWall && grabinput)
+        {
+            stateMachine.ChangeState(player.WallGrabState);
         }
     }
 
