@@ -84,6 +84,11 @@ public class Player : MonoBehaviour
         if (xInput != 0 && xInput != FacingDirection)
             Flip();
     }
+
+    public bool CheckIfTouchingWall()
+    {
+        return Physics2D.Raycast(wallCheck.position, Vector2.right * FacingDirection, playerData.wallCheckDistance, playerData.whatIsGround);
+    }
     #endregion
 
     #region 나머지 함수
