@@ -16,7 +16,7 @@ public class ParallaxBackground : MonoBehaviour
         lastCameraPosition = cameraTransform.position;
         Sprite sprite = GetComponent<SpriteRenderer>().sprite;
         Texture2D texture = sprite.texture;
-        textureUnitSizeX = texture.width / sprite.pixelsPerUnit;
+        textureUnitSizeX = (texture.width / sprite.pixelsPerUnit) * transform.localScale.x;
     }
 
     private void LateUpdate()
@@ -26,9 +26,10 @@ public class ParallaxBackground : MonoBehaviour
         transform.position += new Vector3(deltaMovement.x * parallaxMultiplier.x, deltaMovement.y * parallaxMultiplier.y);
         lastCameraPosition = cameraTransform.position;
 
-        if(cameraTransform.position.x - transform.position.x >= textureUnitSizeX)
+        if((Mathf.Abs(cameraTransform.position.x - transform.position.x)) >= textureUnitSizeX)
         {
-            transform.position = new Vector3(cameraTransform.position.x, transform.position.y);
+            float offsetPositionX = (cameraTransform.position.x - transform.position.x) % textureUnitSizeX;
+            transform.position = new Vector3(cameraTransform.position.x + offsetPositionX, transform.position.y); 
         }
     }
 }
