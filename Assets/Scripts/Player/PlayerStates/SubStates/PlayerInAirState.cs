@@ -48,6 +48,7 @@ public class PlayerInAirState : PlayerState
             stateMachine.ChangeState(player.LandState);
         else if(jumpInput && player.JumpState.CanJump())
         {
+            player.InputHandler.UseJumpInput();
             stateMachine.ChangeState(player.JumpState);
         }
         else if(isTouchingWall && grabInput)

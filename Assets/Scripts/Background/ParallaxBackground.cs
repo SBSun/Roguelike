@@ -5,6 +5,8 @@ using UnityEngine;
 public class ParallaxBackground : MonoBehaviour
 {
     private Transform cameraTransform;
+
+    private Vector3 movementPos;
     private Vector3 lastCameraPosition;
     [SerializeField]
     private Vector2 parallaxMultiplier;
@@ -21,9 +23,9 @@ public class ParallaxBackground : MonoBehaviour
 
     private void LateUpdate()
     {
-        Vector3 deltaMovement = cameraTransform.position - lastCameraPosition;
+        movementPos = cameraTransform.position - lastCameraPosition;
 
-        transform.position += new Vector3(deltaMovement.x * parallaxMultiplier.x, deltaMovement.y * parallaxMultiplier.y);
+        transform.position += new Vector3(movementPos.x * parallaxMultiplier.x, movementPos.y * parallaxMultiplier.y);
         lastCameraPosition = cameraTransform.position;
 
         if((Mathf.Abs(cameraTransform.position.x - transform.position.x)) >= textureUnitSizeX)
