@@ -41,17 +41,18 @@ public class PlayerTouchingWallState : PlayerState
         grabInput = player.InputHandler.GrabInput;
         jumpInput = player.InputHandler.JumpInput;
 
+        //점프 키를 누름 -> WallJumpState
         if(jumpInput)
         {
             player.WallJumpState.DetermineWallJumpDirection(isTouchingWall);
             stateMachine.ChangeState(player.WallJumpState);
         }
-        //땅에 닿고 grab키를 누르지 않으면 idleState
+        //땅에 닿고 && grab키를 누르지 않으면 -> IdleState
         else if(isGrounded && !grabInput)
         {
             stateMachine.ChangeState(player.IdleState);
         }
-        //FacingDirection이 벽 방향이 아니거나 방향키가 벽 방향을 누르고 있지 않으면 InAirState로 변경
+        //캐릭터가 보고 있는 방향이 벽 방향이 아니거나 || 방향키가 벽 방향을 누르고 있지 않으면 -> InAirState
         else if(!isTouchingWall || (xInput != player.FacingDirection && !grabInput))
         {
             stateMachine.ChangeState(player.InAirState);

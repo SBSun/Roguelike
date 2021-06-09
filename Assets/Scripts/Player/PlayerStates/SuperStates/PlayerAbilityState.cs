@@ -34,12 +34,15 @@ public class PlayerAbilityState : PlayerState
     {
         base.LogicUpdate();
 
+        //Action이 끝나면
         if(isAbilityDone)
         {
+            //땅에 닿으면 -> IdleState
             if(isGrounded && player.CurrentVelocity.y < 0.01f)
             {
                 stateMachine.ChangeState(player.IdleState);
             }
+            //공중에 있으면 -> InAirState
             else
             {
                 stateMachine.ChangeState(player.InAirState);
