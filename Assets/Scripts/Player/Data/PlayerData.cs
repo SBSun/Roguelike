@@ -13,6 +13,11 @@ public class PlayerData : ScriptableObject
     public int amountOfJumps = 1; //점프 최대 횟수
     public float variableJumpHeightMultiplier = 0.5f;
 
+    [Header("Wall Jump State")]
+    public float wallJumpVelocity = 20f;
+    public float wallJumpTime = 0.4f;
+    public Vector2 wallJumpAngle = new Vector2(1, 2);
+
     [Header("Wall Slide State")]
     public float wallSlideVelocity = 3f;
 

@@ -9,6 +9,7 @@ public class PlayerTouchingWallState : PlayerState
     protected int xInput;
     protected int yInput;
     protected bool grabInput;
+    protected bool jumpInput;
     public PlayerTouchingWallState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
     {
     }
@@ -38,9 +39,15 @@ public class PlayerTouchingWallState : PlayerState
         xInput = player.InputHandler.NormInputX;
         yInput = player.InputHandler.NormInputY;
         grabInput = player.InputHandler.GrabInput;
+        jumpInput = player.InputHandler.JumpInput;
 
+        if(jumpInput)
+        {
+            player.WallJumpState.DetermineWallJumpDirection(isTouchingWall);
+            stateMachine.ChangeState(player.WallJumpState);
+        }
         //땅에 닿고 grab키를 누르지 않으면 idleState
-        if(isGrounded && !grabInput)
+        else if(isGrounded && !grabInput)
         {
             stateMachine.ChangeState(player.IdleState);
         }

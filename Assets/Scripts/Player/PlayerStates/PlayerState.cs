@@ -9,6 +9,7 @@ public class PlayerState
     protected PlayerData playerData;
 
     protected bool isAnimationFinished;
+    protected bool isExitingState;
 
     protected float startTime;
 
@@ -30,12 +31,14 @@ public class PlayerState
         player.Anim.SetBool(animBoolName, true);
         startTime = Time.time;
         isAnimationFinished = false; //새로운 상태로 변경 될 때 애니메이션 시작
+        isExitingState = false;
     }
 
     //해당 State가 끝날 때 한 번 실행
     public virtual void Exit()
     {
         player.Anim.SetBool(animBoolName, false);
+        isExitingState = true;
     }
 
     public virtual void LogicUpdate()
