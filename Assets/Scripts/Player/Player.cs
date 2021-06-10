@@ -14,7 +14,9 @@ public class Player : MonoBehaviour
     public PlayerWallSlideState WallSlideState { get; private set; }
     public PlayerWallGrabState WallGrabState { get; private set; }
     public PlayerWallClimbState WallClimbState { get; private set; }
-    public PlayerWallJumpState WallJumpState { get; protected set; }
+    public PlayerWallJumpState WallJumpState { get; private set; }
+
+    public PlayerLedgeClimbState LedgeClimbState { get; private set; }
 
     #endregion
     
@@ -36,6 +38,8 @@ public class Player : MonoBehaviour
     private Transform groundCheck;
     [SerializeField]
     private Transform wallCheck;
+    [SerializeField]
+    private Transform ledgeCheck;
     #endregion
 
     #region 유니티 콜백 함수
@@ -51,6 +55,7 @@ public class Player : MonoBehaviour
         WallGrabState = new PlayerWallGrabState(this, StateMachine, playerData, "wallGrab");
         WallClimbState = new PlayerWallClimbState(this, StateMachine, playerData, "wallClimb");
         WallJumpState = new PlayerWallJumpState(this, StateMachine, playerData, "inAir");
+        LedgeClimbState = new PlayerLedgeClimbState(this, StateMachine, playerData, "ledgeClimb");
     }
 
     private void Start()
@@ -75,7 +80,7 @@ public class Player : MonoBehaviour
     }
     #endregion   
 
-    #region 체크 함수
+    #region Check 함수
 
     //땅에 닿아 있는지 체크
     public bool CheckIfGrounded()
@@ -99,10 +104,19 @@ public class Player : MonoBehaviour
         return Physics2D.Raycast(wallCheck.position, Vector2.right * -FacingDirection, playerData.wallCheckDistance, playerData.whatIsGround);
     }
 
+    public bool CheckIfTouchingLedge()
+    {
+        return Physics2D.Raycast(ledgeCheck.position, Vector2.right * FacingDirection, playerData.wallCheckDistance, playerData.whatIsGround);
+    }
+
     #endregion
 
-    #region 나머지 함수
-
+    #region Set 함수 
+    public void SetVelocityZero()
+    {
+        RB.velocity = Vector2.zero;
+        CurrentVelocity = Vector2.zero;
+    }
     public void SetVelocity(float velocity, Vector2 angle, int direction)
     {
         angle.Normalize();
@@ -123,10 +137,27 @@ public class Player : MonoBehaviour
         RB.velocity = workSpace;
         CurrentVelocity = workSpace;
     }
+    #endregion
+
+    #region 나머지 함수
+
+
     private void Flip()
     {
         FacingDirection *= -1;
         transform.Rotate(0f, 180f, 0f);
+    }
+
+    public Vector2 DetermineCornerPosition()
+    {
+        RaycastHit2D xHit = Physics2D.Raycast(wallCheck.position, Vector2.right * FacingDirection, playerData.wallCheckDistance, playerData.whatIsGround);
+        float xDist = xHit.distance;
+        workSpace.Set(xDist * FacingDirection, 0f);
+        RaycastHit2D yHit = Physics2D.Raycast(ledgeCheck.position + (Vector3)workSpace, Vector2.down, ledgeCheck.position.y - wallCheck.position.y, playerData.whatIsGround);
+        float yDist = yHit.distance;
+
+        workSpace.Set(wallCheck.position.x + (xDist * FacingDirection), ledgeCheck.position.y - yDist);
+        return workSpace;
     }
 
     private void AnimationTrigger() => StateMachine.CurrentState.AnimationTrigger();

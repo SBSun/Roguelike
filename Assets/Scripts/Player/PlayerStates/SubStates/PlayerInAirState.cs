@@ -12,6 +12,7 @@ public class PlayerInAirState : PlayerState
     private bool isJumping;
     private bool isTouchingWall;
     private bool isTouchingWallBack;
+    private bool isTouchingLedge;
     public PlayerInAirState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
     {
     }
@@ -23,6 +24,12 @@ public class PlayerInAirState : PlayerState
         isGrounded = player.CheckIfGrounded();
         isTouchingWall = player.CheckIfTouchingWall();
         isTouchingWallBack = player.CheckIfTouchingWallBack();
+        isTouchingLedge = player.CheckIfTouchingLedge();
+
+        if(isTouchingWall && !isTouchingLedge)
+        {
+            player.LedgeClimbState.SetDetectedPosition(player.transform.position);
+        }
     }
 
     public override void Enter()
@@ -54,6 +61,11 @@ public class PlayerInAirState : PlayerState
         {
             stateMachine.ChangeState(player.LandState);
         }
+        //캐릭터 앞에 벽이 있고 && 캐릭터 머리 앞에 벽이 없으면
+        else if(isTouchingWall && !isTouchingLedge)
+        {
+            stateMachine.ChangeState(player.LedgeClimbState);
+        }
         //점프 키 누름 && 캐릭터가 벽에 닿아 있으면 -> WallJumpState
         else if (jumpInput && (isTouchingWall || isTouchingWallBack))
         {
@@ -67,7 +79,7 @@ public class PlayerInAirState : PlayerState
             player.InputHandler.UseJumpInput();
             stateMachine.ChangeState(player.JumpState);
         }
-        //Grab 키 누름 && 캐릭터 앞 쪽이 벽에 닿아 있으면 -> WallJumpState
+        //Grab 키 누름 && 캐릭터 앞 쪽이 벽에 닿아 있으면 -> WallGrapState
         else if(isTouchingWall && grabInput)
         {
             stateMachine.ChangeState(player.WallGrabState);
