@@ -30,16 +30,16 @@ public class PlayerInputHandler : MonoBehaviour //플레이어의 입력값에 따른 기능 
     {
         RawMovementInput = context.ReadValue<Vector2>();
 
-        if (Mathf.Abs(RawMovementInput.x) > 0.5f)
+        if (Mathf.Abs(RawMovementInput.x) > 0.1f)
         {
             NormInputX = (int)(RawMovementInput.x * Vector2.right).normalized.x;
         }
         else
         {
             NormInputX = 0;
-        }
+        }    
 
-        if (Mathf.Abs(RawMovementInput.y) > 0.5f)
+        if (Mathf.Abs(RawMovementInput.y) > 0.1f)
         {
             NormInputY = (int)(RawMovementInput.y * Vector2.up).normalized.y;
         }
@@ -47,6 +47,7 @@ public class PlayerInputHandler : MonoBehaviour //플레이어의 입력값에 따른 기능 
         {
             NormInputY = 0;
         }
+        
     }
 
     //Space를 누르면 실행

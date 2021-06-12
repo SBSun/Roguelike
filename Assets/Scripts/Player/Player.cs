@@ -72,6 +72,8 @@ public class Player : MonoBehaviour
     {
         CurrentVelocity = RB.velocity;
         StateMachine.CurrentState.LogicUpdate();
+        Debug.DrawRay(wallCheck.position, Vector2.right * FacingDirection * playerData.wallCheckDistance, Color.red);
+        Debug.DrawRay(ledgeCheck.position, Vector2.right * FacingDirection * playerData.wallCheckDistance, Color.red);
     }
 
     private void FixedUpdate()
@@ -157,6 +159,7 @@ public class Player : MonoBehaviour
         float yDist = yHit.distance;
 
         workSpace.Set(wallCheck.position.x + (xDist * FacingDirection), ledgeCheck.position.y - yDist);
+        Debug.Log(yDist);
         return workSpace;
     }
 

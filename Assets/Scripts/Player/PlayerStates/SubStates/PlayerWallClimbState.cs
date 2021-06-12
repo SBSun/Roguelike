@@ -14,12 +14,11 @@ public class PlayerWallClimbState : PlayerTouchingWallState
 
         if(!isExitingState)
         {
-            player.SetVelocityY(playerData.wallClimbVelocity);
-
             if (yInput != 1)
             {
                 stateMachine.ChangeState(player.WallGrabState);
             }
+            player.SetVelocityY(playerData.wallClimbVelocity);
         }
     }
 }
