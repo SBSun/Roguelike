@@ -8,17 +8,27 @@ public class PlayerWallClimbState : PlayerTouchingWallState
     {
     }
 
+    public override void Enter()
+    {
+        base.Enter();
+    }
+
     public override void LogicUpdate()
     {
         base.LogicUpdate();
 
-        if(!isExitingState)
+        if (!isExitingState)
         {
+            Debug.Log(player.CurrentVelocity.y);
+
             if (yInput != 1)
             {
+                Debug.Log(player.CurrentVelocity.y);
                 stateMachine.ChangeState(player.WallGrabState);
             }
-            player.SetVelocityY(playerData.wallClimbVelocity);
+            else if(yInput == 1)
+                player.SetVelocityY(playerData.wallClimbVelocity);
+            Debug.Log(player.CurrentVelocity.y);
         }
     }
 }

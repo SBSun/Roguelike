@@ -27,8 +27,7 @@ public class PlayerWallGrabState : PlayerTouchingWallState
     public override void Enter()
     {
         base.Enter();
-
-        holdPosition = player.transform.position;
+        SetHoldPosition();
         HoldPosition();
     }
 
@@ -55,12 +54,16 @@ public class PlayerWallGrabState : PlayerTouchingWallState
         }
     }
 
-    private void HoldPosition()
+    public void SetHoldPosition()
+    {
+        holdPosition = player.transform.position;
+    }
+
+    public void HoldPosition()
     {
         player.transform.position = holdPosition;
 
-        player.SetVelocityX(0f);
-        player.SetVelocityY(0f);
+        player.SetVelocityZero();
     }
 
     public override void PhysicsUpdate()

@@ -116,8 +116,9 @@ public class Player : MonoBehaviour
     #region Set ÇÔ¼ö 
     public void SetVelocityZero()
     {
-        RB.velocity = Vector2.zero;
-        CurrentVelocity = Vector2.zero;
+        workSpace.Set(0,0);
+        RB.velocity = workSpace;
+        CurrentVelocity = workSpace;
     }
     public void SetVelocity(float velocity, Vector2 angle, int direction)
     {
