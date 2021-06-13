@@ -37,6 +37,7 @@ public class PlayerLedgeClimbState : PlayerState
         base.Enter();
 
         player.SetVelocityZero();
+        player.SetGravityScale(0);
         player.transform.position = detectedPos;
         cornerPos = player.DetermineCornerPosition();
 
@@ -49,7 +50,7 @@ public class PlayerLedgeClimbState : PlayerState
     public override void Exit()
     {
         base.Exit();
-
+        player.SetGravityScale(playerData.defaultGravity);
         isHanging = false;
 
         if(isClimbing)
