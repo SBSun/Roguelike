@@ -8,32 +8,18 @@ public class PlayerWallGrabState : PlayerTouchingWallState
     public PlayerWallGrabState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
     {
     }
-
-    public override void AnimationFinishTrigger()
-    {
-        base.AnimationFinishTrigger();
-    }
-
-    public override void AnimationTrigger()
-    {
-        base.AnimationTrigger();
-    }
-
-    public override void DoChecks()
-    {
-        base.DoChecks();
-    }
-
     public override void Enter()
     {
         base.Enter();
-        SetHoldPosition();
-        HoldPosition();
+        //포지션 고정
+        player.SetHoldPosition();
+        player.HoldPosition();
     }
 
     public override void Exit()
     {
         base.Exit();
+        player.SetGravityScale(playerData.defaultGravity);
     }
 
     public override void LogicUpdate()
@@ -42,29 +28,15 @@ public class PlayerWallGrabState : PlayerTouchingWallState
 
         if(!isExitingState)
         {
-            HoldPosition();
-            if (yInput > 0)
-            {
+            player.HoldPosition();
+            if (yInput > 0) //Grab상태에서 방향키 윗키를 누르면 벽 오르기 상태로 변환
                 stateMachine.ChangeState(player.WallClimbState);
-            }
             else if (yInput < 0 || !grabInput)
-            {
                 stateMachine.ChangeState(player.WallSlideState);
-            }
         }
     }
 
-    public void SetHoldPosition()
-    {
-        holdPosition = player.transform.position;
-    }
 
-    public void HoldPosition()
-    {
-        player.transform.position = holdPosition;
-
-        player.SetVelocityZero();
-    }
 
     public override void PhysicsUpdate()
     {

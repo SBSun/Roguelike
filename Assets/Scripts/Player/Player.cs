@@ -31,6 +31,8 @@ public class Player : MonoBehaviour
     #region 나머지 변수
     public Vector2 CurrentVelocity { get; private set; }
     public int FacingDirection { get; private set; }
+    public float gravity;
+    private Vector2 holdPosition;
 
     private Vector2 workSpace;
 
@@ -92,6 +94,7 @@ public class Player : MonoBehaviour
     //좌우 방향키를 눌렀을 때 캐릭터의 이미지가 해당 방향을 향해 있는지 확인하고 Flip 실행
     public void CheckIfShouldFlip(int xInput)
     {
+
         if (xInput != 0 && xInput != FacingDirection)
             Flip();
     }
@@ -140,11 +143,14 @@ public class Player : MonoBehaviour
         RB.velocity = workSpace;
         CurrentVelocity = workSpace;
     }
+
+    public void SetGravityScale(float gravity)
+    {
+        RB.gravityScale = gravity;
+    }
     #endregion
 
     #region 나머지 함수
-
-
     private void Flip()
     {
         FacingDirection *= -1;
@@ -160,8 +166,19 @@ public class Player : MonoBehaviour
         float yDist = yHit.distance;
 
         workSpace.Set(wallCheck.position.x + (xDist * FacingDirection), ledgeCheck.position.y - yDist);
-        Debug.Log(yDist);
         return workSpace;
+    }
+
+    public void HoldPosition()
+    {
+        RB.gravityScale = 0;
+        transform.position = holdPosition;
+        SetVelocityZero();
+    }
+
+    public void SetHoldPosition()
+    {
+        holdPosition = transform.position;
     }
 
     private void AnimationTrigger() => StateMachine.CurrentState.AnimationTrigger();

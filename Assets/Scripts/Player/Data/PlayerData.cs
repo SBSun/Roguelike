@@ -32,4 +32,7 @@ public class PlayerData : ScriptableObject
     public float groundCheckRadius = 0.3f;
     public float wallCheckDistance = 0.5f;
     public LayerMask whatIsGround;
+
+    [Header("Gravity")]
+    public float defaultGravity = 5f;
 }

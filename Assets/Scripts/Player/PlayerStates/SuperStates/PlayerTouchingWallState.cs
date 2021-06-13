@@ -32,6 +32,8 @@ public class PlayerTouchingWallState : PlayerState
     public override void Enter()
     {
         base.Enter();
+
+        SetInputVariable();
     }
 
     public override void Exit()
@@ -43,11 +45,7 @@ public class PlayerTouchingWallState : PlayerState
     {
         base.LogicUpdate();
 
-        xInput = player.InputHandler.NormInputX;
-        yInput = player.InputHandler.NormInputY;
-        grabInput = player.InputHandler.GrabInput;
-        jumpInput = player.InputHandler.JumpInput;
-
+        SetInputVariable();
         //점프 키를 누름 -> WallJumpState
         if(jumpInput)
         {
@@ -74,5 +72,13 @@ public class PlayerTouchingWallState : PlayerState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+    }
+
+    public void SetInputVariable()
+    {
+        xInput = player.InputHandler.NormInputX;
+        yInput = player.InputHandler.NormInputY;
+        grabInput = player.InputHandler.GrabInput;
+        jumpInput = player.InputHandler.JumpInput;
     }
 }

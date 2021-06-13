@@ -35,6 +35,7 @@ public class PlayerInAirState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        SetInputVariable();
     }
 
     public override void Exit()
@@ -49,10 +50,7 @@ public class PlayerInAirState : PlayerState
     {
         base.LogicUpdate();
 
-        xInput = player.InputHandler.NormInputX;
-        jumpInput = player.InputHandler.JumpInput;
-        jumpInputStop = player.InputHandler.JumpInputStop;
-        grabInput = player.InputHandler.GrabInput;
+        SetInputVariable();
 
         CheckJumpMultiplier();
 
@@ -124,4 +122,12 @@ public class PlayerInAirState : PlayerState
     }
 
     public void SetIsJumping() => isJumping = true;
+
+    public void SetInputVariable()
+    { 
+        xInput = player.InputHandler.NormInputX;
+        jumpInput = player.InputHandler.JumpInput;
+        jumpInputStop = player.InputHandler.JumpInputStop;
+        grabInput = player.InputHandler.GrabInput;
+    }
 }

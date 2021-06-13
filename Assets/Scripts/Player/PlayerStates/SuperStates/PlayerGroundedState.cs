@@ -25,7 +25,7 @@ public class PlayerGroundedState : PlayerState
     public override void Enter()
     {
         base.Enter();
-
+        SetInputVariable();
         player.JumpState.ResetAmountOfJumpsLeft();
     }
 
@@ -38,9 +38,7 @@ public class PlayerGroundedState : PlayerState
     {
         base.LogicUpdate();
 
-        xInput = player.InputHandler.NormInputX;
-        jumpInput = player.InputHandler.JumpInput;
-        grabinput = player.InputHandler.GrabInput;
+        SetInputVariable();
 
         if(jumpInput && player.JumpState.CanJump())
         {
@@ -61,5 +59,12 @@ public class PlayerGroundedState : PlayerState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+    }
+
+    public void SetInputVariable()
+    {
+        xInput = player.InputHandler.NormInputX;
+        jumpInput = player.InputHandler.JumpInput;
+        grabinput = player.InputHandler.GrabInput;
     }
 }
