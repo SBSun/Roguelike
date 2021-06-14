@@ -15,8 +15,8 @@ public class Player : MonoBehaviour
     public PlayerWallGrabState WallGrabState { get; private set; }
     public PlayerWallClimbState WallClimbState { get; private set; }
     public PlayerWallJumpState WallJumpState { get; private set; }
-
     public PlayerLedgeClimbState LedgeClimbState { get; private set; }
+    public PlayerDashState DashState { get; private set; }
 
     #endregion
     
@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
     public Rigidbody2D RB { get; private set; }
     [SerializeField]
     private PlayerData playerData;
+    public Transform DashDirectionIndicator { get; private set; }
     #endregion
 
     #region 나머지 변수
@@ -58,6 +59,7 @@ public class Player : MonoBehaviour
         WallClimbState = new PlayerWallClimbState(this, StateMachine, playerData, "wallClimb");
         WallJumpState = new PlayerWallJumpState(this, StateMachine, playerData, "inAir");
         LedgeClimbState = new PlayerLedgeClimbState(this, StateMachine, playerData, "ledgeClimbState");
+        DashState = new PlayerDashState(this, StateMachine, playerData, "inAir");
     }
 
     private void Start()

@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class PlayerInAirState : PlayerState
 {
-    private bool isGrounded;
+    //Input
     private int xInput;
     private bool jumpInput;
     private bool grabInput;
     private bool jumpInputStop;
+    private bool dashInput;
+    //Check
     private bool isJumping;
     private bool isTouchingWall;
     private bool isTouchingWallBack;
     private bool isTouchingLedge;
+    private bool isGrounded;
+   
+   
     public PlayerInAirState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
     {
     }
@@ -87,6 +92,10 @@ public class PlayerInAirState : PlayerState
         {
             stateMachine.ChangeState(player.WallSlideState);
         }
+        else if(dashInput && player.DashState.CheckIfCanDash())
+        {
+            stateMachine.ChangeState(player.DashState);
+        }
         //아무 상태 변환이 없음
         else
         {
@@ -129,5 +138,6 @@ public class PlayerInAirState : PlayerState
         jumpInput = player.InputHandler.JumpInput;
         jumpInputStop = player.InputHandler.JumpInputStop;
         grabInput = player.InputHandler.GrabInput;
+        dashInput = player.InputHandler.DashInput;
     }
 }

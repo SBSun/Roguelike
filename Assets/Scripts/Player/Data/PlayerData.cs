@@ -28,6 +28,17 @@ public class PlayerData : ScriptableObject
     public Vector2 startOffset;
     public Vector2 stopOffset;
 
+    [Header("Dash State")]
+    public float dashCooldown = 0.5f;
+    //슬로우 모션 상태 유지 시간
+    public float maxHoldTime = 1f;
+    public float holdTimeScale = 0.25f;
+    public float dashTime = 0.2f;
+    public float dashVelocity = 30f;
+    public float drag = 10f;
+    public float dashEndMultiplier = 0.2f;
+    public float distBetweenAfterImages = 0.5f;
+
     [Header("Check Variables")]
     public float groundCheckRadius = 0.3f;
     public float wallCheckDistance = 0.5f;

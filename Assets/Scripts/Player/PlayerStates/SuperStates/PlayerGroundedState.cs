@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class PlayerGroundedState : PlayerState
 {
+    //Input
     protected int xInput;
     private bool jumpInput;
     private bool grabinput;
+    private bool dashInput;
+
+    //Check
     private bool isGrounded;
     private bool isTouchingWall;
     private bool isTouchingLedge;
+    
 
     public PlayerGroundedState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
     {
@@ -29,6 +34,7 @@ public class PlayerGroundedState : PlayerState
         base.Enter();
         SetInputVariable();
         player.JumpState.ResetAmountOfJumpsLeft();
+        player.DashState.ResetCanDash();
     }
 
     public override void Exit()
@@ -57,6 +63,10 @@ public class PlayerGroundedState : PlayerState
         {
             stateMachine.ChangeState(player.WallGrabState);
         }
+        else if(dashInput && player.DashState.CheckIfCanDash())
+        {
+            stateMachine.ChangeState(player.DashState);
+        }
     }
 
     public override void PhysicsUpdate()
@@ -69,5 +79,6 @@ public class PlayerGroundedState : PlayerState
         xInput = player.InputHandler.NormInputX;
         jumpInput = player.InputHandler.JumpInput;
         grabinput = player.InputHandler.GrabInput;
+        dashInput = player.InputHandler.DashInput;
     }
 }
