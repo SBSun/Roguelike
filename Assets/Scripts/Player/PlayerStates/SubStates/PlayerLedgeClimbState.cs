@@ -14,6 +14,7 @@ public class PlayerLedgeClimbState : PlayerState
 
     private int xInput;
     private int yInput;
+    private bool jumpInput;
     public PlayerLedgeClimbState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
     {
     }
@@ -64,6 +65,7 @@ public class PlayerLedgeClimbState : PlayerState
     {
         base.LogicUpdate();
 
+        //애니메이션이 끝나면 -> IdleState
         if(isAnimationFinished)
         {
             stateMachine.ChangeState(player.IdleState);
@@ -72,6 +74,7 @@ public class PlayerLedgeClimbState : PlayerState
         {
             xInput = player.InputHandler.NormInputX;
             yInput = player.InputHandler.NormInputY;
+            jumpInput = player.InputHandler.JumpInput;
 
             player.SetVelocityZero();
             player.transform.position = startPos;

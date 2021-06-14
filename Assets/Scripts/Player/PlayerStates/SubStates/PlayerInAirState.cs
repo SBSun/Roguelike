@@ -78,7 +78,7 @@ public class PlayerInAirState : PlayerState
             stateMachine.ChangeState(player.JumpState);
         }
         //Grab 키 누름 && 캐릭터 앞 쪽이 벽에 닿아 있으면 -> WallGrapState
-        else if(isTouchingWall && grabInput)
+        else if(isTouchingWall && grabInput && isTouchingLedge)
         {
             stateMachine.ChangeState(player.WallGrabState);
         }
