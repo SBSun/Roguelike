@@ -162,13 +162,12 @@ public class Player : MonoBehaviour
         //캐릭터와 벽의 사이 길이 구하기
         RaycastHit2D xHit = Physics2D.Raycast(wallCheck.position, Vector2.right * FacingDirection, playerData.wallCheckDistance, playerData.whatIsGround);
         float xDist = xHit.distance;
-        workSpace.Set(xDist * FacingDirection, 0f);
+        //캐릭터와 벽 사이 길이 + 0.01(무조건 땅에 닿게 하기 위해 더함) * 캐릭터 방향  
+        workSpace.Set((xDist + 0.01f) * FacingDirection , 0f);
         //ledgeCheck.y와 벽의 사이 길이 구하기
         RaycastHit2D yHit = Physics2D.Raycast(ledgeCheck.position + (Vector3)workSpace, Vector2.down, ledgeCheck.position.y - wallCheck.position.y, playerData.whatIsGround);
-        float yDist = yHit.distance;
 
-        workSpace.Set(wallCheck.position.x + (xDist * FacingDirection), ledgeCheck.position.y - yDist);
-        Debug.Log(yDist);
+        workSpace.Set(yHit.point.x, yHit.point.y);
         return workSpace;
     }
 
