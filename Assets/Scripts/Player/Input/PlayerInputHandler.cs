@@ -9,6 +9,7 @@ public class PlayerInputHandler : MonoBehaviour //플레이어의 입력값에 따른 기능 
 
     public Vector2 RawMovementInput { get; private set; }
     public Vector2 RawDashDirectionInput { get; private set; }
+    public Vector2Int DashdirectionInput { get; private set; }
     public int NormInputX { get; private set; }
     public int NormInputY { get; private set; }
     public bool JumpInput { get; private set; }
@@ -107,6 +108,8 @@ public class PlayerInputHandler : MonoBehaviour //플레이어의 입력값에 따른 기능 
             //캐릭터에서 마우스까지의 방향
             RawDashDirectionInput = cam.ScreenToWorldPoint((Vector3)RawDashDirectionInput) - transform.position;
         }
+
+        DashdirectionInput = Vector2Int.RoundToInt(RawDashDirectionInput.normalized);
     }
 
     public void UseJumpInput() => JumpInput = false;
