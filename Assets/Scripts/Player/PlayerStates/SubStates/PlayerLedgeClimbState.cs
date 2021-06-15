@@ -11,6 +11,7 @@ public class PlayerLedgeClimbState : PlayerState
 
     private bool isHanging;
     private bool isClimbing;
+    private bool isTouchingCeiling;
 
     private int xInput;
     private int yInput;
@@ -52,7 +53,12 @@ public class PlayerLedgeClimbState : PlayerState
     {
         base.Exit();
         player.SetGravityScale(playerData.defaultGravity);
-        isHanging = false;
+        if (isHanging)
+        {
+            player.Anim.SetBool(animBoolName, false);
+            isHanging = false;
+        }
+
 
         if(isClimbing)
         {
@@ -68,7 +74,10 @@ public class PlayerLedgeClimbState : PlayerState
         //애니메이션이 끝나면 -> IdleState
         if(isAnimationFinished)
         {
-            stateMachine.ChangeState(player.IdleState);
+            if (isTouchingCeiling)
+                stateMachine.ChangeState(player.CrouchIdleState);
+            else
+                stateMachine.ChangeState(player.IdleState);
         }
         else
         {
@@ -81,6 +90,7 @@ public class PlayerLedgeClimbState : PlayerState
 
             if (xInput == player.FacingDirection && isHanging && !isClimbing)
             {
+                CheckForSpace();
                 isClimbing = true;
                 player.Anim.SetBool("climbLedge", true);
             }
@@ -97,4 +107,11 @@ public class PlayerLedgeClimbState : PlayerState
     }
 
     public void SetDetectedPosition(Vector2 pos) => detectedPos = pos;
+
+    //올라갈 곳의 천장 높이가 캐릭터가 못들어갈 높이면 LedgeClimbCrouch 애니메이션으로 변경
+    private void CheckForSpace()
+    {
+        isTouchingCeiling = Physics2D.Raycast(cornerPos, Vector2.up, playerData.standColliderHeight,playerData.whatIsGround);
+        player.Anim.SetBool("isTouchingCeiling", isTouchingCeiling);
+    }
 }

@@ -31,6 +31,7 @@ public class PlayerAfterSpritePool : MonoBehaviour
         }
     }
 
+    //Queue¿¡ Push
     public void AddToPool(GameObject instance)
     {
         instance.SetActive(false);

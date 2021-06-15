@@ -29,7 +29,10 @@ MonoBehaviour:
   dashTime: 0.2
   dashVelocity: 40
   drag: 10
-  distBetweenAfterImages: 0.5
+  distBetweenAfterSprites: 0.5
+  crouchMovementVelocity: 2
+  crouchColliderHeight: 0.8
+  standColliderHeight: 1.6
   groundCheckRadius: 0.3
   wallCheckDistance: 0.5
   whatIsGround:

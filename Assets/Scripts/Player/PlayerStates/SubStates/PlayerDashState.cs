@@ -52,7 +52,8 @@ public class PlayerDashState : PlayerAbilityState
             player.Anim.SetFloat("yVelocity", player.CurrentVelocity.y);
             player.Anim.SetFloat("xVelocity", Mathf.Abs(player.CurrentVelocity.x));
 
-            if(isHolding)
+            //Dash를 누른 상태에서 maxHoldTime 시간이 초과하거나 Dash를 떼면 대쉬 키를 누르고 
+            if (isHolding)
             {
                 isGrounded = player.CheckIfGrounded();
 
@@ -78,10 +79,9 @@ public class PlayerDashState : PlayerAbilityState
 
                 player.DashDirectionIndicator.rotation = Quaternion.Euler(0f, 0f, angle - 45f);
 
-                //Dash를 누르고 maxHoldTime 시간이 초과하거나 Dash를 떼면 
+                //Dash를 누른 상태에서 maxHoldTime 시간이 초과하거나 Dash를 떼면 
                 if (Time.unscaledTime >= startTime + playerData.maxHoldTime || dashInputStop)
                 {
-                    Debug.Log("ㅋㅋ"); 
                     isHolding = false;
                     Time.timeScale = 1f;
                     startTime = Time.time;

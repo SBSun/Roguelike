@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
     public PlayerWallJumpState WallJumpState { get; private set; }
     public PlayerLedgeClimbState LedgeClimbState { get; private set; }
     public PlayerDashState DashState { get; private set; }
+    public PlayerCrouchIdleState CrouchIdleState { get; private set; }
+    public PlayerCrouchMoveState CrouchMoveState { get; private set; }
 
     #endregion
     
@@ -27,6 +29,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private PlayerData playerData;
     public Transform DashDirectionIndicator { get; private set; }
+    public BoxCollider2D MovementCollider { get; private set; }
     #endregion
 
     #region 나머지 변수
@@ -43,6 +46,8 @@ public class Player : MonoBehaviour
     private Transform wallCheck;
     [SerializeField]
     private Transform ledgeCheck;
+    [SerializeField]
+    private Transform ceilingCheck;
     #endregion
 
     #region 유니티 콜백 함수
@@ -60,6 +65,8 @@ public class Player : MonoBehaviour
         WallJumpState = new PlayerWallJumpState(this, StateMachine, playerData, "inAir");
         LedgeClimbState = new PlayerLedgeClimbState(this, StateMachine, playerData, "ledgeClimbState");
         DashState = new PlayerDashState(this, StateMachine, playerData, "inAir");
+        CrouchIdleState = new PlayerCrouchIdleState(this, StateMachine, playerData, "crouchIdle");
+        CrouchMoveState = new PlayerCrouchMoveState(this, StateMachine, playerData, "crouchMove");
     }
 
     private void Start()
@@ -68,6 +75,7 @@ public class Player : MonoBehaviour
         InputHandler = GetComponent<PlayerInputHandler>();
         RB = GetComponent<Rigidbody2D>();
         DashDirectionIndicator = transform.Find("DashDirectionIndicator");
+        MovementCollider = GetComponent<BoxCollider2D>();
 
         FacingDirection = 1;
         StateMachine.Initialize(IdleState);
@@ -117,6 +125,11 @@ public class Player : MonoBehaviour
         return Physics2D.Raycast(ledgeCheck.position, Vector2.right * FacingDirection, playerData.wallCheckDistance, playerData.whatIsGround);
     }
 
+    public bool CheckIfTouchingCeiling()
+    {
+        return Physics2D.OverlapCircle(ceilingCheck.position, playerData.groundCheckRadius, playerData.whatIsGround);
+    }
+
     #endregion
 
     #region Set 함수 
@@ -133,7 +146,6 @@ public class Player : MonoBehaviour
         RB.velocity = workSpace;
         CurrentVelocity = workSpace;
     }
-
     public void SetVelocity(float velocity, Vector2 direction)
     {
         workSpace = direction * velocity;
@@ -146,17 +158,25 @@ public class Player : MonoBehaviour
         RB.velocity = workSpace;
         CurrentVelocity = workSpace;
     }
-
     public void SetVelocityY(float velocity)
     {
         workSpace.Set(CurrentVelocity.x, velocity);
         RB.velocity = workSpace;
         CurrentVelocity = workSpace;
     }
-
     public void SetGravityScale(float gravity)
     {
         RB.gravityScale = gravity;
+    }
+    public void SetColliderHeight(float height)
+    {
+        Vector2 center = MovementCollider.offset;
+        workSpace.Set(MovementCollider.size.x, height);
+
+        center.y += (height - MovementCollider.size.y) / 2;
+
+        MovementCollider.size = workSpace;
+        MovementCollider.offset = center;
     }
     #endregion
 

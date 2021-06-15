@@ -17,6 +17,7 @@ public class PlayerInputHandler : MonoBehaviour //플레이어의 입력값에 따른 기능 
     public bool GrabInput { get; private set; }
     public bool DashInput { get; private set; }
     public bool DashInputStop { get; private set; }
+    public bool CrouchInput { get; private set; }
 
 
     [SerializeField]
@@ -96,6 +97,19 @@ public class PlayerInputHandler : MonoBehaviour //플레이어의 입력값에 따른 기능 
         else if(context.canceled)
         {
             DashInputStop = true;
+        }
+    }
+
+    public void OnCrouchInput(InputAction.CallbackContext context)
+    {
+        if(context.started)
+        {
+            CrouchInput = true;
+        }
+
+        if(context.canceled)
+        {
+            CrouchInput = false;
         }
     }
 

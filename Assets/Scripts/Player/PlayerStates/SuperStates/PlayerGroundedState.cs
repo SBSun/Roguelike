@@ -6,14 +6,16 @@ public class PlayerGroundedState : PlayerState
 {
     //Input
     protected int xInput;
-    private bool jumpInput;
-    private bool grabinput;
-    private bool dashInput;
+    protected bool jumpInput;
+    protected bool grabinput;
+    protected bool dashInput;
+    protected bool crouchInput;
 
     //Check
-    private bool isGrounded;
-    private bool isTouchingWall;
-    private bool isTouchingLedge;
+    protected bool isGrounded;
+    protected bool isTouchingWall;
+    protected bool isTouchingLedge;
+    protected bool isTouchingCelling;
     
 
     public PlayerGroundedState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
@@ -27,6 +29,7 @@ public class PlayerGroundedState : PlayerState
         isGrounded = player.CheckIfGrounded();
         isTouchingWall = player.CheckIfTouchingWall();
         isTouchingLedge = player.CheckIfTouchingLedge();
+        isTouchingCelling = player.CheckIfTouchingCeiling();
     }
 
     public override void Enter()
@@ -45,7 +48,7 @@ public class PlayerGroundedState : PlayerState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-
+        Debug.Log(isTouchingWall);
         SetInputVariable();
 
         if(jumpInput && player.JumpState.CanJump())
@@ -76,5 +79,6 @@ public class PlayerGroundedState : PlayerState
         jumpInput = player.InputHandler.JumpInput;
         grabinput = player.InputHandler.GrabInput;
         dashInput = player.InputHandler.DashInput;
+        crouchInput = player.InputHandler.CrouchInput;
     }
 }
