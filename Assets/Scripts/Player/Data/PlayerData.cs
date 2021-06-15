@@ -36,7 +36,7 @@ public class PlayerData : ScriptableObject
     public float dashTime = 0.2f;
     public float dashVelocity = 30f;
     public float drag = 10f;
-    public float distBetweenAfterImages = 0.5f;
+    public float distBetweenAfterSprites = 0.5f;
 
     [Header("Check Variables")]
     public float groundCheckRadius = 0.3f;

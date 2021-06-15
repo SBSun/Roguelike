@@ -11,7 +11,7 @@ public class PlayerDashState : PlayerAbilityState
 
     private Vector2 dashDirection;
     private Vector2 dashDirectionInput;
-    private Vector2 lastAfterImagePos;
+    private Vector2 lastAfterSpritePos;
 
     private bool isGrounded;
     private bool dashInputStop;
@@ -54,14 +54,17 @@ public class PlayerDashState : PlayerAbilityState
 
             if(isHolding)
             {
-                if(isGrounded)
-                {
+                isGrounded = player.CheckIfGrounded();
 
+                if (isGrounded)
+                {
+                    Debug.Log("DashCancle");
+                    DashCancle();
                 }
 
                 //방향 설정
                 dashDirectionInput = player.InputHandler.DashdirectionInput;
-                isGrounded = player.CheckIfGrounded();
+ 
                 dashInputStop = player.InputHandler.DashInputStop;
 
                 if (dashDirectionInput != Vector2.zero)
@@ -72,12 +75,13 @@ public class PlayerDashState : PlayerAbilityState
                 }
 
                 float angle = Vector2.SignedAngle(Vector2.right, dashDirection);
-                Debug.Log(angle);
+
                 player.DashDirectionIndicator.rotation = Quaternion.Euler(0f, 0f, angle - 45f);
 
                 //Dash를 누르고 maxHoldTime 시간이 초과하거나 Dash를 떼면 
                 if (Time.unscaledTime >= startTime + playerData.maxHoldTime || dashInputStop)
                 {
+                    Debug.Log("ㅋㅋ"); 
                     isHolding = false;
                     Time.timeScale = 1f;
                     startTime = Time.time;
@@ -85,11 +89,13 @@ public class PlayerDashState : PlayerAbilityState
                     player.RB.drag = playerData.drag;
                     player.SetVelocity(playerData.dashVelocity, dashDirection);
                     player.DashDirectionIndicator.gameObject.SetActive(false);
+                    PlaceAfterSprite();
                 }
             }
             else
             {
                 player.SetVelocity(playerData.dashVelocity, dashDirection);
+                CheckIfShouldPlaceAfterSprite();
 
                 if(Time.time >= startTime + playerData.dashTime)
                 {
@@ -109,8 +115,27 @@ public class PlayerDashState : PlayerAbilityState
     //땅에 닿으면 다시 Dash가 가능하게 만듬
     public void ResetCanDash() => CanDash = true;
 
-    public void PlaceAfterImage()
+    public void DashCancle()
     {
-      
+        isHolding = false;
+        Time.timeScale = 1f;
+        player.RB.drag = 0f;
+        isAbilityDone = true;
+        lastDashTime = Time.time;
+        player.DashDirectionIndicator.gameObject.SetActive(false);
+    }
+
+    private void CheckIfShouldPlaceAfterSprite()
+    {
+        if(Vector2.Distance(player.transform.position, lastAfterSpritePos) >= playerData.distBetweenAfterSprites)
+        {
+            PlaceAfterSprite();
+        }
+    }
+
+    private void PlaceAfterSprite()
+    {
+        PlayerAfterSpritePool.Instance.GetFromPool();
+        lastAfterSpritePos = player.transform.position;
     }
 }
