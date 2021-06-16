@@ -48,10 +48,18 @@ public class PlayerGroundedState : PlayerState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        Debug.Log(isTouchingWall);
         SetInputVariable();
 
-        if(jumpInput && player.JumpState.CanJump())
+        //Attack≈∞ ¥©∏ß
+        if(player.InputHandler.AttackInputs[(int)CombatInputs.primary] && !isTouchingCelling)
+        {
+            stateMachine.ChangeState(player.PrimaryAttackState);
+        }
+        else if(player.InputHandler.AttackInputs[(int)CombatInputs.secondary] && !isTouchingCelling)
+        {
+            stateMachine.ChangeState(player.SecondaryAttackState);
+        }
+        else if(jumpInput && player.JumpState.CanJump())
         {
             stateMachine.ChangeState(player.JumpState);
         }
