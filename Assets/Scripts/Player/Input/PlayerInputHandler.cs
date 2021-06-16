@@ -58,11 +58,9 @@ public class PlayerInputHandler : MonoBehaviour //플레이어의 입력값에 따른 기능 
             NormInputY = 0;
         }
     }
-
-    //Space를 누르면 실행
     public void OnJumpInput(InputAction.CallbackContext context)
     {
-        if(context.started)
+        if (context.started)
         {
             JumpInput = true;
             JumpInputStop = false;
@@ -72,7 +70,6 @@ public class PlayerInputHandler : MonoBehaviour //플레이어의 입력값에 따른 기능 
         if (context.canceled)
             JumpInputStop = true;
     }
-
     public void OnGrabInput(InputAction.CallbackContext context)
     {
         if(context.started)
@@ -85,7 +82,6 @@ public class PlayerInputHandler : MonoBehaviour //플레이어의 입력값에 따른 기능 
             GrabInput = false;
         }
     }
-
     public void OnDashInput(InputAction.CallbackContext context)
     {
         if(context.started)
@@ -99,7 +95,6 @@ public class PlayerInputHandler : MonoBehaviour //플레이어의 입력값에 따른 기능 
             DashInputStop = true;
         }
     }
-
     public void OnCrouchInput(InputAction.CallbackContext context)
     {
         if(context.started)
@@ -112,18 +107,29 @@ public class PlayerInputHandler : MonoBehaviour //플레이어의 입력값에 따른 기능 
             CrouchInput = false;
         }
     }
-
     public void OnDashDirectionInput(InputAction.CallbackContext context)
     {
         RawDashDirectionInput = context.ReadValue<Vector2>();
 
-        if(playerInput.currentControlScheme == "Keyboard")
+        if (playerInput.currentControlScheme == "Keyboard")
         {
             //캐릭터에서 마우스까지의 방향
             RawDashDirectionInput = cam.ScreenToWorldPoint((Vector3)RawDashDirectionInput) - transform.position;
         }
 
         DashdirectionInput = Vector2Int.RoundToInt(RawDashDirectionInput.normalized);
+    }
+    public void OnPrimaryAttackInput(InputAction.CallbackContext context)
+    {
+        if(context.started)
+        {
+
+        }
+    }
+
+    public void OnSecondaryAttackInput(InputAction.CallbackContext context)
+    {
+
     }
 
     public void UseJumpInput() => JumpInput = false;
