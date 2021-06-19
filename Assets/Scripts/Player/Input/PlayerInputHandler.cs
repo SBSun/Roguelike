@@ -109,6 +109,7 @@ public class PlayerInputHandler : MonoBehaviour //플레이어의 입력값에 따른 기능 
 
         DashdirectionInput = Vector2Int.RoundToInt(RawDashDirectionInput.normalized);
     }
+    //마우스 왼쪽 클릭
     public void OnPrimaryAttackInput(InputAction.CallbackContext context)
     {
         if(context.started)
@@ -121,7 +122,7 @@ public class PlayerInputHandler : MonoBehaviour //플레이어의 입력값에 따른 기능 
             AttackInputs[(int)CombatInputs.primary] = false;
         }
     }
-
+    //마우스 오른쪽 클릭
     public void OnSecondaryAttackInput(InputAction.CallbackContext context)
     {
         if (context.started)
