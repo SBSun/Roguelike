@@ -26,10 +26,10 @@ public class PlayerGroundedState : PlayerState
     public override void DoChecks()
     {
         base.DoChecks();
-        isGrounded = player.CheckIfGrounded();
-        isTouchingWall = player.CheckIfTouchingWall();
-        isTouchingLedge = player.CheckIfTouchingLedge();
-        isTouchingCelling = player.CheckIfTouchingCeiling();
+        isGrounded = core.CollisionSense.Grounded;
+        isTouchingWall = core.CollisionSense.WallFront;
+        isTouchingLedge = core.CollisionSense.Ledge;
+        isTouchingCelling = core.CollisionSense.Ceiling;
     }
 
     public override void Enter()

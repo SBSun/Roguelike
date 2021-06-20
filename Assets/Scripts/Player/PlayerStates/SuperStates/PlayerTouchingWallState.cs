@@ -19,9 +19,9 @@ public class PlayerTouchingWallState : PlayerState
     {
         base.DoChecks();
 
-        isGrounded = player.CheckIfGrounded();
-        isTouchingWall = player.CheckIfTouchingWall();
-        isTouchingLedge = player.CheckIfTouchingLedge();
+        isGrounded =core.CollisionSense.Grounded;
+        isTouchingWall = core.CollisionSense.WallFront;
+        isTouchingLedge = core.CollisionSense.Ledge;
 
         if(isTouchingWall && !isTouchingLedge)
         {
@@ -58,7 +58,7 @@ public class PlayerTouchingWallState : PlayerState
             stateMachine.ChangeState(player.IdleState);
         }
         //캐릭터 앞에 벽이 없거나 || 방향키가 벽 방향을 누르고 있지 않으면 -> InAirState
-        else if(!isTouchingWall || (xInput != player.FacingDirection && !grabInput))
+        else if(!isTouchingWall || (xInput != core.Movement.FacingDirection && !grabInput))
         {
             stateMachine.ChangeState(player.InAirState);
         }

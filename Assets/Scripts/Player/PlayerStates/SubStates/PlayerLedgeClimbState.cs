@@ -8,6 +8,7 @@ public class PlayerLedgeClimbState : PlayerState
     private Vector2 cornerPos;
     private Vector2 startPos;
     private Vector2 stopPos;
+    private Vector2 workSpace;
 
     private bool isHanging;
     private bool isClimbing;
@@ -38,13 +39,13 @@ public class PlayerLedgeClimbState : PlayerState
     {
         base.Enter();
 
-        player.SetVelocityZero();
+        core.Movement.SetVelocityZero();
         player.SetGravityScale(0);
         player.transform.position = detectedPos;
-        cornerPos = player.DetermineCornerPosition();
+        cornerPos = DetermineCornerPosition();
 
-        startPos.Set(cornerPos.x - (player.FacingDirection * playerData.startOffset.x), cornerPos.y - playerData.startOffset.y);
-        stopPos.Set(cornerPos.x + (player.FacingDirection * playerData.stopOffset.x), cornerPos.y + playerData.stopOffset.y);
+        startPos.Set(cornerPos.x - (core.Movement.FacingDirection * playerData.startOffset.x), cornerPos.y - playerData.startOffset.y);
+        stopPos.Set(cornerPos.x + (core.Movement.FacingDirection * playerData.stopOffset.x), cornerPos.y + playerData.stopOffset.y);
 
         player.transform.position = startPos;
     }
@@ -85,10 +86,10 @@ public class PlayerLedgeClimbState : PlayerState
             yInput = player.InputHandler.NormInputY;
             jumpInput = player.InputHandler.JumpInput;
 
-            player.SetVelocityZero();
+            core.Movement.SetVelocityZero();
             player.transform.position = startPos;
 
-            if (xInput == player.FacingDirection && isHanging && !isClimbing)
+            if (xInput == core.Movement.FacingDirection && isHanging && !isClimbing)
             {
                 CheckForSpace();
                 isClimbing = true;
@@ -111,7 +112,21 @@ public class PlayerLedgeClimbState : PlayerState
     //올라갈 곳의 천장 높이가 캐릭터가 못들어갈 높이면 LedgeClimbCrouch 애니메이션으로 변경
     private void CheckForSpace()
     {
-        isTouchingCeiling = Physics2D.Raycast(cornerPos, Vector2.up, playerData.standColliderHeight,playerData.whatIsGround);
+        isTouchingCeiling = Physics2D.Raycast(cornerPos, Vector2.up, playerData.standColliderHeight,core.CollisionSense.WhatIsGround);
         player.Anim.SetBool("isTouchingCeiling", isTouchingCeiling);
+    }
+
+    private Vector2 DetermineCornerPosition()
+    {
+        //캐릭터와 벽의 사이 길이 구하기
+        RaycastHit2D xHit = Physics2D.Raycast(core.CollisionSense.WallCheck.position, Vector2.right * core.Movement.FacingDirection, core.CollisionSense.WallCheckDistance, core.CollisionSense.WhatIsGround);
+        float xDist = xHit.distance;
+        //캐릭터와 벽 사이 길이 + 0.01(무조건 땅에 닿게 하기 위해 더함) * 캐릭터 방향  
+        workSpace.Set((xDist + 0.01f) * core.Movement.FacingDirection, 0f);
+        //ledgeCheck.y와 벽의 사이 길이 구하기
+        RaycastHit2D yHit = Physics2D.Raycast(core.CollisionSense.LedgeCheck.position + (Vector3)workSpace, Vector2.down, core.CollisionSense.LedgeCheck.position.y - core.CollisionSense.WallCheck.position.y, core.CollisionSense.WhatIsGround);
+
+        workSpace.Set(yHit.point.x, yHit.point.y);
+        return workSpace;
     }
 }

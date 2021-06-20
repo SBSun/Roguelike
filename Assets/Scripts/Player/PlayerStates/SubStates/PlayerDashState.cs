@@ -27,7 +27,7 @@ public class PlayerDashState : PlayerAbilityState
         player.InputHandler.UseDashInput();
 
         isHolding = true;
-        dashDirection = Vector2.right * player.FacingDirection;
+        dashDirection = Vector2.right * core.Movement.FacingDirection;
 
         //느려지게 함
         Time.timeScale = playerData.holdTimeScale;
@@ -40,7 +40,7 @@ public class PlayerDashState : PlayerAbilityState
     public override void Exit()
     {
         base.Exit();
-        player.SetVelocityY(0f);
+        core.Movement.SetVelocityY(0f);
     }
 
     public override void LogicUpdate()
@@ -49,13 +49,13 @@ public class PlayerDashState : PlayerAbilityState
 
         if(!isExitingState)
         {
-            player.Anim.SetFloat("yVelocity", player.CurrentVelocity.y);
-            player.Anim.SetFloat("xVelocity", Mathf.Abs(player.CurrentVelocity.x));
+            player.Anim.SetFloat("yVelocity", core.Movement.CurrentVelocity.y);
+            player.Anim.SetFloat("xVelocity", Mathf.Abs(core.Movement.CurrentVelocity.x));
 
             //Dash를 누른 상태에서 maxHoldTime 시간이 초과하거나 Dash를 떼면 대쉬 키를 누르고 
             if (isHolding)
             {
-                isGrounded = player.CheckIfGrounded();
+                isGrounded =core.CollisionSense.Grounded;
 
                 if (isGrounded)
                 {
@@ -85,16 +85,16 @@ public class PlayerDashState : PlayerAbilityState
                     isHolding = false;
                     Time.timeScale = 1f;
                     startTime = Time.time;
-                    player.CheckIfShouldFlip(Mathf.RoundToInt(dashDirection.x));
+                    core.Movement.CheckIfShouldFlip(Mathf.RoundToInt(dashDirection.x));
                     player.RB.drag = playerData.drag;
-                    player.SetVelocity(playerData.dashVelocity, dashDirection);
+                    core.Movement.SetVelocity(playerData.dashVelocity, dashDirection);
                     player.DashDirectionIndicator.gameObject.SetActive(false);
                     PlaceAfterSprite();
                 }
             }
             else
             {
-                player.SetVelocity(playerData.dashVelocity, dashDirection);
+                core.Movement.SetVelocity(playerData.dashVelocity, dashDirection);
                 CheckIfShouldPlaceAfterSprite();
 
                 if(Time.time >= startTime + playerData.dashTime)
