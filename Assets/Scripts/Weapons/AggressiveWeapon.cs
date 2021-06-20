@@ -4,7 +4,23 @@ using UnityEngine;
 
 public class AggressiveWeapon : Weapon
 {
+    protected SO_AggressiveWeaponData aggressiveWeaponData;
+
     private List<IDamageable> detectedDamageable = new List<IDamageable>();
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        if(weaponData.GetType() == typeof(SO_AggressiveWeaponData))
+        {
+            aggressiveWeaponData = (SO_AggressiveWeaponData)weaponData;
+        }
+        else
+        {
+            Debug.LogError("무기 종류가 틀림");
+        }
+    }
     public override void AnimationActionTrigger()
     {
         base.AnimationActionTrigger();
@@ -14,9 +30,11 @@ public class AggressiveWeapon : Weapon
 
     private void CheckMeleeAttack()
     {
+        WeaponAttackDetails details = aggressiveWeaponData.AttackDetails[attackCounter];
+
         foreach (IDamageable item in detectedDamageable)
         {
-            
+            item.Damage(details.damageAmount);
         }
     }
 
@@ -39,4 +57,5 @@ public class AggressiveWeapon : Weapon
             detectedDamageable.Remove(damagaable);
         }
     }
+
 }

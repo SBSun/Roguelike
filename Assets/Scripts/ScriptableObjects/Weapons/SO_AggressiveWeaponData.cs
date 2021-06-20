@@ -2,17 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SO_AggressiveWeaponData : MonoBehaviour
+[CreateAssetMenu(fileName = "new AggressiveWeaponData", menuName = "Data/Weapon Data/Aggressive Weapon")]
+public class SO_AggressiveWeaponData : SO_WeaponData
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] protected WeaponAttackDetails[] attackDetails;
 
-    // Update is called once per frame
-    void Update()
+    public WeaponAttackDetails[] AttackDetails { get => attackDetails; set => attackDetails = value; }
+
+    private void OnEnable()
     {
-        
+        amountOfAttack = attackDetails.Length;
+
+        movementSpeed = new float[amountOfAttack];
+
+        for (int i = 0; i < amountOfAttack; i++)
+        {
+            movementSpeed[i] = attackDetails[i].movementSpeed;
+        }
     }
 }
