@@ -31,19 +31,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     private PlayerData playerData;
     public Transform DashDirectionIndicator { get; private set; }
-    public BoxCollider2D MovementCollider { get; private set; }
+    
     public PlayerInventory Inventory { get; private set; }
     public Core Core { get; private set; }
-    #endregion
-
-    #region 나머지 변수
-
-    public float gravity;
-    private Vector2 holdPosition;
-
-    private Vector2 workSpace;
-
-    
     #endregion
 
     #region 유니티 콜백 함수
@@ -75,7 +65,6 @@ public class Player : MonoBehaviour
         InputHandler = GetComponent<PlayerInputHandler>();
         RB = GetComponent<Rigidbody2D>();
         DashDirectionIndicator = transform.Find("DashDirectionIndicator");
-        MovementCollider = GetComponent<BoxCollider2D>();
         Inventory = GetComponent<PlayerInventory>();
 
         PrimaryAttackState.SetWeapon(Inventory.weapons[(int)CombatInputs.primary]);
@@ -98,45 +87,7 @@ public class Player : MonoBehaviour
     }
     #endregion   
 
-    #region Check 함수
-
-    
-    #endregion
-
-    public void SetGravityScale(float gravity)
-    {
-        RB.gravityScale = gravity;
-    }
-    public void SetColliderHeight(float height)
-    {
-        Vector2 center = MovementCollider.offset;
-        workSpace.Set(MovementCollider.size.x, height);
-
-        center.y += (height - MovementCollider.size.y) / 2;
-
-        MovementCollider.size = workSpace;
-        MovementCollider.offset = center;
-    }
-
-    #region 나머지 함수
-
-
-   
-
-    public void HoldPosition()
-    {
-        RB.gravityScale = 0;
-        transform.position = holdPosition;
-        Core.Movement.SetVelocityZero();
-    }
-
-    public void SetHoldPosition()
-    {
-        holdPosition = transform.position;
-    }
-
     private void AnimationTrigger() => StateMachine.CurrentState.AnimationTrigger();
 
     private void AnimationFinishTrigger() => StateMachine.CurrentState.AnimationFinishTrigger();
-    #endregion
 }

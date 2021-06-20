@@ -11,13 +11,13 @@ public class PlayerWallClimbState : PlayerTouchingWallState
     public override void Enter()
     {
         base.Enter();
-        player.SetGravityScale(0);
+        core.Movement.SetGravityScale(0);
     }
 
     public override void Exit()
     {
         base.Exit();
-        player.SetGravityScale(playerData.defaultGravity);
+        core.Movement.SetGravityScale(playerData.defaultGravity);
     }
 
     public override void LogicUpdate()

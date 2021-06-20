@@ -13,13 +13,13 @@ public class PlayerCrouchMoveState : PlayerGroundedState
         base.Enter();
         core.Movement.CheckIfShouldFlip(xInput);
         core.Movement.SetVelocityX(playerData.crouchMovementVelocity * xInput);
-        player.SetColliderHeight(playerData.crouchColliderHeight);
+        core.Movement.SetColliderHeight(playerData.crouchColliderHeight);
     }
     public override void Exit()
     {
         base.Exit();
 
-        player.SetColliderHeight(playerData.standColliderHeight);
+        core.Movement.SetColliderHeight(playerData.standColliderHeight);
     }
     public override void LogicUpdate()
     {

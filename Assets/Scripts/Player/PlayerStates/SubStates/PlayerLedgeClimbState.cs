@@ -40,7 +40,7 @@ public class PlayerLedgeClimbState : PlayerState
         base.Enter();
 
         core.Movement.SetVelocityZero();
-        player.SetGravityScale(0);
+        core.Movement.SetGravityScale(0);
         player.transform.position = detectedPos;
         cornerPos = DetermineCornerPosition();
 
@@ -53,7 +53,7 @@ public class PlayerLedgeClimbState : PlayerState
     public override void Exit()
     {
         base.Exit();
-        player.SetGravityScale(playerData.defaultGravity);
+        core.Movement.SetGravityScale(playerData.defaultGravity);
         if (isHanging)
         {
             player.Anim.SetBool(animBoolName, false);
