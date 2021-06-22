@@ -21,6 +21,25 @@ public class AggressiveWeapon : Weapon
             Debug.LogError("무기 종류가 틀림");
         }
     }
+    public override void EnterWeapon()
+    {
+        base.EnterWeapon();
+
+        weaponAnimator.SetBool("attack", true);
+        baseAnimator.SetBool("attack", true);
+
+        baseAnimator.SetInteger("attackCounter", weaponMachine.AttackCounter);
+        weaponAnimator.SetInteger("attackCounter", weaponMachine.AttackCounter);
+    }
+
+    public override void ExitWeapon()
+    {
+        base.ExitWeapon();
+
+        weaponAnimator.SetBool("attack", false);
+        baseAnimator.SetBool("attack", false);
+    }
+
     public override void AnimationActionTrigger()
     {
         base.AnimationActionTrigger();
@@ -30,7 +49,7 @@ public class AggressiveWeapon : Weapon
 
     private void CheckMeleeAttack()
     {
-        WeaponAttackDetails details = aggressiveWeaponData.AttackDetails[attackCounter];
+        WeaponAttackDetails details = aggressiveWeaponData.AttackDetails[weaponMachine.AttackCounter];
 
         foreach (IDamageable item in detectedDamageable)
         {
@@ -57,5 +76,4 @@ public class AggressiveWeapon : Weapon
             detectedDamageable.Remove(damagaable);
         }
     }
-
 }

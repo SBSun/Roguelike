@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    [SerializeField]
-    protected SO_WeaponData weaponData;
+    protected WeaponStateMachine weaponMachine;
+
+    public SO_WeaponData weaponData { get; private set; }
 
     protected Animator baseAnimator;
     protected Animator weaponAnimator;
 
     protected PlayerAttackState state;
 
-    protected int attackCounter;
-
     protected virtual void Awake()
     {
         baseAnimator = transform.Find("Base").GetComponent<Animator>();
         weaponAnimator = transform.Find("Weapon").GetComponent<Animator>();
+        weaponMachine = GetComponentInParent<WeaponStateMachine>();
 
         gameObject.SetActive(false);
     }
@@ -25,28 +25,13 @@ public class Weapon : MonoBehaviour
     public virtual void EnterWeapon()
     {
         gameObject.SetActive(true);
-
-        if(attackCounter >= weaponData.amountOfAttack)
-        {
-            attackCounter = 0;
-        }
-
-        weaponAnimator.SetBool("attack", true);
-        baseAnimator.SetBool("attack", true);
-
-        baseAnimator.SetInteger("attackCounter", attackCounter);
-        weaponAnimator.SetInteger("attackCounter", attackCounter);
     }
 
     public virtual void ExitWeapon()
     {
-        weaponAnimator.SetBool("attack", false);
-        baseAnimator.SetBool("attack", false);
-
-        attackCounter++;
-
         gameObject.SetActive(false);
     }
+
 
     public virtual void AnimationFinishTrigger()
     {
@@ -55,7 +40,7 @@ public class Weapon : MonoBehaviour
 
     public virtual void AnimationStartMovementTrigger()
     {
-        state.SetPlayerVelocity(weaponData.movementSpeed[attackCounter]);
+        state.SetPlayerVelocity(weaponData.movementSpeed[weaponMachine.AttackCounter]);
     }
 
     public virtual void AnimationStopMovementTrigger()
