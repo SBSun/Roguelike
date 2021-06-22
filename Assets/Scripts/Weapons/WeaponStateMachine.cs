@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponStateMachine
+public class WeaponStateMachine : MonoBehaviour
 {
     public Weapon CurrentWeapon { get; private set; }
 
