@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    protected WeaponStateMachine weaponMachine;
+    protected WeaponManager weaponManager;
 
-    public SO_WeaponData weaponData { get; private set; }
+    public SO_WeaponData weaponData;
 
-    protected Animator baseAnimator;
-    protected Animator weaponAnimator;
+    public Animator baseAnimator { get; private set; }
+    public Animator weaponAnimator { get; private set; }
 
     protected PlayerAttackState state;
 
@@ -17,8 +17,7 @@ public class Weapon : MonoBehaviour
     {
         baseAnimator = transform.Find("Base").GetComponent<Animator>();
         weaponAnimator = transform.Find("Weapon").GetComponent<Animator>();
-        weaponMachine = GetComponentInParent<WeaponStateMachine>();
-
+        weaponManager = GetComponentInParent<WeaponManager>();     
         gameObject.SetActive(false);
     }
 
@@ -32,7 +31,6 @@ public class Weapon : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-
     public virtual void AnimationFinishTrigger()
     {
         state.AnimationFinishTrigger();
@@ -40,7 +38,7 @@ public class Weapon : MonoBehaviour
 
     public virtual void AnimationStartMovementTrigger()
     {
-        state.SetPlayerVelocity(weaponData.movementSpeed[weaponMachine.AttackCounter]);
+        state.SetPlayerVelocity(weaponData.movementSpeed[weaponManager.AttackCounter]);
     }
 
     public virtual void AnimationStopMovementTrigger()

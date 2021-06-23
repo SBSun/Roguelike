@@ -28,8 +28,8 @@ public class AggressiveWeapon : Weapon
         weaponAnimator.SetBool("attack", true);
         baseAnimator.SetBool("attack", true);
 
-        baseAnimator.SetInteger("attackCounter", weaponMachine.AttackCounter);
-        weaponAnimator.SetInteger("attackCounter", weaponMachine.AttackCounter);
+        baseAnimator.SetInteger("attackCounter", weaponManager.AttackCounter);
+        weaponAnimator.SetInteger("attackCounter", weaponManager.AttackCounter);
     }
 
     public override void ExitWeapon()
@@ -49,7 +49,7 @@ public class AggressiveWeapon : Weapon
 
     private void CheckMeleeAttack()
     {
-        WeaponAttackDetails details = aggressiveWeaponData.AttackDetails[weaponMachine.AttackCounter];
+        WeaponAttackDetails details = aggressiveWeaponData.AttackDetails[weaponManager.AttackCounter];
 
         foreach (IDamageable item in detectedDamageable)
         {

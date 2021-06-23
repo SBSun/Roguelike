@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     public PlayerAttackState SecondaryAttackState { get; private set; }
 
     #endregion
-    public WeaponStateMachine WeaponMachine { get; private set; }
+    public WeaponManager WeaponManager { get; private set; }
     #region ÄÄÆ÷³ÍÆ®
     public Animator Anim { get; private set; }
     public PlayerInputHandler InputHandler { get; private set; }
@@ -58,7 +58,7 @@ public class Player : MonoBehaviour
         PrimaryAttackState = new PlayerAttackState(this, StateMachine, playerData, "attack");
         SecondaryAttackState = new PlayerAttackState(this, StateMachine, playerData, "attack");
 
-        WeaponMachine = GetComponentInChildren<WeaponStateMachine>();
+        WeaponManager = GetComponentInChildren<WeaponManager>();
     }
 
     private void Start()

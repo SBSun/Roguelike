@@ -26,6 +26,7 @@ public class PlayerInputHandler : MonoBehaviour //플레이어의 입력값에 따른 기능 
     private float inputHoldTime = 0.2f;
     private float jumpInputStartTime;
     private float dashInputStartTime;
+    private int weaponChangeInput;
 
     private void Start()
     {
@@ -134,6 +135,12 @@ public class PlayerInputHandler : MonoBehaviour //플레이어의 입력값에 따른 기능 
         {
             AttackInputs[(int)CombatInputs.secondary] = false;
         }
+    }
+
+    public void OnWeaponChangeInput(InputAction.CallbackContext context)
+    {
+        string str = context.control.ToString();
+        Debug.Log(str.Substring(str.Length - 1));
     }
 
     public void UseJumpInput() => JumpInput = false;
