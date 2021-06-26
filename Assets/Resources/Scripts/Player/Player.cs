@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     public PlayerAttackState SecondaryAttackState { get; private set; }
 
     #endregion
-    public WeaponManager WeaponManager { get; private set; }
+ 
     #region 컴포넌트
     public Animator Anim { get; private set; }
     public PlayerInputHandler InputHandler { get; private set; }
@@ -32,8 +32,9 @@ public class Player : MonoBehaviour
     private PlayerData playerData;
     public Transform DashDirectionIndicator { get; private set; }
     
-    public PlayerInventory Inventory { get; private set; }
+    public WeaponInventory WeaponInventory { get; private set; }
     public Core Core { get; private set; }
+    public WeaponManager WeaponManager { get; private set; }
     #endregion
 
     #region 유니티 콜백 함수
@@ -67,10 +68,7 @@ public class Player : MonoBehaviour
         InputHandler = GetComponent<PlayerInputHandler>();
         RB = GetComponent<Rigidbody2D>();
         DashDirectionIndicator = transform.Find("DashDirectionIndicator");
-        Inventory = GetComponent<PlayerInventory>();
-
-        PrimaryAttackState.SetWeapon(Inventory.weapons[(int)CombatInputs.primary]);
-        //SecondaryAttackState.SetWeapon(Inventory.weapons[(int)CombatInputs.primary]);
+        WeaponInventory = GetComponentInChildren<WeaponInventory>();
 
         StateMachine.Initialize(IdleState);
     }

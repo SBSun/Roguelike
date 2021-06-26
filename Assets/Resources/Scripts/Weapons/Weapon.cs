@@ -24,10 +24,27 @@ public class Weapon : MonoBehaviour
     public virtual void EnterWeapon()
     {
         gameObject.SetActive(true);
+
+        weaponManager.CanNotWeaponChange();
+
+        baseAnimator.SetBool("attack", true);
+        weaponAnimator.SetBool("attack", true);
+
+        weaponManager.CheckIfCanComboAttack();
+
+        baseAnimator.SetInteger("attackCounter", weaponManager.AttackCounter);
+        weaponAnimator.SetInteger("attackCounter", weaponManager.AttackCounter);
+
+        state.SetPlayerVelocity(0f);
     }
 
     public virtual void ExitWeapon()
     {
+        baseAnimator.SetBool("attack", false);
+        weaponAnimator.SetBool("attack", false);
+
+        weaponManager.CanWeaponChange();
+
         gameObject.SetActive(false);
     }
 

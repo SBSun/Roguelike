@@ -6,15 +6,18 @@ public class WeaponManager : MonoBehaviour
 {
     public Weapon CurrentWeapon { get; private set; }
 
-    [SerializeField]
-    private PlayerInventory weaponInventory;
+    private WeaponInventory weaponInventory;
 
+    [SerializeField]
     private float comboSpaceTime = 1f;   //다음 공격을 몇초 안에 해야지 다음 콤보가 나갈지 
     private float lastAttackTime = 0f;
+
+    public bool CanChange { get; private set; }
     public int AttackCounter { get; private set; }
 
     private void Awake()
     {
+        weaponInventory = GetComponent<WeaponInventory>();
         Initialize(weaponInventory.weapons[0]);
     }
 
@@ -28,17 +31,16 @@ public class WeaponManager : MonoBehaviour
         {
             CurrentWeapon = startingWeapon;
         }
-        CurrentWeapon = startingWeapon;
+        ResetAttackCounter();
     }
 
     public void ChangeWeapon(Weapon newWeapon)
     {
-        if(CurrentWeapon != newWeapon)
+        if(CanChange)
         {
             ResetAttackCounter();
+            CurrentWeapon = newWeapon;
         }
-
-        CurrentWeapon = newWeapon;
     }
 
     public void CheckIfCanComboAttack()
@@ -51,7 +53,9 @@ public class WeaponManager : MonoBehaviour
         {
             ResetAttackCounter();
         }
-    }
+
+        lastAttackTime = Time.time;
+  }
 
     public void ComboAttack()
     {
@@ -60,7 +64,7 @@ public class WeaponManager : MonoBehaviour
 
     public void AddToAttackCounter()
     {
-        if (AttackCounter + 1 > CurrentWeapon.weaponData.amountOfAttack)
+        if (AttackCounter + 1 == CurrentWeapon.weaponData.amountOfAttack)
         {
             ResetAttackCounter();
         }
@@ -71,4 +75,7 @@ public class WeaponManager : MonoBehaviour
     }
 
     public void ResetAttackCounter() => AttackCounter = 0;
+
+    public void CanWeaponChange() => CanChange = true;
+    public void CanNotWeaponChange() => CanChange = false;
 }

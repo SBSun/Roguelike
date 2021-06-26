@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerAttackState : PlayerAbilityState
 {
-    private Weapon weapon;
-
     private int xInput;
 
     private float velocityToSet;
@@ -19,7 +17,6 @@ public class PlayerAttackState : PlayerAbilityState
     public override void AnimationFinishTrigger()
     {
         base.AnimationFinishTrigger();
-
         isAbilityDone = true;
     }
 
@@ -29,20 +26,15 @@ public class PlayerAttackState : PlayerAbilityState
 
         setVelocity = false;
 
-        weapon.EnterWeapon();
+        player.WeaponManager.CurrentWeapon.InitializeWeapon(this);
+        player.WeaponManager.CurrentWeapon.EnterWeapon();
     }
 
     public override void Exit()
     {
         base.Exit();
 
-        weapon.ExitWeapon();
-    }
-
-    public void SetWeapon(Weapon weapon)
-    {
-        this.weapon = weapon;
-        weapon.InitializeWeapon(this);
+        player.WeaponManager.CurrentWeapon.ExitWeapon();
     }
 
     public void SetPlayerVelocity(float velocity)

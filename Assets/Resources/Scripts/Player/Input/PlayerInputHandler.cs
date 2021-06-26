@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerInputHandler : MonoBehaviour //플레이어의 입력값에 따른 기능 실행
 {
     private PlayerInput playerInput;
+    private Player player;
     private Camera cam;
 
     public Vector2 RawMovementInput { get; private set; }
@@ -31,6 +32,7 @@ public class PlayerInputHandler : MonoBehaviour //플레이어의 입력값에 따른 기능 
     private void Start()
     {
         playerInput = GetComponent<PlayerInput>();
+        player = GetComponent<Player>();
 
         int count = Enum.GetValues(typeof(CombatInputs)).Length; //CombatInputs 열거형에 몇개의 요소가 있는지
         AttackInputs = new bool[count];
@@ -136,11 +138,22 @@ public class PlayerInputHandler : MonoBehaviour //플레이어의 입력값에 따른 기능 
             AttackInputs[(int)CombatInputs.secondary] = false;
         }
     }
-
+   
     public void OnWeaponChangeInput(InputAction.CallbackContext context)
     {
-        string str = context.control.ToString();
-        Debug.Log(str.Substring(str.Length - 1));
+        if(context.started)
+        {
+            string str = context.control.ToString();
+
+            int newWeapon = int.Parse(str.Substring(str.Length - 1)) - 1;
+            
+            //현재 무기와 바꾸려는 무기가 다르면 변경
+            if(player.WeaponInventory.weapons[newWeapon] != player.WeaponManager.CurrentWeapon)
+            {
+                player.WeaponManager.ChangeWeapon(player.WeaponInventory.weapons[newWeapon]);
+            }
+                
+        }
     }
 
     public void UseJumpInput() => JumpInput = false;
