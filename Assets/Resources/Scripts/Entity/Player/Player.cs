@@ -25,9 +25,9 @@ public class Player : Entity
     #endregion
  
     #region ÄÄÆ÷³ÍÆ®
-    public Animator Anim { get; private set; }
+    
     public PlayerInputHandler InputHandler { get; private set; }
-    public Rigidbody2D RB { get; private set; }
+    
 
     private SO_PlayerData PlayerData;
     public Transform DashDirectionIndicator { get; private set; }
@@ -64,9 +64,9 @@ public class Player : Entity
 
     private void Start()
     {
-        Anim = GetComponent<Animator>();
+        
         InputHandler = GetComponent<PlayerInputHandler>();
-        RB = GetComponent<Rigidbody2D>();
+        
         DashDirectionIndicator = transform.Find("DashDirectionIndicator");
         WeaponInventory = GetComponentInChildren<WeaponInventory>();
 
@@ -77,8 +77,6 @@ public class Player : Entity
     {
         Core.LogicUpdate();
         StateMachine.CurrentState.LogicUpdate();
-        Debug.DrawRay(Core.CollisionSense.WallCheck.position, Vector2.right * Core.Movement.FacingDirection * Core.CollisionSense.WallCheckDistance, Color.red);
-        Debug.DrawRay(Core.CollisionSense.LedgeCheck.position, Vector2.right * Core.Movement.FacingDirection * Core.CollisionSense.WallCheckDistance, Color.red);
     }
 
     private void FixedUpdate()

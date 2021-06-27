@@ -2,9 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Animator))]
 public class Entity : MonoBehaviour, IDamageable
 {
     public Core Core { get; private set; }
+    public Rigidbody2D RB { get; private set; }
+    public Animator Anim { get; private set; }
 
     [SerializeField]
     private SO_EntityData entityData;
@@ -13,6 +19,8 @@ public class Entity : MonoBehaviour, IDamageable
     public virtual void Awake()
     {
         Core = GetComponentInChildren<Core>();
+        RB = GetComponent<Rigidbody2D>();
+        Anim = GetComponent<Animator>();
     }
 
     public virtual void Damage(float amount)
