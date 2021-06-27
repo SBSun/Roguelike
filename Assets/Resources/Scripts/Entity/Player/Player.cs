@@ -27,6 +27,7 @@ public class Player : Entity
     #region ÄÄÆ÷³ÍÆ®
     
     public PlayerInputHandler InputHandler { get; private set; }
+    public CollisionSense CollisionSense { get; private set; }
     
 
     private SO_PlayerData PlayerData;
@@ -66,7 +67,7 @@ public class Player : Entity
     {
         
         InputHandler = GetComponent<PlayerInputHandler>();
-        
+        CollisionSense = GetComponent<CollisionSense>();
         DashDirectionIndicator = transform.Find("DashDirectionIndicator");
         WeaponInventory = GetComponentInChildren<WeaponInventory>();
 

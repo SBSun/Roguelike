@@ -19,9 +19,9 @@ public class PlayerTouchingWallState : PlayerState
     {
         base.DoChecks();
 
-        isGrounded =core.CollisionSense.Grounded;
-        isTouchingWall = core.CollisionSense.WallFront;
-        isTouchingLedge = core.CollisionSense.Ledge;
+        isGrounded =player.CollisionSense.Grounded;
+        isTouchingWall = player.CollisionSense.WallFront;
+        isTouchingLedge = player.CollisionSense.Ledge;
 
         if(isTouchingWall && !isTouchingLedge)
         {

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyMoveState : EnemyState
 {
-    protected bool isTouchingWall;
+    
     public EnemyMoveState(Enemy enemy, EnemyStateMachine stateMachine, SO_EnemyData enemyData, string animBoolName) : base(enemy, stateMachine, enemyData, animBoolName)
     {
     }
@@ -21,9 +21,7 @@ public class EnemyMoveState : EnemyState
 
     public override void LogicUpdate()
     {
-        isTouchingWall = core.CollisionSense.WallFront;
-
-        core.Movement.SetVelocityX(enemyData.movementVelocity * core.Movement.FacingDirection);
+      
     }
 
     public override void PhysicsUpdate()

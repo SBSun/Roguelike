@@ -6,8 +6,12 @@ using UnityEngine;
 public class SO_EnemyData : SO_EntityData
 {
     [Header("Idle State")]
-    public float minIdleTime = 3f;
-    public float maxIdleTime = 7f;
+    public float minIdleTime = 2f;
+    public float maxIdleTime = 5f;
+
+    [Header("Move State")]
+    public float minMoveTime = 2f;
+    public float maxMoveTime = 5f;
 
     [Header("Move State")]
     public float movementVelocity = 8f;

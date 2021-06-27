@@ -28,9 +28,4 @@ public class Enemy : Entity
     {
         StateMachine.CurrentState.PhysicsUpdate();
     }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawSphere(Core.CollisionSense.GroundCheck.position, Core.CollisionSense.GroundCheckRadius);
-    }
 }

@@ -6,6 +6,8 @@ public class Goblin_IdleState : EnemyIdleState
 {
     private Goblin goblin;
 
+    private float idleTime;
+
     public Goblin_IdleState(Enemy enemy, EnemyStateMachine stateMachine, SO_EnemyData enemyData, string animBoolName) : base(enemy, stateMachine, enemyData, animBoolName)
     {
         goblin = (Goblin)enemy;
@@ -14,6 +16,9 @@ public class Goblin_IdleState : EnemyIdleState
     public override void Enter()
     {
         base.Enter();
+
+        core.Movement.SetVelocityZero();
+        SetRandomIdleTime();
     }
 
     public override void Exit()
@@ -25,9 +30,13 @@ public class Goblin_IdleState : EnemyIdleState
     {
         base.LogicUpdate();
 
-        if(isIdleTimeOver)
+        if (Time.time >= startTime + idleTime)
         {
-            stateMachine.ChangeState(goblin.MoveState); 
+            stateMachine.ChangeState(goblin.MoveState);
         }
+    }
+    private void SetRandomIdleTime()
+    {
+        idleTime = Random.Range(enemyData.minIdleTime, enemyData.maxIdleTime);
     }
 }

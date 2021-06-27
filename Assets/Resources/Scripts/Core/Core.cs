@@ -5,14 +5,12 @@ using UnityEngine;
 public class Core : MonoBehaviour
 {
     public Movement Movement { get; private set; }
-    public CollisionSense CollisionSense { get; private set; }
     public HealthCondition HealthCondition { get; private set; }
     public Entity Entity { get; private set; }
 
     private void Awake()
     {
         Movement = GetComponentInChildren<Movement>();
-        CollisionSense = GetComponentInChildren<CollisionSense>();
         HealthCondition = GetComponentInChildren<HealthCondition>();
         Entity = GetComponentInParent<Entity>();
     }

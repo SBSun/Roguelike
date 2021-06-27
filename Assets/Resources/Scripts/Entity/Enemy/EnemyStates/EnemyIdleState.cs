@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class EnemyIdleState : EnemyState
 {
-    protected float idleTime;
-    protected bool isIdleTimeOver;
+   
     public EnemyIdleState(Enemy enemy, EnemyStateMachine stateMachine, SO_EnemyData enemyData, string animBoolName) : base(enemy, stateMachine, enemyData, animBoolName)
     {
     }
@@ -14,9 +13,7 @@ public class EnemyIdleState : EnemyState
     {
         base.Enter();
 
-        isIdleTimeOver = false;
-        core.Movement.SetVelocityZero();
-        SetRandomIdleTime();
+     
     }
 
     public override void Exit()
@@ -28,14 +25,8 @@ public class EnemyIdleState : EnemyState
     {
         base.LogicUpdate();
 
-        if(Time.time >= startTime + idleTime)
-        {
-            isIdleTimeOver = true;
-        }
+       
     }
 
-    private void SetRandomIdleTime()
-    {
-        idleTime = Random.Range(enemyData.minIdleTime, enemyData.maxIdleTime);
-    }
+    
 }

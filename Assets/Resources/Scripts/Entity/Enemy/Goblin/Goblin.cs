@@ -7,6 +7,8 @@ public class Goblin : Enemy
     #region State º¯¼ö
     public Goblin_IdleState IdleState { get; private set; }
     public Goblin_MoveState MoveState { get; private set; }
+    public Goblin_CollisionSense CollisionSense { get; private set; }
+
     #endregion
     public override void Awake()
     {
@@ -19,6 +21,8 @@ public class Goblin : Enemy
     private void Start()
     {
         StateMachine.Initialize(IdleState);
+
+        CollisionSense = GetComponent<Goblin_CollisionSense>();
     }
 
     protected override void FixedUpdate()
