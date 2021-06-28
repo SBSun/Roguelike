@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Goblin_IdleState : EnemyIdleState
+public class Goblin_IdleState : EnemyState
 {
     private Goblin goblin;
 
