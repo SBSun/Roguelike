@@ -6,18 +6,12 @@ public class HealthCondition : CoreComponent
 {
     public float CurrentHP { get; private set; }
 
-    private SO_EntityData entityData;
-
-    private void Start()
-    {
-        entityData = core.Entity.EntityData;
-    }
-
     public void DecreaseHP(float decrease)
     {
         CurrentHP -= decrease;
     }
 
+    /*
     public void IncreaseHP(float increase)
     {
         if(CurrentHP + increase >= entityData.maxHP)
@@ -28,5 +22,5 @@ public class HealthCondition : CoreComponent
         {
             CurrentHP += increase;
         }
-    }
+    }*/
 }

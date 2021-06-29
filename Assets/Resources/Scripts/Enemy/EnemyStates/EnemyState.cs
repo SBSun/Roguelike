@@ -30,6 +30,7 @@ public class EnemyState : MonoBehaviour
     public virtual void Enter()
     {
         DoChecks();
+
         enemy.Anim.SetBool(animBoolName, true);
         startTime = Time.time;
         isAnimationFinished = false; //새로운 상태로 변경 될 때 애니메이션 시작
@@ -39,6 +40,7 @@ public class EnemyState : MonoBehaviour
     //해당 State가 끝날 때 한 번 실행
     public virtual void Exit()
     {
+
         enemy.Anim.SetBool(animBoolName, false);
         isExitingState = true;
     }

@@ -9,6 +9,9 @@ public class Goblin_CollisionSense : MonoBehaviour
 
     [SerializeField] private Transform topWallCheck;
     [SerializeField] private Transform bottomWallCheck;
+    [SerializeField] private Transform topWallBackCheck;
+    [SerializeField] private Transform bottomWallBackCheck;
+
     [SerializeField] private Transform cliffCheck;
 
     [SerializeField] private float wallCheckDistance;
@@ -19,14 +22,12 @@ public class Goblin_CollisionSense : MonoBehaviour
     //캐릭터 앞에 벽이 있는지 체크
     public bool WallFront
     {
-        get => Physics2D.Raycast(topWallCheck.position, Vector2.right * goblin.Core.Movement.FacingDirection, wallCheckDistance, whatIsGround) ||
-            Physics2D.Raycast(bottomWallCheck.position, Vector2.right * goblin.Core.Movement.FacingDirection, wallCheckDistance, whatIsGround);
+        get => Physics2D.OverlapArea(bottomWallCheck.position, topWallCheck.position, whatIsGround);
     }
     //캐릭터 뒤에 벽이 있는지 체크
     public bool WallBack
     {
-        get => Physics2D.Raycast(topWallCheck.position, Vector2.right * -goblin.Core.Movement.FacingDirection, wallCheckDistance, whatIsGround) ||
-            Physics2D.Raycast(bottomWallCheck.position, Vector2.right * -goblin.Core.Movement.FacingDirection, wallCheckDistance, whatIsGround);
+        get => Physics2D.OverlapArea(bottomWallBackCheck.position, topWallBackCheck.position, whatIsGround);
     }
 
     public bool Cliffing
