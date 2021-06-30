@@ -2,15 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Goblin_IdleState : EnemyState
+public class BasicIdleState : EnemyState
 {
-    private Goblin goblin;
+    protected float idleTime;
+    protected bool isIdleTimeOver;
 
-    private float idleTime;
-
-    public Goblin_IdleState(Enemy enemy, EnemyStateMachine stateMachine, SO_EnemyData enemyData, string animBoolName) : base(enemy, stateMachine, enemyData, animBoolName)
+    public BasicIdleState(Enemy enemy, EnemyStateMachine stateMachine, SO_EnemyData enemyData, string animBoolName) : base(enemy, stateMachine, enemyData, animBoolName)
     {
-        goblin = (Goblin)enemy;
+
     }
 
     public override void Enter()
@@ -18,6 +17,7 @@ public class Goblin_IdleState : EnemyState
         base.Enter();
 
         core.Movement.SetVelocityZero();
+        isIdleTimeOver = false;
         SetRandomIdleTime();
     }
 
@@ -32,7 +32,7 @@ public class Goblin_IdleState : EnemyState
 
         if (Time.time >= startTime + idleTime)
         {
-            stateMachine.ChangeState(goblin.MoveState);
+            isIdleTimeOver = true;
         }
     }
     private void SetRandomIdleTime()

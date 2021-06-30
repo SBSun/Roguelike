@@ -5,7 +5,7 @@ using UnityEngine;
 public class HealthCondition : CoreComponent
 {
     public float CurrentHP { get; private set; }
-
+/*
     private SO_EntityData entityData;
 
     private void Start()
@@ -28,5 +28,5 @@ public class HealthCondition : CoreComponent
         {
             CurrentHP += increase;
         }
-    }
+    }*/
 }

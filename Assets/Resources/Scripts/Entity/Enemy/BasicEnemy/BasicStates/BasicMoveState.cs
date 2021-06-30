@@ -2,29 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Goblin_MoveState : EnemyState
+public class BasicMoveState : EnemyState
 {
-    private Goblin goblin;
 
-    private bool isTouchingWallFront;
-    private bool isCliffing;
+    protected bool isTouchingWallFront;
+    protected bool isCliffing;
 
-    private float moveTime;
+    protected float moveTime;
 
-    private int moveDirection;
+    protected int moveDirection;
 
-    public Goblin_MoveState(Enemy enemy, EnemyStateMachine stateMachine, SO_EnemyData enemyData, string animBoolName) : base(enemy, stateMachine, enemyData, animBoolName)
+    protected BasicEnemy enemy;
+    protected BasicEnemyCollisionSense collisionSense;
+
+    public BasicMoveState(Enemy enemy, EnemyStateMachine stateMachine, SO_EnemyData enemyData, string animBoolName, BasicEnemyCollisionSense collisionSense) : base(enemy, stateMachine, enemyData, animBoolName)
     {
-        goblin = (Goblin)enemy;
+        this.collisionSense = collisionSense;
     }
+
 
     public override void Enter()
     {
         base.Enter();
 
         //뒤에 벽이 있으면 방향을 변경하지 않는다.
-        if (goblin.CollisionSense.WallBack)
-            moveDirection = goblin.Core.Movement.FacingDirection;
+        if (collisionSense.WallBack)
+            moveDirection = enemy.Core.Movement.FacingDirection;
         else
             SetRandomMoveDirection();
 
@@ -40,20 +43,20 @@ public class Goblin_MoveState : EnemyState
     {
         base.LogicUpdate();
 
-        isTouchingWallFront = goblin.CollisionSense.WallFront;
-        isCliffing = goblin.CollisionSense.Cliffing;
+        isTouchingWallFront = collisionSense.WallFront;
+        isCliffing = collisionSense.Cliffing;
 
         core.Movement.SetVelocityX(enemyData.movementVelocity * moveDirection);
 
-        if(Time.time > startTime + moveTime)
+        if (Time.time > startTime + moveTime)
         {
-            stateMachine.ChangeState(goblin.IdleState);
+            stateMachine.ChangeState(enemy.IdleState);
         }
         //앞에 벽이 있거나 땅이 없으면
         else if (isTouchingWallFront || isCliffing)
         {
             core.Movement.Flip();
-            stateMachine.ChangeState(goblin.IdleState);
+            stateMachine.ChangeState(enemy.IdleState);
         }
     }
 
@@ -61,7 +64,7 @@ public class Goblin_MoveState : EnemyState
     {
         base.PhysicsUpdate();
     }
-  
+
     public void SetRandomMoveTime()
     {
         moveTime = Random.Range(enemyData.minMoveTime, enemyData.maxMoveTime);

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : Entity
+public class Player : MonoBehaviour, IDamageable
 {
     #region State 변수
     public PlayerStateMachine StateMachine { get; private set; }
@@ -23,13 +23,16 @@ public class Player : Entity
     public PlayerAttackState SecondaryAttackState { get; private set; }
 
     #endregion
- 
+
     #region 컴포넌트
-    
+    public Core Core { get; private set; }
+    public Rigidbody2D RB { get; private set; }
+    public Animator Anim { get; private set; }
+
     public PlayerInputHandler InputHandler { get; private set; }
     public CollisionSense CollisionSense { get; private set; }
     
-
+    [SerializeField]
     private SO_PlayerData PlayerData;
     public Transform DashDirectionIndicator { get; private set; }
     
@@ -39,10 +42,9 @@ public class Player : Entity
     #endregion
 
     #region 유니티 콜백 함수
-    public override void Awake()
+    private void Awake()
     {
-        base.Awake();
-        PlayerData = (SO_PlayerData)EntityData;
+        Core = GetComponentInChildren<Core>();
         StateMachine = new PlayerStateMachine();
         IdleState = new PlayerIdleState(this, StateMachine, PlayerData, "idle");
         MoveState = new PlayerMoveState(this, StateMachine, PlayerData, "move");
@@ -65,7 +67,8 @@ public class Player : Entity
 
     private void Start()
     {
-        
+        RB = GetComponent<Rigidbody2D>();
+        Anim = GetComponent<Animator>();
         InputHandler = GetComponent<PlayerInputHandler>();
         CollisionSense = GetComponent<CollisionSense>();
         DashDirectionIndicator = transform.Find("DashDirectionIndicator");
@@ -89,4 +92,19 @@ public class Player : Entity
     private void AnimationTrigger() => StateMachine.CurrentState.AnimationTrigger();
 
     private void AnimationFinishTrigger() => StateMachine.CurrentState.AnimationFinishTrigger();
+
+    public virtual void Damage(float amount)
+    {
+        //Core.HealthCondition.DecreaseHP(amount);
+
+        if (Core.HealthCondition.CurrentHP <= 0)
+        {
+            Death();
+        }
+    }
+
+    public virtual void Death()
+    {
+        Debug.Log("죽음");
+    }
 }
