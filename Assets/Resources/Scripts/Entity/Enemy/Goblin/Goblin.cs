@@ -9,9 +9,8 @@ public class Goblin : Enemy
     public Goblin_MoveState MoveState { get; private set; }
     public Goblin_CollisionSense CollisionSense { get; private set; }
 
-
     #endregion
-    protected override void Awake()
+    public override void Awake()
     {
         base.Awake();
 
@@ -19,11 +18,11 @@ public class Goblin : Enemy
         MoveState = new Goblin_MoveState(this, StateMachine, EnemyData, "move");
     }
 
-    protected override void Start()
+    private void Start()
     {
-        CollisionSense = GetComponent<Goblin_CollisionSense>();
-
         StateMachine.Initialize(IdleState);
+
+        CollisionSense = GetComponent<Goblin_CollisionSense>();
     }
 
     protected override void FixedUpdate()

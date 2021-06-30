@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour, IDamageable
+public class Player : Entity
 {
     #region State 변수
     public PlayerStateMachine StateMachine { get; private set; }
@@ -23,15 +23,13 @@ public class Player : MonoBehaviour, IDamageable
     public PlayerAttackState SecondaryAttackState { get; private set; }
 
     #endregion
-
+ 
     #region 컴포넌트
-    public Core Core { get; private set; }
-    public Rigidbody2D RB { get; private set; }
-    public Animator Anim { get; private set; }
+    
     public PlayerInputHandler InputHandler { get; private set; }
     public CollisionSense CollisionSense { get; private set; }
     
-    [SerializeField]
+
     private SO_PlayerData PlayerData;
     public Transform DashDirectionIndicator { get; private set; }
     
@@ -41,10 +39,10 @@ public class Player : MonoBehaviour, IDamageable
     #endregion
 
     #region 유니티 콜백 함수
-    private void Awake()
+    public override void Awake()
     {
-        Core = GetComponentInChildren<Core>();
-
+        base.Awake();
+        PlayerData = (SO_PlayerData)EntityData;
         StateMachine = new PlayerStateMachine();
         IdleState = new PlayerIdleState(this, StateMachine, PlayerData, "idle");
         MoveState = new PlayerMoveState(this, StateMachine, PlayerData, "move");
@@ -67,13 +65,12 @@ public class Player : MonoBehaviour, IDamageable
 
     private void Start()
     {
-        RB = GetComponent<Rigidbody2D>();
-        Anim = GetComponent<Animator>();
+        
         InputHandler = GetComponent<PlayerInputHandler>();
         CollisionSense = GetComponent<CollisionSense>();
         DashDirectionIndicator = transform.Find("DashDirectionIndicator");
         WeaponInventory = GetComponentInChildren<WeaponInventory>();
-        
+
         StateMachine.Initialize(IdleState);
     }
 
@@ -92,14 +89,4 @@ public class Player : MonoBehaviour, IDamageable
     private void AnimationTrigger() => StateMachine.CurrentState.AnimationTrigger();
 
     private void AnimationFinishTrigger() => StateMachine.CurrentState.AnimationFinishTrigger();
-
-    public void Damage(float amount)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void Death()
-    {
-        throw new System.NotImplementedException();
-    }
 }
