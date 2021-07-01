@@ -11,15 +11,13 @@ public class BasicEnemy : Enemy
     protected override void Awake()
     {
         base.Awake();
-
+        CollisionSense = GetComponent<BasicEnemyCollisionSense>();
         IdleState = new BasicIdleState(this, StateMachine, EnemyData, "idle");
         MoveState = new BasicMoveState(this, StateMachine, EnemyData, "move", CollisionSense);
     }
 
-    private void Start()
-    {
+    protected override void Start()
+    { 
         StateMachine.Initialize(IdleState);
-
-        CollisionSense = GetComponent<BasicEnemyCollisionSense>();
     }
 }

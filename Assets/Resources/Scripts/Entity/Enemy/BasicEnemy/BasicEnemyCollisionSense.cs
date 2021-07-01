@@ -13,7 +13,6 @@ public class BasicEnemyCollisionSense : MonoBehaviour
     [SerializeField] private Transform bottomWallBackCheck;
     [SerializeField] private Transform cliffCheck;
 
-    [SerializeField] private float wallCheckDistance;
     [SerializeField] private float cliffCheckDistance;
 
     [SerializeField] private LayerMask whatIsGround;

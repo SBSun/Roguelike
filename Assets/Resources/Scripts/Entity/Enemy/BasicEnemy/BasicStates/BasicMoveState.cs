@@ -12,11 +12,12 @@ public class BasicMoveState : EnemyState
 
     protected int moveDirection;
 
-    protected BasicEnemy enemy;
+    private readonly BasicEnemy basicEnemy;
     protected BasicEnemyCollisionSense collisionSense;
 
-    public BasicMoveState(Enemy enemy, EnemyStateMachine stateMachine, SO_EnemyData enemyData, string animBoolName, BasicEnemyCollisionSense collisionSense) : base(enemy, stateMachine, enemyData, animBoolName)
+    public BasicMoveState(BasicEnemy basicEnemy, EnemyStateMachine stateMachine, SO_EnemyData enemyData, string animBoolName, BasicEnemyCollisionSense collisionSense) : base(basicEnemy, stateMachine, enemyData, animBoolName)
     {
+        this.basicEnemy = basicEnemy;
         this.collisionSense = collisionSense;
     }
 
@@ -43,21 +44,25 @@ public class BasicMoveState : EnemyState
     {
         base.LogicUpdate();
 
-        isTouchingWallFront = collisionSense.WallFront;
-        isCliffing = collisionSense.Cliffing;
-
-        core.Movement.SetVelocityX(enemyData.movementVelocity * moveDirection);
-
-        if (Time.time > startTime + moveTime)
+        if(!isExitingState)
         {
-            stateMachine.ChangeState(enemy.IdleState);
+            isTouchingWallFront = collisionSense.WallFront;
+            isCliffing = collisionSense.Cliffing;
+
+            core.Movement.SetVelocityX(enemyData.movementVelocity * moveDirection);
+
+            if (Time.time > startTime + moveTime)
+            {
+                stateMachine.ChangeState(basicEnemy.IdleState);
+            }
+            //앞에 벽이 있거나 땅이 없으면
+            else if (isTouchingWallFront || isCliffing)
+            {
+                core.Movement.Flip();
+                stateMachine.ChangeState(basicEnemy.IdleState);
+            }
         }
-        //앞에 벽이 있거나 땅이 없으면
-        else if (isTouchingWallFront || isCliffing)
-        {
-            core.Movement.Flip();
-            stateMachine.ChangeState(enemy.IdleState);
-        }
+
     }
 
     public override void PhysicsUpdate()

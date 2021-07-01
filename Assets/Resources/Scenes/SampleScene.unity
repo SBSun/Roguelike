@@ -698,7 +698,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &466859336
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -795,6 +795,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5685a8ad15a4b34ca010202b2f082c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyData: {fileID: 0}
 --- !u!61 &466859340
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -12591,47 +12592,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1520724571858332325, guid: 402e63aa5fa1b5e4b89b4b22361f4883, type: 3}
+      propertyPath: cliffCheckDistance
+      value: 0.3
+      objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 483608044605205009, guid: 402e63aa5fa1b5e4b89b4b22361f4883, type: 3}
-    - {fileID: 483608044605205036, guid: 402e63aa5fa1b5e4b89b4b22361f4883, type: 3}
+    - {fileID: 0}
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 402e63aa5fa1b5e4b89b4b22361f4883, type: 3}
---- !u!1 &483608044224553394 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 483608044605205032, guid: 402e63aa5fa1b5e4b89b4b22361f4883, type: 3}
-  m_PrefabInstance: {fileID: 483608044224553393}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &483608044224553395
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 483608044224553394}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37eb5885c9366224cab0d9db2d261018, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemy: {fileID: 0}
-  topWallCheck: {fileID: 0}
-  bottomWallCheck: {fileID: 0}
-  topWallBackCheck: {fileID: 0}
-  bottomWallBackCheck: {fileID: 0}
-  cliffCheck: {fileID: 0}
-  wallCheckDistance: 0
-  cliffCheckDistance: 0
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 256
---- !u!114 &483608044224553396
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 483608044224553394}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0eb18bd23c46c264cb58286f724d4cc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

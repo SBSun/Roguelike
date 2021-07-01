@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class BasicIdleState : EnemyState
 {
+    private readonly BasicEnemy basicEnemy;
+
     protected float idleTime;
-    protected bool isIdleTimeOver;
 
-    public BasicIdleState(Enemy enemy, EnemyStateMachine stateMachine, SO_EnemyData enemyData, string animBoolName) : base(enemy, stateMachine, enemyData, animBoolName)
+
+    public BasicIdleState(BasicEnemy basicEnemy, EnemyStateMachine stateMachine, SO_EnemyData enemyData, string animBoolName) : base(basicEnemy, stateMachine, enemyData, animBoolName)
     {
-
+        this.basicEnemy = basicEnemy; 
     }
 
     public override void Enter()
     {
         base.Enter();
-
         core.Movement.SetVelocityZero();
-        isIdleTimeOver = false;
         SetRandomIdleTime();
     }
 
@@ -30,9 +30,12 @@ public class BasicIdleState : EnemyState
     {
         base.LogicUpdate();
 
-        if (Time.time >= startTime + idleTime)
+        if(!isExitingState)
         {
-            isIdleTimeOver = true;
+            if (Time.time >= startTime + idleTime)
+            {
+                stateMachine.ChangeState(basicEnemy.MoveState);
+            }
         }
     }
     private void SetRandomIdleTime()

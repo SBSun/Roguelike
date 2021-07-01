@@ -16,11 +16,19 @@ public class Enemy : MonoBehaviour, IDamageable
 
 
     [SerializeField]
-    protected SO_EnemyData EnemyData { get; private set; }
+    protected SO_EnemyData EnemyData;
 
     protected virtual void Awake()
     {
         StateMachine = new EnemyStateMachine();
+        Core = GetComponentInChildren<Core>();
+        RB = GetComponent<Rigidbody2D>();
+        Anim = GetComponent<Animator>();
+    }
+
+    protected virtual void Start()
+    {
+
     }
 
     protected virtual void Update()
