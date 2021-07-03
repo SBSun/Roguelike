@@ -45,7 +45,7 @@ TagManager:
   - name: BG
     uniqueID: 1787044445
     locked: 0
-  - name: Decoration
+  - name: Environment
     uniqueID: 1694717349
     locked: 0
   - name: Platform
