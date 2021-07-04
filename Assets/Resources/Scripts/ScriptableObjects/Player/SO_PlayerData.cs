@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "new SO_PlayerData", menuName = "Data/Player Data/Base Data")]
-public class SO_PlayerData : SO_EntityData
-{
+public class SO_PlayerData : ScriptableObject
+{ 
+    [Header("Health Condition")]
+    public float maxHP = 100f;
+
     [Header("Move State")]
     public float movementVelocity = 10f; //움직이는 속도
 

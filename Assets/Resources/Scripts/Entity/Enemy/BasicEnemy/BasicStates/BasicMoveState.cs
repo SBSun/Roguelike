@@ -5,19 +5,22 @@ using UnityEngine;
 public class BasicMoveState : EnemyState
 {
 
-    protected bool isTouchingWallFront;
-    protected bool isCliffing;
+    private bool isTouchingWallFront;
+    private bool isTouchingWallBack;
+    private bool isCliffing;
 
-    protected float moveTime;
+    private float moveTime;
 
-    protected int moveDirection;
+    private int moveDirection;
 
     private readonly BasicEnemy basicEnemy;
-    protected BasicEnemyCollisionSense collisionSense;
+    private readonly SO_BasicEnemyData basicEnemyData;
+    private BasicEnemyCollisionSense collisionSense;
 
     public BasicMoveState(BasicEnemy basicEnemy, EnemyStateMachine stateMachine, SO_EnemyData enemyData, string animBoolName, BasicEnemyCollisionSense collisionSense) : base(basicEnemy, stateMachine, enemyData, animBoolName)
     {
         this.basicEnemy = basicEnemy;
+        basicEnemyData = (SO_BasicEnemyData)enemyData;
         this.collisionSense = collisionSense;
     }
 
@@ -26,9 +29,14 @@ public class BasicMoveState : EnemyState
     {
         base.Enter();
 
+        isTouchingWallBack = collisionSense.WallBack;
+
         //뒤에 벽이 있으면 방향을 변경하지 않는다.
         if (collisionSense.WallBack)
+        {
+            Debug.Log("벽 있음");
             moveDirection = enemy.Core.Movement.FacingDirection;
+        }
         else
             SetRandomMoveDirection();
 
@@ -49,7 +57,7 @@ public class BasicMoveState : EnemyState
             isTouchingWallFront = collisionSense.WallFront;
             isCliffing = collisionSense.Cliffing;
 
-            core.Movement.SetVelocityX(enemyData.movementVelocity * moveDirection);
+            core.Movement.SetVelocityX(basicEnemyData.movementVelocity * moveDirection);
 
             if (Time.time > startTime + moveTime)
             {
@@ -59,10 +67,9 @@ public class BasicMoveState : EnemyState
             else if (isTouchingWallFront || isCliffing)
             {
                 core.Movement.Flip();
-                stateMachine.ChangeState(basicEnemy.IdleState);
+                moveDirection = core.Movement.FacingDirection;
             }
         }
-
     }
 
     public override void PhysicsUpdate()
@@ -72,7 +79,7 @@ public class BasicMoveState : EnemyState
 
     public void SetRandomMoveTime()
     {
-        moveTime = Random.Range(enemyData.minMoveTime, enemyData.maxMoveTime);
+        moveTime = Random.Range(basicEnemyData.minMoveTime, basicEnemyData.maxMoveTime);
     }
 
     public void SetRandomMoveDirection()

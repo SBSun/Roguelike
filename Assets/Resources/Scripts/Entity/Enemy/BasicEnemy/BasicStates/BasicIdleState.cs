@@ -5,13 +5,15 @@ using UnityEngine;
 public class BasicIdleState : EnemyState
 {
     private readonly BasicEnemy basicEnemy;
+    private readonly SO_BasicEnemyData basicEnemyData;
 
     protected float idleTime;
 
 
     public BasicIdleState(BasicEnemy basicEnemy, EnemyStateMachine stateMachine, SO_EnemyData enemyData, string animBoolName) : base(basicEnemy, stateMachine, enemyData, animBoolName)
     {
-        this.basicEnemy = basicEnemy; 
+        this.basicEnemy = basicEnemy;
+        basicEnemyData = (SO_BasicEnemyData)enemyData;
     }
 
     public override void Enter()
@@ -40,6 +42,6 @@ public class BasicIdleState : EnemyState
     }
     private void SetRandomIdleTime()
     {
-        idleTime = Random.Range(enemyData.minIdleTime, enemyData.maxIdleTime);
+        idleTime = Random.Range(basicEnemyData.minIdleTime, basicEnemyData.maxIdleTime);
     }
 }

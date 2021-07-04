@@ -9,7 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73e8d3e02492fce4a991072a21388284, type: 3}
+  m_Script: {fileID: 11500000, guid: f24fadda5d3a75d469fde6898c2d1cf2, type: 3}
   m_Name: Goblin Data
   m_EditorClassIdentifier: 
-  maxHP: 100
+  maxHP: 50
+  minIdleTime: 1
+  maxIdleTime: 3
+  minMoveTime: 1
+  maxMoveTime: 3
+  movementVelocity: 6

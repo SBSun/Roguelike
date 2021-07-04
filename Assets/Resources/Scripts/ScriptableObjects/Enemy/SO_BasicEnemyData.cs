@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "new SO_EnemyData", menuName = "Data/Enemy Data/Base Data")]
-public class SO_EnemyData : SO_EntityData
+[CreateAssetMenu(fileName = "new SO_BasicEnemyData", menuName = "Data/BasicEnemy Data/Base Data")]
+public class SO_BasicEnemyData : SO_EnemyData
 {
     [Header("Idle State")]
     public float minIdleTime = 2f;

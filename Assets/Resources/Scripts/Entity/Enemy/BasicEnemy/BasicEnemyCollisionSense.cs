@@ -20,12 +20,12 @@ public class BasicEnemyCollisionSense : MonoBehaviour
     //캐릭터 앞에 벽이 있는지 체크
     public bool WallFront
     {
-        get => Physics2D.OverlapArea(bottomWallCheck.position, topWallCheck.position, whatIsGround);
+        get => Physics2D.OverlapArea(topWallCheck.position, bottomWallCheck.position, whatIsGround);
     }
     //캐릭터 뒤에 벽이 있는지 체크
     public bool WallBack
     {
-        get => Physics2D.OverlapArea(bottomWallBackCheck.position, topWallBackCheck.position, whatIsGround);
+        get => Physics2D.OverlapArea(topWallBackCheck.position, bottomWallBackCheck.position, whatIsGround);
     }
 
     public bool Cliffing
