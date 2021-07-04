@@ -45,6 +45,9 @@ TagManager:
   - name: BG
     uniqueID: 1787044445
     locked: 0
+  - name: Structure
+    uniqueID: 3155373047
+    locked: 0
   - name: Environment
     uniqueID: 1694717349
     locked: 0
