@@ -8,6 +8,7 @@ public class BasicMoveState : EnemyState
     private bool isTouchingWallFront;
     private bool isTouchingWallBack;
     private bool isCliffing;
+    private bool isPlayerDetected;
 
     private float moveTime;
 
@@ -15,13 +16,11 @@ public class BasicMoveState : EnemyState
 
     private readonly BasicEnemy basicEnemy;
     private readonly SO_BasicEnemyData basicEnemyData;
-    private BasicEnemyCollisionSense collisionSense;
 
-    public BasicMoveState(BasicEnemy basicEnemy, EnemyStateMachine stateMachine, SO_EnemyData enemyData, string animBoolName, BasicEnemyCollisionSense collisionSense) : base(basicEnemy, stateMachine, enemyData, animBoolName)
+    public BasicMoveState(BasicEnemy basicEnemy, EnemyStateMachine stateMachine, SO_EnemyData enemyData, string animBoolName) : base(basicEnemy, stateMachine, enemyData, animBoolName)
     {
         this.basicEnemy = basicEnemy;
         basicEnemyData = (SO_BasicEnemyData)enemyData;
-        this.collisionSense = collisionSense;
     }
 
 
@@ -29,10 +28,11 @@ public class BasicMoveState : EnemyState
     {
         base.Enter();
 
-        isTouchingWallBack = collisionSense.WallBack;
+        isTouchingWallBack = basicEnemy.CollisionSense.WallBack;
+        isPlayerDetected = false;
 
         //뒤에 벽이 있으면 방향을 변경하지 않는다.
-        if (collisionSense.WallBack)
+        if (basicEnemy.CollisionSense.WallBack)
         {
             Debug.Log("벽 있음");
             moveDirection = enemy.Core.Movement.FacingDirection;
@@ -46,6 +46,8 @@ public class BasicMoveState : EnemyState
     public override void Exit()
     {
         base.Exit();
+
+        core.Movement.SetVelocityZero();
     }
 
     public override void LogicUpdate()
@@ -54,8 +56,9 @@ public class BasicMoveState : EnemyState
 
         if(!isExitingState)
         {
-            isTouchingWallFront = collisionSense.WallFront;
-            isCliffing = collisionSense.Cliffing;
+            isTouchingWallFront = basicEnemy.CollisionSense.WallFront;
+            isCliffing = basicEnemy.CollisionSense.Cliffing;
+            isPlayerDetected = basicEnemy.CollisionSense.PlayerDetected;
 
             core.Movement.SetVelocityX(basicEnemyData.movementVelocity * moveDirection);
 
@@ -68,6 +71,10 @@ public class BasicMoveState : EnemyState
             {
                 core.Movement.Flip();
                 moveDirection = core.Movement.FacingDirection;
+            }
+            else if(isPlayerDetected)
+            {
+                stateMachine.ChangeState(basicEnemy.PlayerDetectedState);
             }
         }
     }

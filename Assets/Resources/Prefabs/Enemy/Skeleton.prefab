@@ -243,6 +243,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyData: {fileID: 11400000, guid: 305af3ab6892f69499b0179449ddf406, type: 2}
+  Collider: {fileID: 4410650563116086606}
 --- !u!114 &4410650563116086601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,16 +256,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37eb5885c9366224cab0d9db2d261018, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 4410650563116086604}
+  basicEnemy: {fileID: 4410650563116086604}
   topWallCheck: {fileID: 4410650564860195762}
   bottomWallCheck: {fileID: 4410650563179582179}
   topWallBackCheck: {fileID: 4410650563041503814}
   bottomWallBackCheck: {fileID: 4410650563270695929}
   cliffCheck: {fileID: 4410650564426321566}
   cliffCheckDistance: 0.3
+  maxAggroDistance: 10
   whatIsGround:
     serializedVersion: 2
     m_Bits: 256
+  whatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 2304
 --- !u!1 &4410650563179582178
 GameObject:
   m_ObjectHideFlags: 0

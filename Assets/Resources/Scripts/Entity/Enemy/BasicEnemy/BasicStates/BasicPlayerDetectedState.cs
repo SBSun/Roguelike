@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class BasicPlayerDetectedState : EnemyState
 {
-    public BasicPlayerDetectedState(Enemy enemy, EnemyStateMachine stateMachine, SO_EnemyData enemyData, string animBoolName) : base(enemy, stateMachine, enemyData, animBoolName)
-    {
-    }
+    private readonly BasicEnemy basicEnemy;
+    private readonly SO_BasicEnemyData basicEnemyData;
+
+    public BasicPlayerDetectedState(BasicEnemy basicEnemy, EnemyStateMachine stateMachine, SO_EnemyData enemyData, string animBoolName) : base(basicEnemy, stateMachine, enemyData, animBoolName)
+    { 
+        this.basicEnemy = basicEnemy;
+        basicEnemyData = (SO_BasicEnemyData) enemyData;
+}
 
     public override void Enter()
     {
@@ -21,5 +26,6 @@ public class BasicPlayerDetectedState : EnemyState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+
     }
 }
