@@ -415,7 +415,11 @@ MonoBehaviour:
     m_Bits: 256
   whatIsPlayer:
     serializedVersion: 2
+    m_Bits: 2048
+  whatIsGroundOrPlayer:
+    serializedVersion: 2
     m_Bits: 2304
+  recognizeBoxSize: {x: 10, y: 2.3}
 --- !u!1 &483608044832966388
 GameObject:
   m_ObjectHideFlags: 0

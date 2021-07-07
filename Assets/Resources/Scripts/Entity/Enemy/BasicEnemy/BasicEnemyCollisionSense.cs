@@ -18,8 +18,11 @@ public class BasicEnemyCollisionSense : MonoBehaviour
 
     [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private LayerMask whatIsPlayer;
+    [SerializeField] private LayerMask whatIsGroundOrPlayer;
 
-    RaycastHit2D hitInfo;
+    private RaycastHit2D hitInfo;
+    [SerializeField] private Vector2 recognizeBoxSize;
+
     //캐릭터 앞에 벽이 있는지 체크
     public bool WallFront
     {
@@ -40,23 +43,31 @@ public class BasicEnemyCollisionSense : MonoBehaviour
     {
         get
         {
-            hitInfo = Physics2D.BoxCast(new Vector2(basicEnemy.Collider.bounds.center.x + basicEnemy.Collider.bounds.size.x / 2, basicEnemy.Collider.bounds.center.y), basicEnemy.Collider.bounds.size, 0f, Vector2.right * basicEnemy.Core.Movement.FacingDirection, maxAggroDistance, whatIsPlayer);
-            if (hitInfo)
+            Collider2D col = Physics2D.OverlapBox(basicEnemy.Collider.bounds.center, recognizeBoxSize, 0, whatIsPlayer);
+
+            if (col != null)
             {
-                Debug.Log(hitInfo.collider.name);
+ 
+                hitInfo = Physics2D.Raycast(basicEnemy.Collider.bounds.center, (col.transform.position - transform.position).normalized, Vector2.Distance(col.transform.position, transform.position), whatIsGroundOrPlayer);
+                Debug.DrawRay(basicEnemy.Collider.bounds.center, (col.transform.position - transform.position).normalized * hitInfo.distance);
+
                 if (hitInfo.collider.gameObject.layer == LayerMask.NameToLayer("Player"))
                     return true;
                 else
                     return false;
+
             }
             else
                 return false;
         }
     }
 
+    
     private void OnDrawGizmos()
     {
+        Gizmos.DrawWireCube(basicEnemy.Collider.bounds.center, recognizeBoxSize);
 
+        /*
         bool isHit = Physics2D.BoxCast(basicEnemy.Collider.bounds.center, basicEnemy.Collider.bounds.size, 0f, Vector2.right * basicEnemy.Core.Movement.FacingDirection, maxAggroDistance, whatIsPlayer);
 
 
@@ -67,6 +78,6 @@ public class BasicEnemyCollisionSense : MonoBehaviour
         else
         {
             Gizmos.DrawWireCube((Vector2)basicEnemy.Collider.bounds.center + Vector2.right * basicEnemy.Core.Movement.FacingDirection * maxAggroDistance, basicEnemy.Collider.bounds.size);
-        }
+        }*/
     }
 }
