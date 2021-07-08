@@ -14,8 +14,8 @@ public class PlayerWallJumpState : PlayerAbilityState
         base.Enter();
 
         player.JumpState.ResetAmountOfJumpsLeft();
-        core.Movement.SetVelocity(playerData.wallJumpVelocity, playerData.wallJumpAngle, wallJumpDirection);
-        core.Movement.CheckIfShouldFlip(wallJumpDirection);
+        player.Movement.SetVelocity(playerData.wallJumpVelocity, playerData.wallJumpAngle, wallJumpDirection);
+        player.Movement.CheckIfShouldFlip(wallJumpDirection);
         player.JumpState.DecreaseAmountOfJumpsLeft(playerData.amountOfJumps);
     }
 
@@ -23,8 +23,8 @@ public class PlayerWallJumpState : PlayerAbilityState
     {
         base.LogicUpdate();
 
-        player.Anim.SetFloat("yVelocity", core.Movement.CurrentVelocity.y);
-        player.Anim.SetFloat("xVelocity", Mathf.Abs(core.Movement.CurrentVelocity.x));
+        player.Anim.SetFloat("yVelocity", player.Movement.CurrentVelocity.y);
+        player.Anim.SetFloat("xVelocity", Mathf.Abs(player.Movement.CurrentVelocity.x));
 
         //wallJumpTime 시간을 더하여 다음 state로 바뀔 시간을 조정한다. 0.1초로 설정하면 점프 한 뒤 0.1초만에 inAirState로 변경되어 제자리에 멈추어 떨어짐
         if(Time.time >= startTime + playerData.wallJumpTime)
@@ -37,11 +37,11 @@ public class PlayerWallJumpState : PlayerAbilityState
     {
         if(isTouchingWall)
         {
-            wallJumpDirection = -core.Movement.FacingDirection;
+            wallJumpDirection = -player.Movement.FacingDirection;
         }
         else
         {
-            wallJumpDirection = core.Movement.FacingDirection;
+            wallJumpDirection = player.Movement.FacingDirection;
         }
     }
 }

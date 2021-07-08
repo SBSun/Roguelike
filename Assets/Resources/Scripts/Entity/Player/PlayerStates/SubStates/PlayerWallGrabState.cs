@@ -12,14 +12,14 @@ public class PlayerWallGrabState : PlayerTouchingWallState
     {
         base.Enter();
         //포지션 고정
-        core.Movement.SetHoldPosition();
-        core.Movement.HoldPosition();
+        player.Movement.SetHoldPosition();
+        player.Movement.HoldPosition();
     }
 
     public override void Exit()
     {
         base.Exit();
-        core.Movement.SetGravityScale(playerData.defaultGravity);
+        player.Movement.SetGravityScale(playerData.defaultGravity);
     }
 
     public override void LogicUpdate()
@@ -28,7 +28,7 @@ public class PlayerWallGrabState : PlayerTouchingWallState
 
         if(!isExitingState)
         {
-            core.Movement.HoldPosition();
+            player.Movement.HoldPosition();
             if (yInput > 0) //Grab상태에서 방향키 윗키를 누르면 벽 오르기 상태로 변환
                 stateMachine.ChangeState(player.WallClimbState);
             else if (yInput < 0 || !grabInput)

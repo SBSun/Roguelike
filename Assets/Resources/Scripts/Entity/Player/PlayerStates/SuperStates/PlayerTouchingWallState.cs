@@ -58,7 +58,7 @@ public class PlayerTouchingWallState : PlayerState
             stateMachine.ChangeState(player.IdleState);
         }
         //캐릭터 앞에 벽이 없거나 || 방향키가 벽 방향을 누르고 있지 않으면 -> InAirState
-        else if(!isTouchingWall || (xInput != core.Movement.FacingDirection && !grabInput))
+        else if(!isTouchingWall || (xInput != player.Movement.FacingDirection && !grabInput))
         {
             stateMachine.ChangeState(player.InAirState);
         }

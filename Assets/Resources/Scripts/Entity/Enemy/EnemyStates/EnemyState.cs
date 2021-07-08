@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class EnemyState
 {
-    protected Core core;
-
     protected Enemy enemy;
     protected EnemyStateMachine stateMachine;
     protected SO_EnemyData enemyData;
@@ -23,7 +21,6 @@ public class EnemyState
         this.stateMachine = stateMachine;
         this.enemyData = enemyData;
         this.animBoolName = animBoolName;
-        core = enemy.Core;
     }
 
     //해당 State가 시작될 때 한 번 실행

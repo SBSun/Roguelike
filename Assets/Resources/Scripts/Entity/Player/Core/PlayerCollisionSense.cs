@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollisionSense : MonoBehaviour
+public class PlayerCollisionSense : MonoBehaviour
 {
     [SerializeField]
     private Player player;
@@ -35,17 +35,17 @@ public class CollisionSense : MonoBehaviour
     //캐릭터 앞에 벽이 있는지 체크
     public bool WallFront
     {
-        get => Physics2D.Raycast(wallCheck.position, Vector2.right * player.Core.Movement.FacingDirection, wallCheckDistance, whatIsGround);
+        get => Physics2D.Raycast(wallCheck.position, Vector2.right * player.Movement.FacingDirection, wallCheckDistance, whatIsGround);
     }
     //캐릭터 뒤에 벽이 있는지 체크
     public bool WallBack
     {
-        get => Physics2D.Raycast(wallCheck.position, Vector2.right * -player.Core.Movement.FacingDirection, wallCheckDistance, whatIsGround);
+        get => Physics2D.Raycast(wallCheck.position, Vector2.right * -player.Movement.FacingDirection, wallCheckDistance, whatIsGround);
     }
 
     public bool Ledge
     {
-        get => Physics2D.Raycast(ledgeCheck.position, Vector2.right * player.Core.Movement.FacingDirection, wallCheckDistance, whatIsGround);
+        get => Physics2D.Raycast(ledgeCheck.position, Vector2.right * player.Movement.FacingDirection, wallCheckDistance, whatIsGround);
     }
 
     public bool Ceiling

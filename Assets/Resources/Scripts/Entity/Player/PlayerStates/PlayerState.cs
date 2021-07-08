@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerState
 {
-    protected Core core;
-
     protected Player player;
     protected PlayerStateMachine stateMachine;
     protected SO_PlayerData playerData;
@@ -24,7 +22,6 @@ public class PlayerState
         this.stateMachine = stateMachine;
         this.playerData = playerData;
         this.animBoolName = animBoolName;
-        core = player.Core;
     }
 
     //해당 State가 시작될 때 한 번 실행

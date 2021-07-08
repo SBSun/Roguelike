@@ -12,7 +12,7 @@ public class PlayerIdleState : PlayerGroundedState
     {
         base.Enter();
 
-        core.Movement.SetVelocityZero();
+        player.Movement.SetVelocityZero();
     }
 
     public override void LogicUpdate()

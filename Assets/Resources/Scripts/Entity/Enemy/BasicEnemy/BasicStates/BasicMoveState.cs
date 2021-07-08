@@ -35,7 +35,7 @@ public class BasicMoveState : EnemyState
         if (basicEnemy.CollisionSense.WallBack)
         {
             Debug.Log("벽 있음");
-            moveDirection = enemy.Core.Movement.FacingDirection;
+            moveDirection = basicEnemy.Movement.FacingDirection;
         }
         else
             SetRandomMoveDirection();
@@ -47,7 +47,7 @@ public class BasicMoveState : EnemyState
     {
         base.Exit();
 
-        core.Movement.SetVelocityZero();
+        basicEnemy.Movement.SetVelocityZero();
     }
 
     public override void LogicUpdate()
@@ -60,7 +60,7 @@ public class BasicMoveState : EnemyState
             isCliffing = basicEnemy.CollisionSense.Cliffing;
             isPlayerDetected = basicEnemy.CollisionSense.PlayerDetected;
 
-            core.Movement.SetVelocityX(basicEnemyData.movementVelocity * moveDirection);
+            basicEnemy.Movement.SetVelocityX(basicEnemyData.movementVelocity * moveDirection);
 
             if (Time.time > startTime + moveTime)
             {
@@ -69,8 +69,8 @@ public class BasicMoveState : EnemyState
             //앞에 벽이 있거나 땅이 없으면
             else if (isTouchingWallFront || isCliffing)
             {
-                core.Movement.Flip();
-                moveDirection = core.Movement.FacingDirection;
+                basicEnemy.Movement.Flip();
+                moveDirection = basicEnemy.Movement.FacingDirection;
             }
             else if(isPlayerDetected)
             {
@@ -96,7 +96,7 @@ public class BasicMoveState : EnemyState
         if (moveDirection == 0)
             moveDirection = -1;
 
-        if (moveDirection != core.Movement.FacingDirection)
-            core.Movement.Flip();
+        if (moveDirection != basicEnemy.Movement.FacingDirection)
+            basicEnemy.Movement.Flip();
     }
 }

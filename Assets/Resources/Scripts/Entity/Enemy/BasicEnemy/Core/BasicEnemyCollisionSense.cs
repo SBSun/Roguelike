@@ -62,10 +62,26 @@ public class BasicEnemyCollisionSense : MonoBehaviour
         }
     }
 
+    public int PlayerDirection
+    {
+        get
+        {
+            //플레이어가 Enemy의 왼쪽에 있으면
+            if(hitInfo.collider.transform.position.x < transform.position.x)
+            {
+                return -1;
+            }
+            else
+            {
+                return 1;
+            }
+        }
+    }
+
     
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireCube(basicEnemy.Collider.bounds.center, recognizeBoxSize);
+        //Gizmos.DrawWireCube(basicEnemy.Collider.bounds.center, recognizeBoxSize);
 
         /*
         bool isHit = Physics2D.BoxCast(basicEnemy.Collider.bounds.center, basicEnemy.Collider.bounds.size, 0f, Vector2.right * basicEnemy.Core.Movement.FacingDirection, maxAggroDistance, whatIsPlayer);

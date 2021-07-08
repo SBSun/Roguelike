@@ -8,6 +8,7 @@ public class BasicPlayerDetectedState : EnemyState
     private readonly SO_BasicEnemyData basicEnemyData;
 
     private bool isPlayerDetected;
+    private int playerDirection;
 
     public BasicPlayerDetectedState(BasicEnemy basicEnemy, EnemyStateMachine stateMachine, SO_EnemyData enemyData, string animBoolName) : base(basicEnemy, stateMachine, enemyData, animBoolName)
     { 
@@ -30,15 +31,23 @@ public class BasicPlayerDetectedState : EnemyState
     {
         base.LogicUpdate();
 
-        /*
+        
         isPlayerDetected = basicEnemy.CollisionSense.PlayerDetected;
 
-        if(!isPlayerDetected)
+        if(isPlayerDetected)
+        {
+            playerDirection = basicEnemy.CollisionSense.PlayerDirection;
+            basicEnemy.Movement.PlayerDirectionFlip(playerDirection);
+        }
+        else
         {
             stateMachine.ChangeState(basicEnemy.IdleState);
         }
 
-        basicEnemy.Core.Movement.SetVelocityX(basicEnemyData.movementVelocity);
-        */
+
+        basicEnemy.Movement.SetVelocityX(basicEnemyData.movementVelocity * playerDirection);
+        
     }
+
+   
 }

@@ -10,7 +10,6 @@ public class Enemy : MonoBehaviour, IDamageable
 {
 
     public EnemyStateMachine StateMachine { get; private set; }
-    public Core Core { get; private set; }
     public Rigidbody2D RB { get; private set; }
     public Animator Anim { get; private set; }
 
@@ -21,7 +20,7 @@ public class Enemy : MonoBehaviour, IDamageable
     protected virtual void Awake()
     {
         StateMachine = new EnemyStateMachine();
-        Core = GetComponentInChildren<Core>();
+     
         RB = GetComponent<Rigidbody2D>();
         Anim = GetComponent<Animator>();
     }
@@ -43,12 +42,11 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public virtual void Damage(float amount)
     {
-        //Core.HealthCondition.DecreaseHP(amount);
-
-        if (Core.HealthCondition.CurrentHP <= 0)
+        /*
+        if (HealthCondition.CurrentHP <= 0)
         {
             Death();
-        }
+        }*/
     }
 
     public virtual void Death()

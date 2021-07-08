@@ -39,13 +39,13 @@ public class PlayerLedgeClimbState : PlayerState
     {
         base.Enter();
 
-        core.Movement.SetVelocityZero();
-        core.Movement.SetGravityScale(0);
+        player.Movement.SetVelocityZero();
+        player.Movement.SetGravityScale(0);
         player.transform.position = detectedPos;
         cornerPos = DetermineCornerPosition();
 
-        startPos.Set(cornerPos.x - (core.Movement.FacingDirection * playerData.startOffset.x), cornerPos.y - playerData.startOffset.y);
-        stopPos.Set(cornerPos.x + (core.Movement.FacingDirection * playerData.stopOffset.x), cornerPos.y + playerData.stopOffset.y);
+        startPos.Set(cornerPos.x - (player.Movement.FacingDirection * playerData.startOffset.x), cornerPos.y - playerData.startOffset.y);
+        stopPos.Set(cornerPos.x + (player.Movement.FacingDirection * playerData.stopOffset.x), cornerPos.y + playerData.stopOffset.y);
 
         player.transform.position = startPos;
     }
@@ -53,7 +53,7 @@ public class PlayerLedgeClimbState : PlayerState
     public override void Exit()
     {
         base.Exit();
-        core.Movement.SetGravityScale(playerData.defaultGravity);
+        player.Movement.SetGravityScale(playerData.defaultGravity);
         if (isHanging)
         {
             player.Anim.SetBool(animBoolName, false);
@@ -86,10 +86,10 @@ public class PlayerLedgeClimbState : PlayerState
             yInput = player.InputHandler.NormInputY;
             jumpInput = player.InputHandler.JumpInput;
 
-            core.Movement.SetVelocityZero();
+            player.Movement.SetVelocityZero();
             player.transform.position = startPos;
 
-            if (xInput == core.Movement.FacingDirection && isHanging && !isClimbing)
+            if (xInput == player.Movement.FacingDirection && isHanging && !isClimbing)
             {
                 CheckForSpace();
                 isClimbing = true;
@@ -119,10 +119,10 @@ public class PlayerLedgeClimbState : PlayerState
     private Vector2 DetermineCornerPosition()
     {
         //캐릭터와 벽의 사이 길이 구하기
-        RaycastHit2D xHit = Physics2D.Raycast(player.CollisionSense.WallCheck.position, Vector2.right * core.Movement.FacingDirection, player.CollisionSense.WallCheckDistance, player.CollisionSense.WhatIsGround);
+        RaycastHit2D xHit = Physics2D.Raycast(player.CollisionSense.WallCheck.position, Vector2.right * player.Movement.FacingDirection, player.CollisionSense.WallCheckDistance, player.CollisionSense.WhatIsGround);
         float xDist = xHit.distance;
         //캐릭터와 벽 사이 길이 + 0.01(무조건 땅에 닿게 하기 위해 더함) * 캐릭터 방향  
-        workSpace.Set((xDist + 0.01f) * core.Movement.FacingDirection, 0f);
+        workSpace.Set((xDist + 0.01f) * player.Movement.FacingDirection, 0f);
         //ledgeCheck.y와 벽의 사이 길이 구하기
         RaycastHit2D yHit = Physics2D.Raycast(player.CollisionSense.LedgeCheck.position + (Vector3)workSpace, Vector2.down, player.CollisionSense.LedgeCheck.position.y - player.CollisionSense.WallCheck.position.y, player.CollisionSense.WhatIsGround);
 

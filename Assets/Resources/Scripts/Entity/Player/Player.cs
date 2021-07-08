@@ -25,13 +25,15 @@ public class Player : MonoBehaviour, IDamageable
     #endregion
 
     #region 컴포넌트
-    public Core Core { get; private set; }
     public Rigidbody2D RB { get; private set; }
     public Animator Anim { get; private set; }
 
+
     public PlayerInputHandler InputHandler { get; private set; }
-    public CollisionSense CollisionSense { get; private set; }
-    
+    public PlayerCollisionSense CollisionSense { get; private set; }
+    public PlayerMovement Movement { get; private set; }
+    public PlayerHealthCondition HealthCondition { get; private set; }
+
     [SerializeField]
     private SO_PlayerData PlayerData;
     public Transform DashDirectionIndicator { get; private set; }
@@ -44,7 +46,6 @@ public class Player : MonoBehaviour, IDamageable
     #region 유니티 콜백 함수
     private void Awake()
     {
-        Core = GetComponentInChildren<Core>();
         StateMachine = new PlayerStateMachine();
         IdleState = new PlayerIdleState(this, StateMachine, PlayerData, "idle");
         MoveState = new PlayerMoveState(this, StateMachine, PlayerData, "move");
@@ -70,7 +71,9 @@ public class Player : MonoBehaviour, IDamageable
         RB = GetComponent<Rigidbody2D>();
         Anim = GetComponent<Animator>();
         InputHandler = GetComponent<PlayerInputHandler>();
-        CollisionSense = GetComponent<CollisionSense>();
+        CollisionSense = GetComponentInChildren<PlayerCollisionSense>();
+        Movement = GetComponentInChildren<PlayerMovement>();
+        HealthCondition = GetComponentInChildren<PlayerHealthCondition>();
         DashDirectionIndicator = transform.Find("DashDirectionIndicator");
         WeaponInventory = GetComponentInChildren<WeaponInventory>();
 
@@ -79,7 +82,7 @@ public class Player : MonoBehaviour, IDamageable
 
     private void Update()
     {
-        Core.LogicUpdate();
+        Movement.LogicUpdate();
         StateMachine.CurrentState.LogicUpdate();
     }
 
@@ -97,7 +100,7 @@ public class Player : MonoBehaviour, IDamageable
     {
         //Core.HealthCondition.DecreaseHP(amount);
 
-        if (Core.HealthCondition.CurrentHP <= 0)
+        if (HealthCondition.CurrentHP <= 0)
         {
             Death();
         }

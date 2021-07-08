@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthCondition : CoreComponent
+public class PlayerHealthCondition : MonoBehaviour
 {
     public float CurrentHP { get; private set; }
 /*

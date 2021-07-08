@@ -11,13 +11,13 @@ public class PlayerWallClimbState : PlayerTouchingWallState
     public override void Enter()
     {
         base.Enter();
-        core.Movement.SetGravityScale(0);
+        player.Movement.SetGravityScale(0);
     }
 
     public override void Exit()
     {
         base.Exit();
-        core.Movement.SetGravityScale(playerData.defaultGravity);
+        player.Movement.SetGravityScale(playerData.defaultGravity);
     }
 
     public override void LogicUpdate()
@@ -27,7 +27,7 @@ public class PlayerWallClimbState : PlayerTouchingWallState
         if (!isExitingState)
         {
             //방향키 윗키를 누르고 있으면 wallClimbVelocity값 만큼 위로 이동
-            core.Movement.SetVelocityY(playerData.wallClimbVelocity); 
+            player.Movement.SetVelocityY(playerData.wallClimbVelocity); 
             //방향키 윗키를 누르고 있지 않으면 WallGrabState로 변환
             if (yInput != 1)
                 stateMachine.ChangeState(player.WallGrabState);

@@ -19,7 +19,7 @@ public class BasicIdleState : EnemyState
     public override void Enter()
     {
         base.Enter();
-        core.Movement.SetVelocityZero();
+        basicEnemy.Movement.SetVelocityZero();
         isPlayerDetected = false;
         SetRandomIdleTime();
     }
@@ -27,6 +27,7 @@ public class BasicIdleState : EnemyState
     public override void Exit()
     {
         base.Exit();
+
     }
 
     public override void LogicUpdate()
@@ -39,9 +40,10 @@ public class BasicIdleState : EnemyState
 
             if (Time.time >= startTime + idleTime)
             {
+
                 stateMachine.ChangeState(basicEnemy.MoveState);
             }
-            else if(isPlayerDetected)
+            else if (isPlayerDetected)
             {
                 stateMachine.ChangeState(basicEnemy.PlayerDetectedState);
             }
