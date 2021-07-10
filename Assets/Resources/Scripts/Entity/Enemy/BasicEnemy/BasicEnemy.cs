@@ -25,12 +25,16 @@ public class BasicEnemy : Enemy
     }
 
     protected override void Start()
-    { 
+    {
+        base.Start();
+
         StateMachine.Initialize(IdleState);
     }
 
     protected override void Update()
     {
+        base.Update();
+
         Movement.LogicUpdate();
     }
 }

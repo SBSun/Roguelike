@@ -23,6 +23,7 @@ public class BasicEnemyCollisionSense : MonoBehaviour
     private RaycastHit2D hitInfo;
     [SerializeField] private Vector2 recognizeBoxSize;
 
+
     //캐릭터 앞에 벽이 있는지 체크
     public bool WallFront
     {
@@ -66,14 +67,21 @@ public class BasicEnemyCollisionSense : MonoBehaviour
     {
         get
         {
-            //플레이어가 Enemy의 왼쪽에 있으면
-            if(hitInfo.collider.transform.position.x < transform.position.x)
+            if(Mathf.Abs(hitInfo.collider.transform.position.x - transform.position.x) > hitInfo.collider.bounds.size.x)
             {
-                return -1;
-            }
+                //플레이어가 Enemy의 왼쪽에 있으면
+                if (hitInfo.collider.transform.position.x < transform.position.x)
+                {
+                    return -1;
+                }
+                else
+                {
+                    return 1;
+                }
+            }    
             else
             {
-                return 1;
+                return 0;
             }
         }
     }
@@ -81,7 +89,7 @@ public class BasicEnemyCollisionSense : MonoBehaviour
     
     private void OnDrawGizmos()
     {
-        //Gizmos.DrawWireCube(basicEnemy.Collider.bounds.center, recognizeBoxSize);
+        Gizmos.DrawWireCube(basicEnemy.Collider.bounds.center, recognizeBoxSize);
 
         /*
         bool isHit = Physics2D.BoxCast(basicEnemy.Collider.bounds.center, basicEnemy.Collider.bounds.size, 0f, Vector2.right * basicEnemy.Core.Movement.FacingDirection, maxAggroDistance, whatIsPlayer);

@@ -483,7 +483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37eb5885c9366224cab0d9db2d261018, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  basicEnemy: {fileID: 0}
+  basicEnemy: {fileID: 1950082477360663381}
   topWallCheck: {fileID: 483608043740016933}
   bottomWallCheck: {fileID: 483608044449222875}
   topWallBackCheck: {fileID: 5014245912361550852}

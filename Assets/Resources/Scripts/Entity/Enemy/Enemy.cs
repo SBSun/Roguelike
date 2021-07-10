@@ -23,15 +23,18 @@ public class Enemy : MonoBehaviour, IDamageable
      
         RB = GetComponent<Rigidbody2D>();
         Anim = GetComponent<Animator>();
+
     }
+
 
     protected virtual void Start()
     {
-
+        
     }
 
     protected virtual void Update()
     {
+        Debug.Log("Update");
         StateMachine.CurrentState.LogicUpdate();
     }
 
