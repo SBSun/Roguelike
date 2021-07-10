@@ -451,7 +451,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8171342851859113624}
   - component: {fileID: 1720431873263771844}
-  m_Layer: 9
+  m_Layer: 13
   m_Name: AttackCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -482,7 +482,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
