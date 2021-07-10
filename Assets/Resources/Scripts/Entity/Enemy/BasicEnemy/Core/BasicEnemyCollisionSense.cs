@@ -53,7 +53,10 @@ public class BasicEnemyCollisionSense : MonoBehaviour
                 Debug.DrawRay(basicEnemy.Collider.bounds.center, (col.transform.position - transform.position).normalized * hitInfo.distance);
 
                 if (hitInfo.collider.gameObject.layer == LayerMask.NameToLayer("Player"))
+                {
+                    basicEnemy.PlayerDetectedState.PlayerDirection(col);
                     return true;
+                }
                 else
                     return false;
 
@@ -62,30 +65,6 @@ public class BasicEnemyCollisionSense : MonoBehaviour
                 return false;
         }
     }
-
-    public int PlayerDirection
-    {
-        get
-        {
-            if(Mathf.Abs(hitInfo.collider.transform.position.x - transform.position.x) > hitInfo.collider.bounds.size.x)
-            {
-                //플레이어가 Enemy의 왼쪽에 있으면
-                if (hitInfo.collider.transform.position.x < transform.position.x)
-                {
-                    return -1;
-                }
-                else
-                {
-                    return 1;
-                }
-            }    
-            else
-            {
-                return 0;
-            }
-        }
-    }
-
     
     private void OnDrawGizmos()
     {

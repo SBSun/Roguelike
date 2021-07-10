@@ -36,7 +36,7 @@ public class BasicPlayerDetectedState : EnemyState
 
         if(isPlayerDetected)
         {
-            playerDirection = basicEnemy.CollisionSense.PlayerDirection;
+
             basicEnemy.Movement.PlayerDirectionFlip(playerDirection);
         }
         else
@@ -49,5 +49,19 @@ public class BasicPlayerDetectedState : EnemyState
         
     }
 
-   
+    public void PlayerDirection(Collider2D playerCol)
+    {
+        if (Mathf.Abs(playerCol.transform.position.x - basicEnemy.transform.position.x) > playerCol.bounds.size.x)
+        {
+            //플레이어가 Enemy의 왼쪽에 있으면
+            if (playerCol.transform.position.x < basicEnemy.transform.position.x)
+            {
+                playerDirection = -1;
+            }
+            else
+            {
+                playerDirection = 1;
+            }
+        }
+    }
 }
