@@ -12844,6 +12844,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Skeleton
       objectReference: {fileID: 0}
+    - target: {fileID: 4410650563116086597, guid: 93b850d33bd44924daddc1bc107c1e0a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4410650563116086601, guid: 93b850d33bd44924daddc1bc107c1e0a, type: 3}
       propertyPath: whatIsGround.m_Bits
       value: 256

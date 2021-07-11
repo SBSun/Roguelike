@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class AttackInfoToEnemy : MonoBehaviour
 {
-    private BasicEnemy basicEnemy;
+    private Enemy enemy;
 
     private void Awake()
     {
-        basicEnemy = GetComponentInParent<BasicEnemy>();
+        enemy = GetComponentInParent<Enemy>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

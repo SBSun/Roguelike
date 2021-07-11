@@ -12,9 +12,10 @@ public class Enemy : MonoBehaviour, IDamageable
     public EnemyStateMachine StateMachine { get; private set; }
     public Rigidbody2D RB { get; private set; }
     public Animator Anim { get; private set; }
+    public BoxCollider2D Collider { get; private set; }
 
     [SerializeField]
-    protected D_Enemy D_Enemy;
+    protected D_Enemy enemyData;
 
     protected virtual void Awake()
     {
@@ -22,7 +23,7 @@ public class Enemy : MonoBehaviour, IDamageable
      
         RB = GetComponent<Rigidbody2D>();
         Anim = GetComponent<Animator>();
-
+        Collider = GetComponent<BoxCollider2D>();
     }
 
 
@@ -33,7 +34,6 @@ public class Enemy : MonoBehaviour, IDamageable
 
     protected virtual void Update()
     {
-        Debug.Log("Update");
         StateMachine.CurrentState.LogicUpdate();
     }
 

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 483608043591421583}
-  - component: {fileID: 2182355348399890872}
+  - component: {fileID: 5582403235705513891}
   m_Layer: 7
   m_Name: Movement
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 483608044605205037}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2182355348399890872
+--- !u!114 &5582403235705513891
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,7 +40,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 483608043591421580}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ef84ea01ecbd0141b1f7365f48137c5, type: 3}
+  m_Script: {fileID: 11500000, guid: fff18930cd240934e92b933e62714553, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &483608043634139013
@@ -82,7 +82,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 483608043672417862}
-  - component: {fileID: 2755888082522764639}
   m_Layer: 7
   m_Name: HealthCondition
   m_TagString: Untagged
@@ -104,18 +103,6 @@ Transform:
   m_Father: {fileID: 483608044605205037}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2755888082522764639
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 483608043672417863}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21c80d2afd886284bbcce63b8df5427a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &483608043740016930
 GameObject:
   m_ObjectHideFlags: 0
@@ -189,7 +176,7 @@ GameObject:
   - component: {fileID: 483608044605205035}
   - component: {fileID: 483608044605205038}
   - component: {fileID: 483608044605205039}
-  - component: {fileID: 1950082477360663381}
+  - component: {fileID: 6028196579049935132}
   m_Layer: 9
   m_Name: Goblin
   m_TagString: Enemy
@@ -333,7 +320,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.9, y: 2.3}
   m_EdgeRadius: 0
---- !u!114 &1950082477360663381
+--- !u!114 &6028196579049935132
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -342,10 +329,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 483608044605205032}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0eb18bd23c46c264cb58286f724d4cc1, type: 3}
+  m_Script: {fileID: 11500000, guid: 3df8016e74450194fbbb0db3100e77f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyData: {fileID: 11400000, guid: c856f03abba2d7f41a547b8bd3778b4c, type: 2}
+  enemyData: {fileID: 11400000, guid: b8225fd70be108d4ca7eca79cdbf6908, type: 2}
 --- !u!1 &483608044832966388
 GameObject:
   m_ObjectHideFlags: 0
@@ -507,7 +494,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1761306701100117461}
-  - component: {fileID: 5316781996853764762}
+  - component: {fileID: 5080244341841211311}
   m_Layer: 9
   m_Name: CollsionSense
   m_TagString: Untagged
@@ -529,7 +516,7 @@ Transform:
   m_Father: {fileID: 483608044605205037}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5316781996853764762
+--- !u!114 &5080244341841211311
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -538,17 +525,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 8412885472340585602}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37eb5885c9366224cab0d9db2d261018, type: 3}
+  m_Script: {fileID: 11500000, guid: 1382517b9d52d3e41be1f4120d7fe64a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  basicEnemy: {fileID: 1950082477360663381}
   topWallCheck: {fileID: 483608043740016933}
   bottomWallCheck: {fileID: 483608044449222875}
   topWallBackCheck: {fileID: 5014245912361550852}
   bottomWallBackCheck: {fileID: 2629889570978934222}
   cliffCheck: {fileID: 483608043634139012}
-  cliffCheckDistance: 0.3
-  maxAggroDistance: 10
+  cliffCheckDistance: 0.2
   whatIsGround:
     serializedVersion: 2
     m_Bits: 256

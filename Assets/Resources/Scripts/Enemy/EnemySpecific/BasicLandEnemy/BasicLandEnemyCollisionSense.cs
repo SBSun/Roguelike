@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicEnemyCollisionSense : MonoBehaviour
+public class BasicLandEnemyCollisionSense : MonoBehaviour
 {
-    [SerializeField]
-    private BasicEnemy basicEnemy;
+    private Enemy enemy;
 
     [SerializeField] private Transform topWallCheck;
     [SerializeField] private Transform bottomWallCheck;
@@ -14,7 +13,6 @@ public class BasicEnemyCollisionSense : MonoBehaviour
     [SerializeField] private Transform cliffCheck;
 
     [SerializeField] private float cliffCheckDistance;
-    [SerializeField] private float maxAggroDistance;
 
     [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private LayerMask whatIsPlayer;
@@ -23,6 +21,11 @@ public class BasicEnemyCollisionSense : MonoBehaviour
     private RaycastHit2D hitInfo;
     [SerializeField] private Vector2 recognizeBoxSize;
 
+
+    private void Awake()
+    {
+        enemy = GetComponentInParent<Enemy>();
+    }
 
     //캐릭터 앞에 벽이 있는지 체크
     public bool WallFront
@@ -44,17 +47,16 @@ public class BasicEnemyCollisionSense : MonoBehaviour
     {
         get
         {
-            Collider2D col = Physics2D.OverlapBox(basicEnemy.Collider.bounds.center, recognizeBoxSize, 0, whatIsPlayer);
+            Collider2D col = Physics2D.OverlapBox(enemy.Collider.bounds.center, recognizeBoxSize, 0, whatIsPlayer);
 
             if (col != null)
             {
- 
-                hitInfo = Physics2D.Raycast(basicEnemy.Collider.bounds.center, (col.transform.position - transform.position).normalized, Vector2.Distance(col.transform.position, transform.position), whatIsGroundOrPlayer);
-                Debug.DrawRay(basicEnemy.Collider.bounds.center, (col.transform.position - transform.position).normalized * hitInfo.distance);
+
+                hitInfo = Physics2D.Raycast(enemy.Collider.bounds.center, (col.transform.position - transform.position).normalized, Vector2.Distance(col.transform.position, transform.position), whatIsGroundOrPlayer);
+                Debug.DrawRay(enemy.Collider.bounds.center, (col.transform.position - transform.position).normalized * hitInfo.distance);
 
                 if (hitInfo.collider.gameObject.layer == LayerMask.NameToLayer("Player"))
                 {
-                    basicEnemy.PlayerDetectedState.PlayerDirection(col);
                     return true;
                 }
                 else
@@ -65,10 +67,9 @@ public class BasicEnemyCollisionSense : MonoBehaviour
                 return false;
         }
     }
-    
     private void OnDrawGizmos()
     {
-        //Gizmos.DrawWireCube(basicEnemy.Collider.bounds.center, recognizeBoxSize);
+        Gizmos.DrawWireCube(enemy.Collider.bounds.center, recognizeBoxSize);
 
         /*
         bool isHit = Physics2D.BoxCast(basicEnemy.Collider.bounds.center, basicEnemy.Collider.bounds.size, 0f, Vector2.right * basicEnemy.Core.Movement.FacingDirection, maxAggroDistance, whatIsPlayer);
@@ -83,4 +84,5 @@ public class BasicEnemyCollisionSense : MonoBehaviour
             Gizmos.DrawWireCube((Vector2)basicEnemy.Collider.bounds.center + Vector2.right * basicEnemy.Core.Movement.FacingDirection * maxAggroDistance, basicEnemy.Collider.bounds.size);
         }*/
     }
+
 }
