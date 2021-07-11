@@ -100,6 +100,7 @@ GameObject:
   - component: {fileID: 4410650563116086600}
   - component: {fileID: 4410650563116086607}
   - component: {fileID: 4410650563116086606}
+  - component: {fileID: 8668186229147286713}
   m_Layer: 9
   m_Name: Skeleton
   m_TagString: Enemy
@@ -243,6 +244,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.7271256, y: 3.2194023}
   m_EdgeRadius: 0
+--- !u!114 &8668186229147286713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4410650563116086597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60d2d128768ecbb42bca6ee959b4c168, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyData: {fileID: 11400000, guid: 79e200adb2b9d7447b3520a138c7df6d, type: 2}
 --- !u!1 &4410650563179582178
 GameObject:
   m_ObjectHideFlags: 0
@@ -347,6 +361,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4410650564004636247}
+  - component: {fileID: 9066725012677221771}
   m_Layer: 7
   m_Name: Movement
   m_TagString: Untagged
@@ -368,6 +383,18 @@ Transform:
   m_Father: {fileID: 4410650563116086603}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9066725012677221771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4410650564004636246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fff18930cd240934e92b933e62714553, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4410650564012206481
 GameObject:
   m_ObjectHideFlags: 0
@@ -467,6 +494,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1663208644002393523}
+  - component: {fileID: 8310215620911416515}
   m_Layer: 9
   m_Name: CollsionSense
   m_TagString: Untagged
@@ -488,3 +516,31 @@ Transform:
   m_Father: {fileID: 4410650563116086603}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8310215620911416515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5598685421838656451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1382517b9d52d3e41be1f4120d7fe64a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  topWallCheck: {fileID: 4410650564860195762}
+  bottomWallCheck: {fileID: 4410650563179582179}
+  topWallBackCheck: {fileID: 4410650563041503814}
+  bottomWallBackCheck: {fileID: 4410650563270695929}
+  cliffCheck: {fileID: 4410650564426321566}
+  cliffCheckDistance: 0.2
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 256
+  whatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 2048
+  whatIsGroundOrPlayer:
+    serializedVersion: 2
+    m_Bits: 2304
+  recognizeBoxSize: {x: 10, y: 3.219402}

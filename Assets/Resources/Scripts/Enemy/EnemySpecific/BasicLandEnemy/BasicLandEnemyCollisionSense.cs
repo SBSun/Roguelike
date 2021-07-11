@@ -20,6 +20,8 @@ public class BasicLandEnemyCollisionSense : MonoBehaviour
 
     private RaycastHit2D hitInfo;
     [SerializeField] private Vector2 recognizeBoxSize;
+    [SerializeField] private Vector2 attackAreaCenter;
+    [SerializeField] private Vector2 attackAreaSize;
 
 
     private void Awake()
@@ -67,6 +69,24 @@ public class BasicLandEnemyCollisionSense : MonoBehaviour
                 return false;
         }
     }
+
+    public bool PlayerInAttackArea
+    {
+        get
+        {
+            Collider2D col = Physics2D.OverlapBox(attackAreaCenter, attackAreaSize, 0, whatIsPlayer);
+
+            if(col != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(enemy.Collider.bounds.center, recognizeBoxSize);

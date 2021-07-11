@@ -9,12 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f24fadda5d3a75d469fde6898c2d1cf2, type: 3}
-  m_Name: Skeleton Data
+  m_Script: {fileID: 11500000, guid: 0a191c59a01e6aa4382ea0ad1e2ecf48, type: 3}
+  m_Name: D_Skeleton
   m_EditorClassIdentifier: 
+  enemyType: 0
+  attackType: 1
   maxHP: 100
-  minIdleTime: 3
+  minIdleTime: 2
   maxIdleTime: 5
-  minMoveTime: 3
+  minMoveTime: 2
   maxMoveTime: 5
-  movementVelocity: 1.5
+  movementVelocity: 4
