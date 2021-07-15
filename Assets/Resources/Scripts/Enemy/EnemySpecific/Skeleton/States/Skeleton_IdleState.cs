@@ -5,16 +5,14 @@ using UnityEngine;
 public class Skeleton_IdleState : EnemyState
 {
     private Skeleton skeleton;
-    private D_Skeleton enemyData;
 
     private float idleTime;
 
     private bool isPlayerDetected;
 
-    public Skeleton_IdleState(Skeleton skeleton, EnemyStateMachine stateMachine, string animBoolName, D_Skeleton enemyData) : base(skeleton, stateMachine, animBoolName, enemyData)
+    public Skeleton_IdleState(Skeleton skeleton, EnemyStateMachine stateMachine, string animBoolName) : base(skeleton, stateMachine, animBoolName)
     {
         this.skeleton = skeleton;
-        this.enemyData = enemyData;
     }
 
     public override void Enter()
@@ -35,19 +33,16 @@ public class Skeleton_IdleState : EnemyState
     {
         base.LogicUpdate();
 
-        if (!isExitingState)
+        isPlayerDetected = skeleton.CollisionSense.PlayerDetected;
+
+        if (Time.time >= startTime + idleTime)
         {
-            isPlayerDetected = skeleton.CollisionSense.PlayerDetected;
 
-            if (Time.time >= startTime + idleTime)
-            {
-
-                stateMachine.ChangeState(skeleton.MoveState);
-            }
-            else if (isPlayerDetected)
-            {
-                stateMachine.ChangeState(skeleton.PlayerDetectedState);
-            }
+            stateMachine.ChangeState(skeleton.MoveState);
+        }
+        else if (isPlayerDetected)
+        {
+            stateMachine.ChangeState(skeleton.PlayerDetectedState);
         }
     }
 

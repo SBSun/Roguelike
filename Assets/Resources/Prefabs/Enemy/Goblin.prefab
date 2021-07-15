@@ -438,6 +438,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8171342851859113624}
   - component: {fileID: 1720431873263771844}
+  - component: {fileID: 3627702411946349946}
   m_Layer: 13
   m_Name: AttackCollider
   m_TagString: Untagged
@@ -485,6 +486,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &3627702411946349946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3561346693137523240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 056d4827cc75f944f93ccbd5412855d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8412885472340585602
 GameObject:
   m_ObjectHideFlags: 0
@@ -544,3 +557,5 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2304
   recognizeBoxSize: {x: 10, y: 2.3}
+  attackAreaCenter: {x: 0, y: 0}
+  attackAreaSize: {x: 0, y: 0}

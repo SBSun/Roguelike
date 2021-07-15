@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class AttackInfoToEnemy : MonoBehaviour
 {
-    private Enemy enemy;
-
-    private void Awake()
-    {
-        enemy = GetComponentInParent<Enemy>();
-    }
+    public EnemyAttackState AttackState;
+    private Collider2D playerCol;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        playerCol = collision;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        playerCol = null;
+    }
+
+    public Collider2D GetPlayerCol()
+    {
+        return playerCol;
     }
 }

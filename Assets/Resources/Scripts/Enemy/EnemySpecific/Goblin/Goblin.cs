@@ -7,24 +7,29 @@ public class Goblin : Enemy
     public Goblin_IdleState IdleState { get; private set; }
     public Goblin_MoveState MoveState { get; private set; }
     public Goblin_PlayerDetectedState PlayerDetectedState { get; private set; }
+    public Goblin_AttackState AttackState { get; private set; }
+
+    [SerializeField] private D_E_IdleState idleStateData;
+    [SerializeField] private D_E_MoveState moveStateData;
+    [SerializeField] private D_E_MeleeAttackState meleeAttackStateData;
 
     public BasicLandEnemyMovement Movement { get; private set; }
     public BasicLandEnemyCollisionSense CollisionSense { get; private set; }
 
-    private D_Goblin goblinData;
+    public AttackInfoToEnemy AttackInfo { get; private set; }
 
     protected override void Awake()
     {
         base.Awake();
 
-        goblinData = (D_Goblin)enemyData;
-
-        IdleState = new Goblin_IdleState(this, StateMachine, "idle", goblinData);
-        MoveState = new Goblin_MoveState(this, StateMachine, "move", goblinData);
-        PlayerDetectedState = new Goblin_PlayerDetectedState(this, StateMachine, "move", goblinData);
-
+        AttackInfo = GetComponentInChildren<AttackInfoToEnemy>();
         Movement = GetComponentInChildren<BasicLandEnemyMovement>();
         CollisionSense = GetComponentInChildren<BasicLandEnemyCollisionSense>();
+
+        IdleState = new Goblin_IdleState(this, StateMachine, "idle", idleStateData);
+        MoveState = new Goblin_MoveState(this, StateMachine, "move", moveStateData);
+        PlayerDetectedState = new Goblin_PlayerDetectedState(this, StateMachine, "move");
+        AttackState = new Goblin_AttackState(this, StateMachine, "attack", meleeAttackStateData, AttackInfo);
     }
 
     protected override void Start()

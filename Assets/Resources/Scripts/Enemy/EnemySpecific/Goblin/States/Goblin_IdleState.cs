@@ -5,16 +5,15 @@ using UnityEngine;
 public class Goblin_IdleState : EnemyState
 {
     private Goblin goblin;
-    private D_Goblin enemyData;
+    private D_E_IdleState stateData;
 
     private float idleTime;
+    private bool isPlayerDetected;  //플레이어가 영역안에 들어왔는지
 
-    private bool isPlayerDetected;
-
-    public Goblin_IdleState(Goblin goblin, EnemyStateMachine stateMachine, string animBoolName, D_Goblin enemyData) : base(goblin, stateMachine, animBoolName, enemyData)
+    public Goblin_IdleState(Goblin goblin, EnemyStateMachine stateMachine, string animBoolName, D_E_IdleState stateData) : base(goblin, stateMachine, animBoolName, stateData)
     {
         this.goblin = goblin;
-        this.enemyData = enemyData;
+        this.stateData = stateData;
     }
 
     public override void Enter()
@@ -25,34 +24,28 @@ public class Goblin_IdleState : EnemyState
         isPlayerDetected = false;
         SetRandomIdleTime();
     }
-
     public override void Exit()
     {
         base.Exit();
     }
-
     public override void LogicUpdate()
     {
         base.LogicUpdate();
 
-        if (!isExitingState)
+        isPlayerDetected = goblin.CollisionSense.PlayerDetected;
+
+        if (Time.time >= startTime + idleTime)
+        { 
+            stateMachine.ChangeState(goblin.MoveState); //설정된 IdleTime이 지나면 MoveState로 변경
+        }
+        else if (isPlayerDetected)
         {
-            isPlayerDetected = goblin.CollisionSense.PlayerDetected;
-
-            if (Time.time >= startTime + idleTime)
-            {
-
-                stateMachine.ChangeState(goblin.MoveState);
-            }
-            else if (isPlayerDetected)
-            {
-                stateMachine.ChangeState(goblin.PlayerDetectedState);
-            }
+            stateMachine.ChangeState(goblin.PlayerDetectedState); //플레이어를 발견하면 PlayerDetectedState로 변경
         }
     }
-
+    //얼마나 IdleState에 머무를지 결정
     private void SetRandomIdleTime()
     {
-        idleTime = Random.Range(enemyData.minIdleTime, enemyData.maxIdleTime);
+        idleTime = Random.Range(stateData.minIdleTime, stateData.maxIdleTime);
     }
 }

@@ -5,14 +5,13 @@ using UnityEngine;
 public class Goblin_PlayerDetectedState : EnemyState
 {
     private Goblin goblin;
-    private D_Goblin enemyData;
 
     private bool isPlayerDetected;
+    private bool isPlayerInAttackArea;
     private int playerDirection;
-    public Goblin_PlayerDetectedState(Goblin goblin, EnemyStateMachine stateMachine, string animBoolName, D_Goblin enemyData) : base(goblin, stateMachine, animBoolName, enemyData)
+    public Goblin_PlayerDetectedState(Goblin goblin, EnemyStateMachine stateMachine, string animBoolName) : base(goblin, stateMachine, animBoolName)
     {
         this.goblin = goblin;
-        this.enemyData = enemyData;
     }
 
     public override void Enter()
@@ -29,19 +28,21 @@ public class Goblin_PlayerDetectedState : EnemyState
     {
         base.LogicUpdate();
         isPlayerDetected = goblin.CollisionSense.PlayerDetected;
+        isPlayerInAttackArea = goblin.CollisionSense.PlayerInAttackArea;
 
         if (isPlayerDetected)
         {
-
             goblin.Movement.PlayerDirectionFlip(playerDirection);
+            //goblin.Movement.SetVelocityX(enemyData.movementVelocity * playerDirection); MoveState에다가 구현
         }
-        else
+        else if(!isPlayerDetected)
         {
             stateMachine.ChangeState(goblin.IdleState);
         }
+        else if(isPlayerInAttackArea)
+        {
 
-
-        //basicEnemy.Movement.SetVelocityX(basicEnemyData.movementVelocity * playerDirection);
+        }
     }
 
     public void PlayerDirection(Collider2D playerCol)

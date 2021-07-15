@@ -51,28 +51,25 @@ public class Skeleton_MoveState : EnemyState
     {
         base.LogicUpdate();
 
-        if (!isExitingState)
+        isTouchingWallFront = skeleton.CollisionSense.WallFront;
+        isCliffing = skeleton.CollisionSense.Cliffing;
+        isPlayerDetected = skeleton.CollisionSense.PlayerDetected;
+
+        skeleton.Movement.SetVelocityX(enemyData.movementVelocity * moveDirection);
+
+        if (Time.time > startTime + moveTime)
         {
-            isTouchingWallFront = skeleton.CollisionSense.WallFront;
-            isCliffing = skeleton.CollisionSense.Cliffing;
-            isPlayerDetected = skeleton.CollisionSense.PlayerDetected;
-
-            skeleton.Movement.SetVelocityX(enemyData.movementVelocity * moveDirection);
-
-            if (Time.time > startTime + moveTime)
-            {
-                stateMachine.ChangeState(skeleton.IdleState);
-            }
-            //앞에 벽이 있거나 땅이 없으면
-            else if (isTouchingWallFront || isCliffing)
-            {
-                skeleton.Movement.Flip();
-                moveDirection = skeleton.Movement.FacingDirection;
-            }
-            else if (isPlayerDetected)
-            {
-                stateMachine.ChangeState(skeleton.PlayerDetectedState);
-            }
+            stateMachine.ChangeState(skeleton.IdleState);
+        }
+        //앞에 벽이 있거나 땅이 없으면
+        else if (isTouchingWallFront || isCliffing)
+        {
+            skeleton.Movement.Flip();
+            moveDirection = skeleton.Movement.FacingDirection;
+        }
+        else if (isPlayerDetected)
+        {
+            stateMachine.ChangeState(skeleton.PlayerDetectedState);
         }
     }
 
