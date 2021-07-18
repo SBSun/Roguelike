@@ -5,20 +5,24 @@ using UnityEngine;
 public class AttackInfoToEnemy : MonoBehaviour
 {
     public EnemyAttackState AttackState;
-    private Collider2D playerCol;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        playerCol = collision;
+        AttackState.SetPlayerDamageable(collision.GetComponent<IDamageable>());  
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        playerCol = null;
+        AttackState.SetPlayerDamageable(null);
     }
 
-    public Collider2D GetPlayerCol()
+    private void TriggerAttack()
     {
-        return playerCol;
+        AttackState.TriggerAttack();
+    }
+
+    private void FinishAttack()
+    {
+        AttackState.FinishAttack();
     }
 }

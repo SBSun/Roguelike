@@ -5,15 +5,14 @@ using UnityEngine;
 public class Skeleton_PlayerDetectedState : EnemyState
 {
     private Skeleton skeleton;
-    private D_Skeleton enemyData;
 
     private bool isPlayerDetected;
     private bool isPlayerInAttackArea;
     private int playerDirection;
-    public Skeleton_PlayerDetectedState(Skeleton skeleton, EnemyStateMachine stateMachine, string animBoolName, D_Skeleton enemyData) : base(skeleton, stateMachine, animBoolName, enemyData)
+
+    public Skeleton_PlayerDetectedState(Skeleton skeleton, EnemyStateMachine stateMachine, string animBoolName) : base(skeleton, stateMachine, animBoolName)
     {
         this.skeleton = skeleton;
-        this.enemyData = enemyData;
     }
 
     public override void Enter()

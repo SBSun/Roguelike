@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "new EnemyMoveState Data", menuName = "Data/State Data/EnemyMoveState")]
+[CreateAssetMenu(fileName = "new EnemyMoveState Data", menuName = "Data/EnemyState Data/EnemyMoveState")]
 public class D_E_MoveState : ScriptableObject
 {
     [Header("Move State")]

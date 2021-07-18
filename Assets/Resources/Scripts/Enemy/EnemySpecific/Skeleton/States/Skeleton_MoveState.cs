@@ -5,7 +5,7 @@ using UnityEngine;
 public class Skeleton_MoveState : EnemyState
 {
     private Skeleton skeleton;
-    private D_Skeleton enemyData;
+    private D_E_MoveState stateData;
 
     private bool isTouchingWallFront;
     private bool isTouchingWallBack;
@@ -16,10 +16,10 @@ public class Skeleton_MoveState : EnemyState
 
     private int moveDirection;
 
-    public Skeleton_MoveState(Skeleton skeleton, EnemyStateMachine stateMachine, string animBoolName, D_Skeleton enemyData) : base(skeleton, stateMachine, animBoolName, enemyData)
+    public Skeleton_MoveState(Skeleton skeleton, EnemyStateMachine stateMachine, string animBoolName, D_E_MoveState stateData) : base(skeleton, stateMachine, animBoolName)
     {
         this.skeleton = skeleton;
-        this.enemyData = enemyData;
+        this.stateData = stateData;
     }
 
     public override void Enter()
@@ -55,7 +55,7 @@ public class Skeleton_MoveState : EnemyState
         isCliffing = skeleton.CollisionSense.Cliffing;
         isPlayerDetected = skeleton.CollisionSense.PlayerDetected;
 
-        skeleton.Movement.SetVelocityX(enemyData.movementVelocity * moveDirection);
+        skeleton.Movement.SetVelocityX(stateData.movementVelocity * moveDirection);
 
         if (Time.time > startTime + moveTime)
         {
@@ -80,7 +80,7 @@ public class Skeleton_MoveState : EnemyState
 
     public void SetRandomMoveTime()
     {
-        moveTime = Random.Range(enemyData.minMoveTime, enemyData.maxMoveTime);
+        moveTime = Random.Range(stateData.minMoveTime, stateData.maxMoveTime);
     }
 
     public void SetRandomMoveDirection()

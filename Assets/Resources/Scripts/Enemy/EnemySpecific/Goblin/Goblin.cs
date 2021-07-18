@@ -7,6 +7,7 @@ public class Goblin : Enemy
     public Goblin_IdleState IdleState { get; private set; }
     public Goblin_MoveState MoveState { get; private set; }
     public Goblin_PlayerDetectedState PlayerDetectedState { get; private set; }
+    public Goblin_PlayerFollowState PlayerFollowState { get; private set; }
     public Goblin_AttackState AttackState { get; private set; }
 
     [SerializeField] private D_E_IdleState idleStateData;
@@ -22,20 +23,22 @@ public class Goblin : Enemy
     {
         base.Awake();
 
-        AttackInfo = GetComponentInChildren<AttackInfoToEnemy>();
+        AttackInfo = GetComponent<AttackInfoToEnemy>();
         Movement = GetComponentInChildren<BasicLandEnemyMovement>();
         CollisionSense = GetComponentInChildren<BasicLandEnemyCollisionSense>();
 
         IdleState = new Goblin_IdleState(this, StateMachine, "idle", idleStateData);
         MoveState = new Goblin_MoveState(this, StateMachine, "move", moveStateData);
         PlayerDetectedState = new Goblin_PlayerDetectedState(this, StateMachine, "move");
-        AttackState = new Goblin_AttackState(this, StateMachine, "attack", meleeAttackStateData, AttackInfo);
+        PlayerFollowState = new Goblin_PlayerFollowState(this, StateMachine, "move", moveStateData);
+        AttackState = new Goblin_AttackState(this, StateMachine, "attack",meleeAttackStateData);
     }
 
     protected override void Start()
     {
         base.Start();
 
+        AttackInfo.AttackState = AttackState;
         StateMachine.Initialize(IdleState);
     }
 

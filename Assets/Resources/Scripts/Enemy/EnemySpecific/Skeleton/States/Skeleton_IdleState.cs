@@ -5,14 +5,16 @@ using UnityEngine;
 public class Skeleton_IdleState : EnemyState
 {
     private Skeleton skeleton;
+    private D_E_IdleState stateData;
 
     private float idleTime;
 
     private bool isPlayerDetected;
 
-    public Skeleton_IdleState(Skeleton skeleton, EnemyStateMachine stateMachine, string animBoolName) : base(skeleton, stateMachine, animBoolName)
+    public Skeleton_IdleState(Skeleton skeleton, EnemyStateMachine stateMachine, string animBoolName, D_E_IdleState stateData) : base(skeleton, stateMachine, animBoolName)
     {
         this.skeleton = skeleton;
+        this.stateData = stateData;
     }
 
     public override void Enter()
@@ -48,6 +50,6 @@ public class Skeleton_IdleState : EnemyState
 
     private void SetRandomIdleTime()
     {
-        idleTime = Random.Range(enemyData.minIdleTime, enemyData.maxIdleTime);
+        idleTime = Random.Range(stateData.minIdleTime, stateData.maxIdleTime);
     }
 }

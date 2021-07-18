@@ -8,7 +8,7 @@ public class Goblin_PlayerDetectedState : EnemyState
 
     private bool isPlayerDetected;
     private bool isPlayerInAttackArea;
-    private int playerDirection;
+
     public Goblin_PlayerDetectedState(Goblin goblin, EnemyStateMachine stateMachine, string animBoolName) : base(goblin, stateMachine, animBoolName)
     {
         this.goblin = goblin;
@@ -32,32 +32,18 @@ public class Goblin_PlayerDetectedState : EnemyState
 
         if (isPlayerDetected)
         {
-            goblin.Movement.PlayerDirectionFlip(playerDirection);
-            //goblin.Movement.SetVelocityX(enemyData.movementVelocity * playerDirection); MoveState에다가 구현
-        }
-        else if(!isPlayerDetected)
-        {
-            stateMachine.ChangeState(goblin.IdleState);
-        }
-        else if(isPlayerInAttackArea)
-        {
-
-        }
-    }
-
-    public void PlayerDirection(Collider2D playerCol)
-    {
-        if (Mathf.Abs(playerCol.transform.position.x - goblin.transform.position.x) > playerCol.bounds.size.x)
-        {
-            //플레이어가 Enemy의 왼쪽에 있으면
-            if (playerCol.transform.position.x < goblin.transform.position.x)
+            if(isPlayerInAttackArea)
             {
-                playerDirection = -1;
+                stateMachine.ChangeState(goblin.AttackState);
             }
             else
             {
-                playerDirection = 1;
+                stateMachine.ChangeState(goblin.PlayerFollowState);
             }
+        }
+        else
+        {
+            stateMachine.ChangeState(goblin.IdleState);
         }
     }
 }

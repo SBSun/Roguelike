@@ -9,14 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84510955cf578cc4e985b09a5ebff600, type: 3}
-  m_Name: D_Goblin
+  m_Script: {fileID: 11500000, guid: 4d602b266089aaa48a4195278a6f0fb9, type: 3}
+  m_Name: D_Goblin_Attack
   m_EditorClassIdentifier: 
-  enemyType: 0
-  attackType: 1
-  maxHP: 100
-  minIdleTime: 1
-  maxIdleTime: 4
-  minMoveTime: 1
-  maxMoveTime: 4
-  movementVelocity: 8
+  attackDamage: 10
+  attackCoolTime: 1

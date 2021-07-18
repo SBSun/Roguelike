@@ -20,8 +20,7 @@ public class BasicLandEnemyCollisionSense : MonoBehaviour
 
     private RaycastHit2D hitInfo;
     [SerializeField] private Vector2 recognizeBoxSize;
-    [SerializeField] private Vector2 attackAreaCenter;
-    [SerializeField] private Vector2 attackAreaSize;
+    [SerializeField] private BoxCollider2D attackArea;
 
 
     private void Awake()
@@ -74,7 +73,7 @@ public class BasicLandEnemyCollisionSense : MonoBehaviour
     {
         get
         {
-            Collider2D col = Physics2D.OverlapBox(attackAreaCenter, attackAreaSize, 0, whatIsPlayer);
+            Collider2D col = Physics2D.OverlapBox(attackArea.bounds.center, attackArea.bounds.size, 0, whatIsPlayer);
 
             if(col != null)
             {
@@ -89,7 +88,7 @@ public class BasicLandEnemyCollisionSense : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireCube(enemy.Collider.bounds.center, recognizeBoxSize);
+        //Gizmos.DrawWireCube(enemy.Collider.bounds.center, recognizeBoxSize);
 
         /*
         bool isHit = Physics2D.BoxCast(basicEnemy.Collider.bounds.center, basicEnemy.Collider.bounds.size, 0f, Vector2.right * basicEnemy.Core.Movement.FacingDirection, maxAggroDistance, whatIsPlayer);

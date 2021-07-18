@@ -8,20 +8,23 @@ public class Skeleton : Enemy
     public Skeleton_MoveState MoveState { get; private set; }
     public Skeleton_PlayerDetectedState PlayerDetectedState { get; private set; }
 
+    [SerializeField] private D_E_IdleState D_IdleState;
+    [SerializeField] private D_E_MoveState D_MoveState;
+
     public BasicLandEnemyMovement Movement { get; private set; }
     public BasicLandEnemyCollisionSense CollisionSense { get; private set; }
 
-    private D_Skeleton skeletonData;
+    [SerializeField] private D_Enemy D_Skeleton;
 
     protected override void Awake()
     {
         base.Awake();
 
-        skeletonData = (D_Skeleton)enemyData;
 
-        IdleState = new Skeleton_IdleState(this, StateMachine, "idle", skeletonData);
-        MoveState = new Skeleton_MoveState(this, StateMachine, "move", skeletonData);
-        PlayerDetectedState = new Skeleton_PlayerDetectedState(this, StateMachine, "move", skeletonData);
+
+        IdleState = new Skeleton_IdleState(this, StateMachine, "idle", D_IdleState);
+        MoveState = new Skeleton_MoveState(this, StateMachine, "move", D_MoveState);
+        PlayerDetectedState = new Skeleton_PlayerDetectedState(this, StateMachine, "move");
 
         Movement = GetComponentInChildren<BasicLandEnemyMovement>();
         CollisionSense = GetComponentInChildren<BasicLandEnemyCollisionSense>();

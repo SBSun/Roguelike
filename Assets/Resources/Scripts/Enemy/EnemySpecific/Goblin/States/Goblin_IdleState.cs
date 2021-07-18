@@ -10,7 +10,7 @@ public class Goblin_IdleState : EnemyState
     private float idleTime;
     private bool isPlayerDetected;  //플레이어가 영역안에 들어왔는지
 
-    public Goblin_IdleState(Goblin goblin, EnemyStateMachine stateMachine, string animBoolName, D_E_IdleState stateData) : base(goblin, stateMachine, animBoolName, stateData)
+    public Goblin_IdleState(Goblin goblin, EnemyStateMachine stateMachine, string animBoolName, D_E_IdleState stateData) : base(goblin, stateMachine, animBoolName)
     {
         this.goblin = goblin;
         this.stateData = stateData;

@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class EnemyAttackState : EnemyState
 {
-
+    protected IDamageable playerDamageable;
+    public AttackInfoToEnemy attackInfo { get; private set; }
     protected bool isAnimationFinished;
+    protected float attackTime;
+
 
     public EnemyAttackState(Enemy enemy, EnemyStateMachine stateMachine, string animBoolName) : base(enemy, stateMachine, animBoolName)
     {
+        this.attackInfo = attackInfo;
     }
 
     public override void Enter()
@@ -36,5 +40,10 @@ public class EnemyAttackState : EnemyState
     public virtual void FinishAttack()
     {
         isAnimationFinished = true;
+    }
+
+    public void SetPlayerDamageable(IDamageable damageable)
+    {
+        playerDamageable = damageable;
     }
 }

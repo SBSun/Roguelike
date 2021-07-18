@@ -16,7 +16,7 @@ public class Goblin_MoveState : EnemyState
 
     private int moveDirection;
 
-    public Goblin_MoveState(Goblin goblin, EnemyStateMachine stateMachine, string animBoolName, D_E_MoveState stateData) : base(goblin, stateMachine, animBoolName, stateData)
+    public Goblin_MoveState(Goblin goblin, EnemyStateMachine stateMachine, string animBoolName, D_E_MoveState stateData) : base(goblin, stateMachine, animBoolName)
     {
         this.goblin = goblin;
         this.stateData = stateData;

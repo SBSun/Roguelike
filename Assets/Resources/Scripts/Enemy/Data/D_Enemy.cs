@@ -16,6 +16,7 @@ public enum AttackType
     Magic   //마법 공격
 }
 
+[CreateAssetMenu(fileName = "new D_Enemy", menuName = "Data/Enemy Data/Base Data")]
 public class D_Enemy : ScriptableObject
 {
     public EnemyType enemyType;

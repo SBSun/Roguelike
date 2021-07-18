@@ -7,23 +7,20 @@ public class Goblin_AttackState : EnemyAttackState
     private Goblin goblin;
     private D_E_MeleeAttackState stateData;
 
-    private AttackInfoToEnemy attackInfo;
-
     protected bool isPlayerDetected;
 
-    public Goblin_AttackState(Goblin goblin, EnemyStateMachine stateMachine, string animBoolName,  D_E_MeleeAttackState stateData, AttackInfoToEnemy attackInfo) : base(goblin, stateMachine, animBoolName)
+    public Goblin_AttackState(Goblin goblin, EnemyStateMachine stateMachine, string animBoolName, D_E_MeleeAttackState stateData ) : base(goblin, stateMachine, animBoolName)
     { 
         this.goblin = goblin;
         this.stateData = stateData;
-        this.attackInfo = attackInfo;
     }
 
     public override void Enter()
     {
         base.Enter();
 
-
         goblin.Movement.SetVelocityX(0f);
+        isAnimationFinished = false;
     }
 
     public override void Exit()
@@ -39,18 +36,16 @@ public class Goblin_AttackState : EnemyAttackState
 
         if(isAnimationFinished)
         {
-
+            stateMachine.ChangeState(goblin.IdleState);
         }
     }
 
     public override void TriggerAttack()
     {
-        Collider2D playerCol = attackInfo.GetPlayerCol();
-
-        if(playerCol != null)
+        if(playerDamageable != null)
         {
-            IDamageable damageable = playerCol.GetComponent<IDamageable>();
-            damageable.Damage(stateData.attackDamage);
+            playerDamageable.Damage(stateData.attackDamage);
+            Debug.Log("player에게 " + stateData.attackDamage + "피해를 줌");
         }
     }
 }
