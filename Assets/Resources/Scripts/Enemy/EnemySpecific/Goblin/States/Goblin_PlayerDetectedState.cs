@@ -32,7 +32,7 @@ public class Goblin_PlayerDetectedState : EnemyState
 
         if (isPlayerDetected)
         {
-            if(isPlayerInAttackArea)
+            if(isPlayerInAttackArea && goblin.AttackState.CheckAttackCoolTime())
             {
                 stateMachine.ChangeState(goblin.AttackState);
             }

@@ -7,8 +7,7 @@ public class EnemyAttackState : EnemyState
     protected IDamageable playerDamageable;
     public AttackInfoToEnemy attackInfo { get; private set; }
     protected bool isAnimationFinished;
-    protected float attackTime;
-
+    protected float lastAttackTime;
 
     public EnemyAttackState(Enemy enemy, EnemyStateMachine stateMachine, string animBoolName) : base(enemy, stateMachine, animBoolName)
     {
@@ -39,6 +38,7 @@ public class EnemyAttackState : EnemyState
 
     public virtual void FinishAttack()
     {
+        lastAttackTime = Time.time;
         isAnimationFinished = true;
     }
 

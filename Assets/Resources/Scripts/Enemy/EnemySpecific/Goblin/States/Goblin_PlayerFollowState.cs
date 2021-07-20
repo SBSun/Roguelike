@@ -43,7 +43,7 @@ public class Goblin_PlayerFollowState : EnemyState
 
         if(isPlayerDetected)
         {
-            if(isPlayerInAttackArea)
+            if(isPlayerInAttackArea && goblin.AttackState.CheckAttackCoolTime())
             {
                 stateMachine.ChangeState(goblin.AttackState);
             }

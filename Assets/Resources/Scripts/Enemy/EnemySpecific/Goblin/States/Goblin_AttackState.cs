@@ -56,4 +56,12 @@ public class Goblin_AttackState : EnemyAttackState
         else
             Debug.Log("player null");
     }
+
+    public bool CheckAttackCoolTime()
+    {
+        if (Time.time >= stateData.attackCoolTime + lastAttackTime)
+            return true;
+        else
+            return false;
+    }
 }
