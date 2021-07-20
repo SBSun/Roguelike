@@ -47,6 +47,11 @@ public class AggressiveWeapon : Weapon
         CheckMeleeAttack();
     }
 
+    public override void AnimationFinishTrigger()
+    {
+        base.AnimationFinishTrigger();
+    }
+
     private void CheckMeleeAttack()
     {
         WeaponAttackDetails details = aggressiveWeaponData.AttackDetails[weaponManager.AttackCounter];
@@ -54,6 +59,7 @@ public class AggressiveWeapon : Weapon
         foreach (IDamageable item in detectedDamageable)
         {
             item.Damage(details.damageAmount);
+            Debug.Log("Enemy에게 공격 성곡");
         }
     }
 
@@ -63,7 +69,8 @@ public class AggressiveWeapon : Weapon
 
         if(damagaable != null)
         {
-            detectedDamageable.Add(damagaable);
+            if(!detectedDamageable.Contains(damagaable))
+                detectedDamageable.Add(damagaable);
         }
     }
 

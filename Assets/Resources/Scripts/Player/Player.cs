@@ -108,6 +108,6 @@ public class Player : MonoBehaviour, IDamageable
 
     public virtual void Death()
     {
-        Debug.Log("Á×À½");
+
     }
 }

@@ -7,7 +7,8 @@ public class Goblin_AttackState : EnemyAttackState
     private Goblin goblin;
     private D_E_MeleeAttackState stateData;
 
-    protected bool isPlayerDetected;
+    private bool isPlayerDetected;
+    private bool isPlayerInAttackArea;
 
     public Goblin_AttackState(Goblin goblin, EnemyStateMachine stateMachine, string animBoolName, D_E_MeleeAttackState stateData ) : base(goblin, stateMachine, animBoolName)
     { 
@@ -33,19 +34,26 @@ public class Goblin_AttackState : EnemyAttackState
         base.LogicUpdate();
 
         isPlayerDetected = goblin.CollisionSense.PlayerDetected;
+        isPlayerInAttackArea = goblin.CollisionSense.PlayerInAttackArea;
 
-        if(isAnimationFinished)
+        if (isAnimationFinished)
         {
             stateMachine.ChangeState(goblin.IdleState);
+        }
+        else if(!isPlayerInAttackArea)
+        {
+            SetPlayerDamageable(null);
         }
     }
 
     public override void TriggerAttack()
     {
-        if(playerDamageable != null)
+        if (playerDamageable != null)
         {
             playerDamageable.Damage(stateData.attackDamage);
             Debug.Log("player에게 " + stateData.attackDamage + "피해를 줌");
         }
+        else
+            Debug.Log("player null");
     }
 }

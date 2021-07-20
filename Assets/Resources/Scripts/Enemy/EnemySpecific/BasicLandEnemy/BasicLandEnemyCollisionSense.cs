@@ -19,13 +19,20 @@ public class BasicLandEnemyCollisionSense : MonoBehaviour
     [SerializeField] private LayerMask whatIsGroundOrPlayer;
 
     private RaycastHit2D hitInfo;
-    [SerializeField] private Vector2 recognizeBoxSize;
+    private Vector2 recognizeBoxSize;
     [SerializeField] private BoxCollider2D attackArea;
+
+    private Collider2D playerCol;
 
 
     private void Awake()
     {
         enemy = GetComponentInParent<Enemy>();
+    }
+
+    private void Start()
+    {
+        recognizeBoxSize.Set(15f, enemy.Collider.bounds.size.y);
     }
 
     //캐릭터 앞에 벽이 있는지 체크
@@ -52,7 +59,7 @@ public class BasicLandEnemyCollisionSense : MonoBehaviour
 
             if (col != null)
             {
-
+                playerCol = col;
                 hitInfo = Physics2D.Raycast(enemy.Collider.bounds.center, (col.transform.position - transform.position).normalized, Vector2.Distance(col.transform.position, transform.position), whatIsGroundOrPlayer);
                 Debug.DrawRay(enemy.Collider.bounds.center, (col.transform.position - transform.position).normalized * hitInfo.distance);
 
@@ -86,9 +93,29 @@ public class BasicLandEnemyCollisionSense : MonoBehaviour
         }
     }
 
+    public int PlayerDirection
+    {
+        get
+        {
+            //플레이어가 Enemy의 왼쪽에 있으면
+            if (playerCol.transform.position.x < enemy.transform.position.x)
+            {
+                return -1;
+            }
+            else
+            {
+                return 1;
+            }
+        }
+    }
+
     private void OnDrawGizmos()
     {
-        //Gizmos.DrawWireCube(enemy.Collider.bounds.center, recognizeBoxSize);
+        if(enemy != null)
+        {
+            Gizmos.DrawWireCube(enemy.Collider.bounds.center, recognizeBoxSize);
+            Gizmos.DrawWireCube(attackArea.bounds.center, attackArea.bounds.size);
+        }
 
         /*
         bool isHit = Physics2D.BoxCast(basicEnemy.Collider.bounds.center, basicEnemy.Collider.bounds.size, 0f, Vector2.right * basicEnemy.Core.Movement.FacingDirection, maxAggroDistance, whatIsPlayer);

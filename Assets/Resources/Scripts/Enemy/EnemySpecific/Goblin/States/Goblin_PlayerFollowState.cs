@@ -49,6 +49,7 @@ public class Goblin_PlayerFollowState : EnemyState
             }
             else if(!isCliffing && !isTouchingWallFront)
             {
+                playerDirection = goblin.CollisionSense.PlayerDirection;
                 goblin.Movement.PlayerDirectionFlip(playerDirection);
                 goblin.Movement.SetVelocityX(stateData.movementVelocity * playerDirection);
             }
@@ -59,19 +60,4 @@ public class Goblin_PlayerFollowState : EnemyState
         }
     }
 
-    public void PlayerDirection(Collider2D playerCol)
-    {
-        if (Mathf.Abs(playerCol.transform.position.x - goblin.transform.position.x) > playerCol.bounds.size.x)
-        {
-            //플레이어가 Enemy의 왼쪽에 있으면
-            if (playerCol.transform.position.x < goblin.transform.position.x)
-            {
-                playerDirection = -1;
-            }
-            else
-            {
-                playerDirection = 1;
-            }
-        }
-    }
 }

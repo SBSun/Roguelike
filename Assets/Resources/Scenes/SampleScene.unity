@@ -12662,6 +12662,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &2004735447 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 483608044605205039, guid: 402e63aa5fa1b5e4b89b4b22361f4883, type: 3}
+  m_PrefabInstance: {fileID: 483608044224553393}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2101948737
 GameObject:
   m_ObjectHideFlags: 0
@@ -12825,6 +12830,10 @@ PrefabInstance:
       propertyPath: cliffCheckDistance
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 5080244341841211311, guid: 402e63aa5fa1b5e4b89b4b22361f4883, type: 3}
+      propertyPath: recognizeArea
+      value: 
+      objectReference: {fileID: 2004735447}
     m_RemovedComponents:
     - {fileID: 0}
     - {fileID: 0}
