@@ -22,7 +22,7 @@ public class BasicLandEnemyCollisionSense : MonoBehaviour
     private Vector2 recognizeBoxSize;
     [SerializeField] private BoxCollider2D attackArea;
 
-    private Collider2D playerCol;
+    public Collider2D playerCol { get; private set; }
 
 
     private void Awake()

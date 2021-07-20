@@ -13,7 +13,7 @@ public class Goblin_PlayerFollowState : EnemyState
     private bool isPlayerDetected;
     private bool isPlayerInAttackArea;
 
-    private int playerDirection;
+
 
     public Goblin_PlayerFollowState(Goblin goblin, EnemyStateMachine stateMachine, string animBoolName, D_E_MoveState stateData) : base(goblin, stateMachine, animBoolName)
     {
@@ -47,11 +47,10 @@ public class Goblin_PlayerFollowState : EnemyState
             {
                 stateMachine.ChangeState(goblin.AttackState);
             }
-            else if(!isCliffing && !isTouchingWallFront)
+            else if(!isCliffing && !isTouchingWallFront && CheckPlayerFollow())
             {
-                playerDirection = goblin.CollisionSense.PlayerDirection;
-                goblin.Movement.PlayerDirectionFlip(playerDirection);
-                goblin.Movement.SetVelocityX(stateData.movementVelocity * playerDirection);
+                goblin.Movement.PlayerDirectionFlip(goblin.CollisionSense.PlayerDirection);
+                goblin.Movement.SetVelocityX(stateData.movementVelocity * goblin.CollisionSense.PlayerDirection);
             }
         }
         else
@@ -60,4 +59,12 @@ public class Goblin_PlayerFollowState : EnemyState
         }
     }
 
+    public bool CheckPlayerFollow()
+    {
+        //Enemy와 Player간의 거리가 Enemy의 콜라이더 사이즈보다 크면 따라간다
+        if (Mathf.Abs(goblin.CollisionSense.playerCol.transform.position.x - goblin.transform.position.x) > goblin.CollisionSense.playerCol.bounds.size.x)
+            return true;
+        else
+            return false;
+    }
 }

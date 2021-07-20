@@ -21,6 +21,7 @@ public class Goblin_AttackState : EnemyAttackState
         base.Enter();
 
         goblin.Movement.SetVelocityX(0f);
+        goblin.Movement.PlayerDirectionFlip(goblin.CollisionSense.PlayerDirection);
         isAnimationFinished = false;
     }
 
