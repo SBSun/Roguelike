@@ -39,6 +39,7 @@ public class Goblin_AttackState : EnemyAttackState
 
         if (isAnimationFinished)
         {
+            Debug.Log("attack finish");
             stateMachine.ChangeState(goblin.IdleState);
         }
         else if(!isPlayerInAttackArea)
@@ -52,10 +53,7 @@ public class Goblin_AttackState : EnemyAttackState
         if (playerDamageable != null)
         {
             playerDamageable.Damage(stateData.attackDamage);
-            Debug.Log("player에게 " + stateData.attackDamage + "피해를 줌");
         }
-        else
-            Debug.Log("player null");
     }
 
     public bool CheckAttackCoolTime()

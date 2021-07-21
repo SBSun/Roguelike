@@ -6,7 +6,7 @@ public class EnemyAttackState : EnemyState
 {
     protected IDamageable playerDamageable;
     public AttackInfoToEnemy attackInfo { get; private set; }
-    protected bool isAnimationFinished;
+    public bool isAnimationFinished { get; protected set; }
     protected float lastAttackTime;
 
     public EnemyAttackState(Enemy enemy, EnemyStateMachine stateMachine, string animBoolName) : base(enemy, stateMachine, animBoolName)
