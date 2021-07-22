@@ -38,8 +38,7 @@ public class Goblin_AttackState : EnemyAttackState
         isPlayerInAttackArea = goblin.CollisionSense.PlayerInAttackArea;
 
         if (isAnimationFinished)
-        {
-            Debug.Log("attack finish");
+        { 
             stateMachine.ChangeState(goblin.IdleState);
         }
         else if(!isPlayerInAttackArea)

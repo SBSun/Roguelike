@@ -40,8 +40,10 @@ public class Goblin_IdleState : EnemyState
         }
         else if (isPlayerDetected)
         {
-            stateMachine.ChangeState(goblin.PlayerDetectedState); //플레이어를 발견하면 PlayerDetectedState로 변경
+            stateMachine.ChangeState(goblin.PlayerFollowState);
         }
+
+        Debug.Log("ㅎ2");
     }
     //얼마나 IdleState에 머무를지 결정
     private void SetRandomIdleTime()

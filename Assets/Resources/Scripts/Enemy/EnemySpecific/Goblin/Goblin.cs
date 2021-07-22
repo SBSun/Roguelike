@@ -6,7 +6,8 @@ public class Goblin : Enemy
 {
     public Goblin_IdleState IdleState { get; private set; }
     public Goblin_MoveState MoveState { get; private set; }
-    public Goblin_PlayerDetectedState PlayerDetectedState { get; private set; }
+    public Goblin_PlayerLookForState PlayerLookForState { get; private set; }
+    public Goblin_PlayerFollowState PlayerFollowState { get; private set; }
     public Goblin_AttackState AttackState { get; private set; }
 
     [SerializeField] private D_E_IdleState idleStateData;
@@ -28,7 +29,8 @@ public class Goblin : Enemy
 
         IdleState = new Goblin_IdleState(this, StateMachine, "idle", idleStateData);
         MoveState = new Goblin_MoveState(this, StateMachine, "move", moveStateData);
-        PlayerDetectedState = new Goblin_PlayerDetectedState(this, StateMachine, "idle", moveStateData);
+        PlayerLookForState = new Goblin_PlayerLookForState(this, StateMachine, "playerLookFor");
+        PlayerFollowState = new Goblin_PlayerFollowState(this, StateMachine, "playerFollow", moveStateData); ;
         AttackState = new Goblin_AttackState(this, StateMachine, "attack",meleeAttackStateData);
     }
 

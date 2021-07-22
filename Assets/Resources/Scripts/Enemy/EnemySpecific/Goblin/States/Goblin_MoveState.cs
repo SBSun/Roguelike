@@ -69,7 +69,7 @@ public class Goblin_MoveState : EnemyState
         }
         else if (isPlayerDetected)
         {
-            stateMachine.ChangeState(goblin.PlayerDetectedState);
+            stateMachine.ChangeState(goblin.PlayerFollowState);
         }
     }
 
