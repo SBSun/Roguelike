@@ -31,18 +31,19 @@ public class Goblin_IdleState : EnemyState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+
         isPlayerDetected = goblin.CollisionSense.PlayerDetected;
-        goblin.Movement.SetVelocityZero();
+
         if (Time.time >= startTime + idleTime)
-        {
+        { 
             stateMachine.ChangeState(goblin.MoveState); //설정된 IdleTime이 지나면 MoveState로 변경
         }
         else if (isPlayerDetected)
         {
-            stateMachine.ChangeState(goblin.PlayerLookForState);
+            stateMachine.ChangeState(goblin.PlayerFollowState);
         }
 
-        
+        Debug.Log("ㅎ2");
     }
     //얼마나 IdleState에 머무를지 결정
     private void SetRandomIdleTime()

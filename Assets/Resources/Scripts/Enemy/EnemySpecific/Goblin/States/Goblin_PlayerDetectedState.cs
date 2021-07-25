@@ -39,9 +39,11 @@ public class Goblin_PlayerDetectedState : EnemyState
         {
             stateMachine.ChangeState(goblin.IdleState);
         }
+
         else if (isPlayerDetected && isPlayerInAttackArea && goblin.AttackState.CheckAttackCoolTime())
             stateMachine.ChangeState(goblin.AttackState);
     }
+
 
     public bool CheckPlayerFollow()
     {
@@ -49,6 +51,5 @@ public class Goblin_PlayerDetectedState : EnemyState
             return true;
         else
             return false;
-
     }
 }
