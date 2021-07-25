@@ -9,10 +9,12 @@ public class Goblin : Enemy
     public Goblin_PlayerLookForState PlayerLookForState { get; private set; }
     public Goblin_PlayerFollowState PlayerFollowState { get; private set; }
     public Goblin_AttackState AttackState { get; private set; }
+   public Goblin_DamagedState DamagedState { get; private set; }
 
     [SerializeField] private D_E_IdleState idleStateData;
     [SerializeField] private D_E_MoveState moveStateData;
     [SerializeField] private D_E_MeleeAttackState meleeAttackStateData;
+    [SerializeField] private D_E_DamagedState damagedStateData;
 
     public BasicLandEnemyMovement Movement { get; private set; }
     public BasicLandEnemyCollisionSense CollisionSense { get; private set; }
@@ -32,6 +34,7 @@ public class Goblin : Enemy
         PlayerLookForState = new Goblin_PlayerLookForState(this, StateMachine, "playerLookFor");
         PlayerFollowState = new Goblin_PlayerFollowState(this, StateMachine, "playerFollow", moveStateData); ;
         AttackState = new Goblin_AttackState(this, StateMachine, "attack",meleeAttackStateData);
+        DamagedState = new Goblin_DamagedState(this, StateMachine, "damaged", damagedStateData);
     }
 
     protected override void Start()

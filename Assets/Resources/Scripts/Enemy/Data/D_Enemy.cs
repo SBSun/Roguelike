@@ -16,11 +16,18 @@ public enum AttackType
     Magic   //마법 공격
 }
 
+public enum DamagedType
+{
+    Normal,     //일반(데미지 경직)
+    SuperArmor  //경직 X
+}
+
 [CreateAssetMenu(fileName = "new D_Enemy", menuName = "Data/Enemy Data/Base Data")]
 public class D_Enemy : ScriptableObject
 {
     public EnemyType enemyType;
     public AttackType attackType;
+    public DamagedType damagedType;
 
     [Header("Health Condition")]
     public float maxHP = 100f;

@@ -58,9 +58,7 @@ public class Goblin_MoveState : EnemyState
         goblin.Movement.SetVelocityX(stateData.movementVelocity * moveDirection);
 
         if (Time.time > startTime + moveTime)
-        {
             stateMachine.ChangeState(goblin.IdleState);
-        }
         //앞에 벽이 있거나 땅이 없으면
         else if (isTouchingWallFront || isCliffing)
         {
@@ -68,9 +66,7 @@ public class Goblin_MoveState : EnemyState
             moveDirection = goblin.Movement.FacingDirection;
         }
         else if (isPlayerDetected)
-        {
             stateMachine.ChangeState(goblin.PlayerFollowState);
-        }
     }
 
     public override void PhysicsUpdate()

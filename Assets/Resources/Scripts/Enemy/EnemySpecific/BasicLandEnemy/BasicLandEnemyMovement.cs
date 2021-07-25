@@ -29,9 +29,10 @@ public class BasicLandEnemyMovement : MonoBehaviour
         CurrentVelocity = workSpace;
     }
 
-    public void SetVelocity(float velocity, Vector2 direction)
+    public void SetVelocity(float velocity, Vector2 angle, int direction)
     {
-        workSpace = direction * velocity;
+        angle.Normalize();
+        workSpace.Set(angle.x * velocity * direction, angle.y * direction);
         enemy.RB.velocity = workSpace;
         CurrentVelocity = workSpace;
     }

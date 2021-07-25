@@ -33,6 +33,7 @@ public class Goblin_IdleState : EnemyState
         base.LogicUpdate();
 
         isPlayerDetected = goblin.CollisionSense.PlayerDetected;
+        goblin.Movement.SetVelocityZero();
 
         if (Time.time >= startTime + idleTime)
         { 
@@ -40,10 +41,8 @@ public class Goblin_IdleState : EnemyState
         }
         else if (isPlayerDetected)
         {
-            stateMachine.ChangeState(goblin.PlayerFollowState);
+            stateMachine.ChangeState(goblin.PlayerLookForState);
         }
-
-        Debug.Log("ㅎ2");
     }
     //얼마나 IdleState에 머무를지 결정
     private void SetRandomIdleTime()

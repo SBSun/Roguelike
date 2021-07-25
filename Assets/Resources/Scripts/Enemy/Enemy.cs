@@ -14,6 +14,8 @@ public class Enemy : MonoBehaviour, IDamageable
     public Animator Anim { get; private set; }
     public BoxCollider2D Collider { get; private set; }
 
+    public float CurrentHP;
+
     [SerializeField]
     protected D_Enemy enemyData;
 
@@ -25,7 +27,6 @@ public class Enemy : MonoBehaviour, IDamageable
         Anim = GetComponent<Animator>();
         Collider = GetComponent<BoxCollider2D>();
     }
-
 
     protected virtual void Start()
     {
@@ -41,14 +42,16 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         StateMachine.CurrentState.PhysicsUpdate();
     }
-
     public virtual void Damage(float amount)
     {
-        /*
-        if (HealthCondition.CurrentHP <= 0)
-        {
+
+
+        if (CurrentHP - amount <= 0)
+        
             Death();
-        }*/
+        
+        else
+            CurrentHP -= amount;
     }
 
     public virtual void Death()
