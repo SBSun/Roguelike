@@ -21,6 +21,7 @@ public class AggressiveWeapon : Weapon
             Debug.LogError("무기 종류가 틀림");
         }
     }
+
     public override void EnterWeapon()
     {
         base.EnterWeapon();
@@ -59,7 +60,6 @@ public class AggressiveWeapon : Weapon
         foreach (IDamageable item in detectedDamageable)
         {
             item.Damage(details.damageAmount);
-            Debug.Log("Enemy에게 공격 성곡");
         }
     }
 

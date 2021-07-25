@@ -25,7 +25,7 @@ public class Goblin_PlayerLookForState : Goblin_PlayerDetectedState
     {
         base.LogicUpdate();
 
-        if (CheckPlayerFollow())
+        if (!isTouchingWallFront && !isCliffing && !isPlayerInAttackArea)
             stateMachine.ChangeState(goblin.PlayerFollowState);
     }
 }

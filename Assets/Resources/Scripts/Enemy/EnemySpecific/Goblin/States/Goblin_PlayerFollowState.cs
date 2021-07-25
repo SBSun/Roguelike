@@ -26,8 +26,11 @@ public class Goblin_PlayerFollowState : Goblin_PlayerDetectedState
     {
         base.LogicUpdate();
 
-        if (!CheckPlayerFollow())
+        if (isTouchingWallFront || isCliffing || isPlayerInAttackArea)
+        {
             stateMachine.ChangeState(goblin.PlayerLookForState);
+        }
+
 
         goblin.Movement.PlayerDirectionFlip(goblin.CollisionSense.PlayerDirection);
         goblin.Movement.SetVelocityX(stateData.movementVelocity * goblin.CollisionSense.PlayerDirection);
