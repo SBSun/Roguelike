@@ -24,7 +24,7 @@ public class Goblin_PlayerLookForState : Goblin_PlayerDetectedState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-
+        
         if (CheckPlayerFollow())
             stateMachine.ChangeState(goblin.PlayerFollowState);
     }
