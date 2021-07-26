@@ -36,7 +36,7 @@ public class Goblin_DamagedState : EnemyDamagedState
 
         if (isStunTimeOver)
         {
-            if(isTouchingWallFront || isCliffing || isPlayerInAttackArea)
+            if (isTouchingWallFront || isCliffing || isPlayerInAttackArea)
                 stateMachine.ChangeState(goblin.PlayerLookForState);
             else
                 stateMachine.ChangeState(goblin.PlayerFollowState);

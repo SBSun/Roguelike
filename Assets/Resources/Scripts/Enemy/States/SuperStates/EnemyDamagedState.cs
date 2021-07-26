@@ -30,4 +30,9 @@ public class EnemyDamagedState : EnemyState
         if (Time.time >= startTime + stateData.stunTime)
             isStunTimeOver = true;
     }
+
+    public void StunTimeOver()
+    {
+        isStunTimeOver = true;
+    }
 }

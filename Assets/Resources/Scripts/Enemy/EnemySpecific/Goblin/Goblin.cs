@@ -50,16 +50,15 @@ public class Goblin : Enemy
         base.Update();
 
         Movement.LogicUpdate();
-        Debug.Log(Anim.GetBool("damaged"));
     }
 
     public override void Damage(float amount)
     {
         base.Damage(amount);
 
-        if (Anim.GetBool("damaged"))
+        if(StateMachine.CurrentState == DamagedState)
         {
-            Anim.SetBool("damaged", false);
+            
         }
 
         StateMachine.ChangeState(DamagedState);

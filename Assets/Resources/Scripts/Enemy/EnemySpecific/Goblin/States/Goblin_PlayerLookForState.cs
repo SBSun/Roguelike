@@ -27,5 +27,7 @@ public class Goblin_PlayerLookForState : Goblin_PlayerDetectedState
 
         if (!isTouchingWallFront && !isCliffing && !isPlayerInAttackArea)
             stateMachine.ChangeState(goblin.PlayerFollowState);
+
+        goblin.Movement.SetVelocityZero();
     }
 }
