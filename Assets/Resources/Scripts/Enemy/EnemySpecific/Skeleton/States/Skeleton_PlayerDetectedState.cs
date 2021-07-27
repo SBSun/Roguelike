@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Skeleton_PlayerDetectedState : EnemyState
 {
-    private Skeleton skeleton;
+    protected Skeleton skeleton;
 
-    private bool isPlayerDetected;
-    private bool isPlayerInAttackArea;
-    private int playerDirection;
+    protected bool isTouchingWallFront;
+    protected bool isCliffing;
+    protected bool isPlayerDetected;
+    protected bool isPlayerInAttackArea;
 
     public Skeleton_PlayerDetectedState(Skeleton skeleton, EnemyStateMachine stateMachine, string animBoolName) : base(skeleton, stateMachine, animBoolName)
     {
@@ -28,39 +29,27 @@ public class Skeleton_PlayerDetectedState : EnemyState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+
+        isTouchingWallFront = skeleton.CollisionSense.WallFront;
+        isCliffing = skeleton.CollisionSense.Cliffing;
         isPlayerDetected = skeleton.CollisionSense.PlayerDetected;
         isPlayerInAttackArea = skeleton.CollisionSense.PlayerInAttackArea;
 
-        if (isPlayerDetected)
-        {
-            skeleton.Movement.PlayerDirectionFlip(playerDirection);
-        }
-        else if(isPlayerInAttackArea)
-        {
-
-        }
-        else
+        if (!isPlayerDetected)
         {
             stateMachine.ChangeState(skeleton.IdleState);
         }
 
-
-        //basicEnemy.Movement.SetVelocityX(basicEnemyData.movementVelocity * playerDirection);
+        else if (isPlayerDetected && isPlayerInAttackArea && skeleton.AttackState.CheckAttackCoolTime())
+            stateMachine.ChangeState(skeleton.AttackState);
     }
 
-    public void PlayerDirection(Collider2D playerCol)
+
+    public bool CheckPlayerFollow()
     {
-        if (Mathf.Abs(playerCol.transform.position.x - skeleton.transform.position.x) > playerCol.bounds.size.x)
-        {
-            //플레이어가 Enemy의 왼쪽에 있으면
-            if (playerCol.transform.position.x < skeleton.transform.position.x)
-            {
-                playerDirection = -1;
-            }
-            else
-            {
-                playerDirection = 1;
-            }
-        }
+        if (!isTouchingWallFront && !isCliffing && !isPlayerInAttackArea)
+            return true;
+        else
+            return false;
     }
 }

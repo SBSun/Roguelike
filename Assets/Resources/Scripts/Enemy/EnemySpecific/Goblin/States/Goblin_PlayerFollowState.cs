@@ -8,7 +8,6 @@ public class Goblin_PlayerFollowState : Goblin_PlayerDetectedState
 
     public Goblin_PlayerFollowState(Goblin goblin, EnemyStateMachine stateMachine, string animBoolName, D_E_MoveState stateData) : base(goblin, stateMachine, animBoolName)
     {
-        this.goblin = goblin;
         this.stateData = stateData;
     }
 
@@ -30,7 +29,6 @@ public class Goblin_PlayerFollowState : Goblin_PlayerDetectedState
         {
             stateMachine.ChangeState(goblin.PlayerLookForState);
         }
-
 
         goblin.Movement.PlayerDirectionFlip(goblin.CollisionSense.PlayerDirection);
         goblin.Movement.SetVelocityX(stateData.movementVelocity * goblin.CollisionSense.PlayerDirection);

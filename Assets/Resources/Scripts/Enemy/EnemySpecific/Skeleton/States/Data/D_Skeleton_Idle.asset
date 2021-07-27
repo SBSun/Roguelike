@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73e8d3e02492fce4a991072a21388284, type: 3}
-  m_Name: D_Goblin
+  m_Script: {fileID: 11500000, guid: 4a09f18ac56f3924e96331a9654d0467, type: 3}
+  m_Name: D_Skeleton_Idle
   m_EditorClassIdentifier: 
-  enemyType: 0
-  attackType: 1
-  damagedType: 0
-  maxHP: 80
+  minIdleTime: 2
+  maxIdleTime: 5

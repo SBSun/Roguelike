@@ -44,7 +44,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 1.5705636, y: -0.044449627}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -55,7 +55,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 4.602428, y: 3.087535}
   m_EdgeRadius: 0
 --- !u!1 &4410650563041503809
 GameObject:
@@ -101,6 +101,7 @@ GameObject:
   - component: {fileID: 4410650563116086607}
   - component: {fileID: 4410650563116086606}
   - component: {fileID: 8668186229147286713}
+  - component: {fileID: 2508702127982855287}
   m_Layer: 9
   m_Name: Skeleton
   m_TagString: Enemy
@@ -256,7 +257,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60d2d128768ecbb42bca6ee959b4c168, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyData: {fileID: 11400000, guid: 79e200adb2b9d7447b3520a138c7df6d, type: 2}
+  enemyData: {fileID: 11400000, guid: 79830bb8f0cad8848b8b4c42d43ee47b, type: 2}
+  idleStateData: {fileID: 11400000, guid: fbdf758bb15aaaa40b25f7a9cc8d95cb, type: 2}
+  moveStateData: {fileID: 11400000, guid: 72f871b2ea31bbd4683aa0cc0a6433d8, type: 2}
+  meleeAttackStateData: {fileID: 11400000, guid: 17fb977c6b4b7ff46a6c7780c01dcb92, type: 2}
+  damagedStateData: {fileID: 11400000, guid: be565644340af9d4b862c4c3525548e1, type: 2}
+--- !u!114 &2508702127982855287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4410650563116086597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 056d4827cc75f944f93ccbd5412855d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4410650563179582178
 GameObject:
   m_ObjectHideFlags: 0
@@ -543,4 +560,4 @@ MonoBehaviour:
   whatIsGroundOrPlayer:
     serializedVersion: 2
     m_Bits: 2304
-  recognizeBoxSize: {x: 10, y: 3.219402}
+  attackArea: {fileID: 961763800720098817}

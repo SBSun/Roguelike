@@ -9,7 +9,7 @@ public class Goblin : Enemy
     public Goblin_PlayerLookForState PlayerLookForState { get; private set; }
     public Goblin_PlayerFollowState PlayerFollowState { get; private set; }
     public Goblin_AttackState AttackState { get; private set; }
-   public Goblin_DamagedState DamagedState { get; private set; }
+    public Goblin_DamagedState DamagedState { get; private set; }
 
     [SerializeField] private D_E_IdleState idleStateData;
     [SerializeField] private D_E_MoveState moveStateData;
@@ -56,12 +56,12 @@ public class Goblin : Enemy
     {
         base.Damage(amount);
 
-        if(StateMachine.CurrentState == DamagedState)
+        if(StateMachine.CurrentState != DamagedState)
         {
-            
+
+            StateMachine.ChangeState(DamagedState);
         }
 
-        StateMachine.ChangeState(DamagedState);
     }
 
     public override void Death()

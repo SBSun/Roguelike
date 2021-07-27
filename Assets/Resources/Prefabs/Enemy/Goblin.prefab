@@ -333,7 +333,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3df8016e74450194fbbb0db3100e77f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentHP: 0
   enemyData: {fileID: 11400000, guid: 07d765a6c5319974ab47b6b4eece10e1, type: 2}
   idleStateData: {fileID: 11400000, guid: 5cb93194191f99d419669e90bc0b1a1d, type: 2}
   moveStateData: {fileID: 11400000, guid: eea1b403fc6f72f4885bb80610876e15, type: 2}
@@ -490,7 +489,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.37543154, y: -0.48000002}
+  m_Offset: {x: 0.6123344, y: -0.48000002}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -501,7 +500,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.6908631, y: 2.3}
+  m_Size: {x: 3.1646688, y: 2.3}
   m_EdgeRadius: 0
 --- !u!1 &8412885472340585602
 GameObject:

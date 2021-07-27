@@ -16,7 +16,6 @@ public class Skeleton_IdleState : EnemyState
         this.skeleton = skeleton;
         this.stateData = stateData;
     }
-
     public override void Enter()
     {
         base.Enter();
@@ -25,29 +24,27 @@ public class Skeleton_IdleState : EnemyState
         isPlayerDetected = false;
         SetRandomIdleTime();
     }
-
     public override void Exit()
     {
         base.Exit();
     }
-
     public override void LogicUpdate()
     {
         base.LogicUpdate();
 
         isPlayerDetected = skeleton.CollisionSense.PlayerDetected;
+        skeleton.Movement.SetVelocityZero();
 
         if (Time.time >= startTime + idleTime)
         {
-
-            stateMachine.ChangeState(skeleton.MoveState);
+            stateMachine.ChangeState(skeleton.MoveState); //설정된 IdleTime이 지나면 MoveState로 변경
         }
         else if (isPlayerDetected)
         {
-            stateMachine.ChangeState(skeleton.PlayerDetectedState);
+            stateMachine.ChangeState(skeleton.PlayerLookForState);
         }
     }
-
+    //얼마나 IdleState에 머무를지 결정
     private void SetRandomIdleTime()
     {
         idleTime = Random.Range(stateData.minIdleTime, stateData.maxIdleTime);

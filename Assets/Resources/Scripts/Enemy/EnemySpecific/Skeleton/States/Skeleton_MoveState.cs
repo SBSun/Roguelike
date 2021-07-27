@@ -58,9 +58,7 @@ public class Skeleton_MoveState : EnemyState
         skeleton.Movement.SetVelocityX(stateData.movementVelocity * moveDirection);
 
         if (Time.time > startTime + moveTime)
-        {
             stateMachine.ChangeState(skeleton.IdleState);
-        }
         //앞에 벽이 있거나 땅이 없으면
         else if (isTouchingWallFront || isCliffing)
         {
@@ -68,9 +66,7 @@ public class Skeleton_MoveState : EnemyState
             moveDirection = skeleton.Movement.FacingDirection;
         }
         else if (isPlayerDetected)
-        {
-            stateMachine.ChangeState(skeleton.PlayerDetectedState);
-        }
+            stateMachine.ChangeState(skeleton.PlayerFollowState);
     }
 
     public override void PhysicsUpdate()
