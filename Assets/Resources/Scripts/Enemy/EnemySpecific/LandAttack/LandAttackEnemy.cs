@@ -57,12 +57,12 @@ public class LandAttackEnemy : Enemy
     {
         base.Damage(amount);
 
-        if (StateMachine.CurrentState != DamagedState)
+        if (StateMachine.CurrentState== DamagedState)
         {
-
-            StateMachine.ChangeState(DamagedState);
+            Anim.SetTrigger("exit");
+            Anim.Rebind();
         }
-
+        StateMachine.ChangeState(DamagedState);
     }
 
     public override void Death()
