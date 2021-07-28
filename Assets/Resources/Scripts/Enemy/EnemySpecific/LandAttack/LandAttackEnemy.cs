@@ -59,7 +59,7 @@ public class LandAttackEnemy : Enemy
 
         if (StateMachine.CurrentState== DamagedState)
         {
-            Anim.SetTrigger("exit");
+            Anim.SetTrigger("empty");
             Anim.Rebind();
         }
         StateMachine.ChangeState(DamagedState);
