@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class LandAttack_DamagedState : EnemyDamagedState
 {
-    LandAttackEnemy landAttackEnemy;
+    private LandAttackEnemy landAttackEnemy;
 
     private bool isTouchingWallFront;
     private bool isCliffing;
     private bool isPlayerInAttackArea;
 
-    public LandAttack_DamagedState(LandAttackEnemy landAttackEnemy, EnemyStateMachine stateMachine, string animBoolName, D_E_DamagedState stateData) : base(landAttackEnemy, stateMachine, animBoolName, stateData)
+
+
+    public LandAttack_DamagedState(LandAttackEnemy landAttackEnemy, EnemyStateMachine stateMachine, string animBoolName) : base(landAttackEnemy, stateMachine, animBoolName)
     {
         this.landAttackEnemy = landAttackEnemy;
     }
@@ -18,7 +20,7 @@ public class LandAttack_DamagedState : EnemyDamagedState
     public override void Enter()
     {
         base.Enter();
-        landAttackEnemy.Movement.SetVelocityZero();
+        landAttackEnemy.Movement.SetVelocity(damagedDetails.knockbackSpeed, damagedDetails.knockbackAngle, damagedDirection);
     }
 
     public override void Exit()
@@ -34,6 +36,12 @@ public class LandAttack_DamagedState : EnemyDamagedState
         isCliffing = landAttackEnemy.CollisionSense.Cliffing;
         isPlayerInAttackArea = landAttackEnemy.CollisionSense.PlayerInAttackArea;
 
+        if (Time.time >= startTime + damagedDetails.knockbackTime && !isKnockbackStop)
+        {
+            isKnockbackStop = true;
+            landAttackEnemy.Movement.SetVelocityZero();
+        }
+
         if (isStunTimeOver)
         {
             if (isTouchingWallFront || isCliffing || isPlayerInAttackArea)
@@ -42,4 +50,6 @@ public class LandAttack_DamagedState : EnemyDamagedState
                 stateMachine.ChangeState(landAttackEnemy.PlayerFollowState);
         }
     }
+
+  
 }

@@ -51,13 +51,13 @@ public class LandAttack_AttackState : EnemyAttackState
     {
         if (playerDamageable != null)
         {
-            playerDamageable.Damage(stateData.attackDamage);
+            playerDamageable.Damage(stateData.AttackDetails);
         }
     }
 
     public bool CheckAttackCoolTime()
     {
-        if (Time.time >= stateData.attackCoolTime + lastAttackTime)
+        if (Time.time >= stateData.AttackDetails.attackCoolTime + lastAttackTime)
             return true;
         else
             return false;

@@ -6,6 +6,7 @@ using UnityEngine;
 public class D_E_MeleeAttackState : ScriptableObject
 {
     [Header("MeleeAttack State")]
-    public float attackDamage = 10f;
-    public float attackCoolTime = 1f;
+    [SerializeField] protected WeaponAttackDetails attackDetails;
+
+    public WeaponAttackDetails AttackDetails { get => attackDetails; set => attackDetails = value; }
 }

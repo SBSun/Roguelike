@@ -96,7 +96,7 @@ public class Player : MonoBehaviour, IDamageable
 
     private void AnimationFinishTrigger() => StateMachine.CurrentState.AnimationFinishTrigger();
 
-    public virtual void Damage(float amount)
+    public virtual void Damage(WeaponAttackDetails details)
     {
         //Core.HealthCondition.DecreaseHP(amount);
 

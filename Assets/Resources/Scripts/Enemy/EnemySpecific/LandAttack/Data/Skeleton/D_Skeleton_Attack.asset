@@ -12,5 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d602b266089aaa48a4195278a6f0fb9, type: 3}
   m_Name: D_Skeleton_Attack
   m_EditorClassIdentifier: 
-  attackDamage: 20
-  attackCoolTime: 2
+  attackDetails:
+    movementSpeed: 0
+    damageAmount: 20
+    attackCoolTime: 2
+    stunTime: 0.4
+    knockbackTime: 0.1
+    knockbackSpeed: 1
+    knockbackAngle: {x: 1, y: 0}
+    attackPosition: {x: 0, y: 0}

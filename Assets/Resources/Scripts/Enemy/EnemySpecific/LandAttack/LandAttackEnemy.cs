@@ -14,7 +14,6 @@ public class LandAttackEnemy : Enemy
     [SerializeField] private D_E_IdleState idleStateData;
     [SerializeField] private D_E_MoveState moveStateData;
     [SerializeField] private D_E_MeleeAttackState meleeAttackStateData;
-    [SerializeField] private D_E_DamagedState damagedStateData;
 
     public LandAttack_Movement Movement { get; private set; }
     public LandAttack_CollisionSense CollisionSense { get; private set; }
@@ -35,7 +34,7 @@ public class LandAttackEnemy : Enemy
         PlayerLookForState = new LandAttack_PlayerLookForState(this, StateMachine, "playerLookFor");
         PlayerFollowState = new LandAttack_PlayerFollowState(this, StateMachine, "playerFollow", moveStateData); ;
         AttackState = new LandAttack_AttackState(this, StateMachine, "attack", meleeAttackStateData);
-        DamagedState = new LandAttack_DamagedState(this, StateMachine, "damaged", damagedStateData);
+        DamagedState = new LandAttack_DamagedState(this, StateMachine, "damaged");
     }
 
     protected override void Start()
@@ -53,15 +52,24 @@ public class LandAttackEnemy : Enemy
         Movement.LogicUpdate();
     }
 
-    public override void Damage(float amount)
+    public override void Damage(WeaponAttackDetails details)
     {
-        base.Damage(amount);
+        base.Damage(details);
 
         if (StateMachine.CurrentState== DamagedState)
         {
             Anim.SetTrigger("empty");
             Anim.Rebind();
         }
+
+        int attackDirection;
+
+        if (details.attackPosition.x > transform.position.x)
+            attackDirection = -1;
+        else
+            attackDirection = 1;
+
+        DamagedState.SetDamagedAttackDetails(details, attackDirection);
         StateMachine.ChangeState(DamagedState);
     }
 

@@ -6,16 +6,20 @@ public class EnemyDamagedState : EnemyState
 {
     protected D_E_DamagedState stateData;
     protected bool isStunTimeOver;
+    protected bool isKnockbackStop;
 
-    public EnemyDamagedState(Enemy enemy, EnemyStateMachine stateMachine, string animBoolName, D_E_DamagedState stateData) : base(enemy, stateMachine, animBoolName)
+    protected WeaponAttackDetails damagedDetails; //맞은 공격의 정보
+    protected int damagedDirection;
+
+    public EnemyDamagedState(Enemy enemy, EnemyStateMachine stateMachine, string animBoolName) : base(enemy, stateMachine, animBoolName)
     {
-        this.stateData = stateData;
     }
 
     public override void Enter()
     {
         base.Enter();
         isStunTimeOver = false;
+        isKnockbackStop = false;
     }
 
     public override void Exit()
@@ -27,12 +31,18 @@ public class EnemyDamagedState : EnemyState
     {
         base.LogicUpdate();
 
-        if (Time.time >= startTime + stateData.stunTime)
+        if (Time.time >= startTime + damagedDetails.stunTime)
             isStunTimeOver = true;
     }
 
     public void StunTimeOver()
     {
         isStunTimeOver = true;
+    }
+
+    public void SetDamagedAttackDetails(WeaponAttackDetails attackDetails, int attackDirection)
+    {
+        damagedDetails = attackDetails;
+        damagedDirection = attackDirection;
     }
 }

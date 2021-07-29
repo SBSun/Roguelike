@@ -58,10 +58,11 @@ public class AggressiveWeapon : Weapon
     private void CheckMeleeAttack()
     {
         WeaponAttackDetails details = aggressiveWeaponData.AttackDetails[weaponManager.AttackCounter];
+        details.attackPosition = transform.parent.position;
 
         foreach (IDamageable item in detectedDamageable)
         {
-            item.Damage(details.damageAmount);
+            item.Damage(details);
         }
     }
 
@@ -74,8 +75,6 @@ public class AggressiveWeapon : Weapon
             if(!detectedDamageable.Contains(damagaable))
                 detectedDamageable.Add(damagaable);
         }
-
-        Debug.Log("Add : " + detectedDamageable.Count);
     }
 
     public void RemoveFromDecteted(Collider2D collider)
@@ -86,7 +85,5 @@ public class AggressiveWeapon : Weapon
         {
             detectedDamageable.Remove(damagaable);
         }
-
-        Debug.Log("Remove : " + detectedDamageable.Count);
     }
 }

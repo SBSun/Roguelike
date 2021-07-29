@@ -42,16 +42,16 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         StateMachine.CurrentState.PhysicsUpdate();
     }
-    public virtual void Damage(float amount)
+    public virtual void Damage(WeaponAttackDetails details)
     {
 
-        if (CurrentHP - amount <= 0)
+        if (CurrentHP - details.damageAmount <= 0)
         {
             Death();
             return;
         }
         else
-            CurrentHP -= amount;
+            CurrentHP -= details.damageAmount;
     }
 
     public virtual void Death()
