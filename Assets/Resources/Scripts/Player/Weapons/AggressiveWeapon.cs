@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class AggressiveWeapon : Weapon
 {
     protected D_AggressiveWeapon aggressiveWeaponData;
 
-    private List<IDamageable> detectedDamageable = new List<IDamageable>();
+    public List<IDamageable> detectedDamageable = new List<IDamageable>();
 
     protected override void Awake()
     {
@@ -51,6 +52,7 @@ public class AggressiveWeapon : Weapon
     public override void AnimationFinishTrigger()
     {
         base.AnimationFinishTrigger();
+        detectedDamageable.Clear(); 
     }
 
     private void CheckMeleeAttack()
@@ -72,6 +74,8 @@ public class AggressiveWeapon : Weapon
             if(!detectedDamageable.Contains(damagaable))
                 detectedDamageable.Add(damagaable);
         }
+
+        Debug.Log("Add : " + detectedDamageable.Count);
     }
 
     public void RemoveFromDecteted(Collider2D collider)
@@ -82,5 +86,7 @@ public class AggressiveWeapon : Weapon
         {
             detectedDamageable.Remove(damagaable);
         }
+
+        Debug.Log("Remove : " + detectedDamageable.Count);
     }
 }
