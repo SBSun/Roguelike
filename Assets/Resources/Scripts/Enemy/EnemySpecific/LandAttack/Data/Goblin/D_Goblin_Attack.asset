@@ -18,6 +18,6 @@ MonoBehaviour:
     attackCoolTime: 1
     stunTime: 0.2
     knockbackTime: 0.1
-    knockbackSpeed: 1
+    knockbackSpeed: 2
     knockbackAngle: {x: 1, y: 0}
     attackPosition: {x: 0, y: 0}

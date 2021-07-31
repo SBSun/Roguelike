@@ -51,7 +51,10 @@ public class LandAttack_AttackState : EnemyAttackState
     {
         if (playerDamageable != null)
         {
-            playerDamageable.Damage(stateData.AttackDetails);
+            WeaponAttackDetails attackDetails = stateData.AttackDetails;
+            attackDetails.attackPosition = landAttackEnemy.transform.position;
+
+            playerDamageable.Damage(attackDetails);
         }
     }
 

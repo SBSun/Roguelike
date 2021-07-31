@@ -17,6 +17,7 @@ public class PlayerLedgeClimbState : PlayerState
     private int xInput;
     private int yInput;
     private bool jumpInput;
+
     public PlayerLedgeClimbState(Player player, PlayerStateMachine stateMachine, D_Player playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
     {
     }
@@ -60,12 +61,11 @@ public class PlayerLedgeClimbState : PlayerState
             isHanging = false;
         }
 
-
         if(isClimbing)
         {
             player.transform.position = stopPos;
             isClimbing = false;
-        }    
+        }
     }
 
     public override void LogicUpdate()
@@ -99,7 +99,7 @@ public class PlayerLedgeClimbState : PlayerState
             {
                 stateMachine.ChangeState(player.InAirState);
             }
-            else if(jumpInput && !isClimbing)
+            else if(jumpInput && !isClimbing && isHanging)
             {
                 player.WallJumpState.DetermineWallJumpDirection(true);
                 stateMachine.ChangeState(player.WallJumpState);

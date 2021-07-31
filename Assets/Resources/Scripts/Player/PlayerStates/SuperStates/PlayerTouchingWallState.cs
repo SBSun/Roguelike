@@ -11,6 +11,7 @@ public class PlayerTouchingWallState : PlayerState
     protected bool grabInput;
     protected bool jumpInput;
     protected bool isTouchingLedge;
+
     public PlayerTouchingWallState(Player player, PlayerStateMachine stateMachine, D_Player playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
     {
     }

@@ -31,8 +31,7 @@ public class LandAttack_Movement : MonoBehaviour
 
     public void SetVelocity(float velocity, Vector2 angle, int direction)
     {
-        angle.Normalize();
-        workSpace.Set(angle.x * velocity * direction, angle.y * direction);
+        workSpace.Set(angle.x * velocity * direction, angle.y * velocity);
         enemy.RB.velocity = workSpace;
         CurrentVelocity = workSpace;
     }

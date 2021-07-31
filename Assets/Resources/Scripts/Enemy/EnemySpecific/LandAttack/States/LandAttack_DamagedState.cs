@@ -10,8 +10,6 @@ public class LandAttack_DamagedState : EnemyDamagedState
     private bool isCliffing;
     private bool isPlayerInAttackArea;
 
-
-
     public LandAttack_DamagedState(LandAttackEnemy landAttackEnemy, EnemyStateMachine stateMachine, string animBoolName) : base(landAttackEnemy, stateMachine, animBoolName)
     {
         this.landAttackEnemy = landAttackEnemy;

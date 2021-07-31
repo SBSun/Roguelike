@@ -21,6 +21,7 @@ public class Player : MonoBehaviour, IDamageable
     public PlayerCrouchMoveState CrouchMoveState { get; private set; }
     public PlayerAttackState PrimaryAttackState { get; private set; }
     public PlayerAttackState SecondaryAttackState { get; private set; }
+    public PlayerDamagedState DamagedState { get; private set; }
 
     #endregion
 
@@ -41,6 +42,7 @@ public class Player : MonoBehaviour, IDamageable
     public WeaponInventory WeaponInventory { get; private set; }
 
     public WeaponManager WeaponManager { get; private set; }
+    public SpriteFlash SpriteFlash { get; private set; }
     #endregion
 
     #region 유니티 콜백 함수
@@ -62,6 +64,7 @@ public class Player : MonoBehaviour, IDamageable
         CrouchMoveState = new PlayerCrouchMoveState(this, StateMachine, PlayerData, "crouchMove");
         PrimaryAttackState = new PlayerAttackState(this, StateMachine, PlayerData, "attack");
         SecondaryAttackState = new PlayerAttackState(this, StateMachine, PlayerData, "attack");
+        DamagedState = new PlayerDamagedState(this, StateMachine, PlayerData, "damaged");
 
         WeaponManager = GetComponentInChildren<WeaponManager>();
     }
@@ -76,6 +79,7 @@ public class Player : MonoBehaviour, IDamageable
         HealthCondition = GetComponentInChildren<PlayerHealthCondition>();
         DashDirectionIndicator = transform.Find("DashDirectionIndicator");
         WeaponInventory = GetComponentInChildren<WeaponInventory>();
+        SpriteFlash = GetComponent<SpriteFlash>();
 
         StateMachine.Initialize(IdleState);
     }
@@ -104,6 +108,16 @@ public class Player : MonoBehaviour, IDamageable
         {
             Death();
         }
+
+        int attackDirection;
+
+        if (details.attackPosition.x > transform.position.x)
+            attackDirection = -1;
+        else
+            attackDirection = 1;
+
+        DamagedState.SetDamagedAttackDetails(details, attackDirection);
+        StateMachine.ChangeState(DamagedState);
     }
 
     public virtual void Death()
