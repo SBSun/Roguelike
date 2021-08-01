@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LandAttack_Movement : MonoBehaviour
 {
-    private Enemy enemy;
+    private LandAttackEnemy landAttackEnemy;
 
     public int FacingDirection { get; private set; }
     public Vector2 CurrentVelocity { get; private set; }
@@ -14,44 +14,44 @@ public class LandAttack_Movement : MonoBehaviour
     private void Awake()
     {
         FacingDirection = 1;
-        enemy = GetComponentInParent<Enemy>();
+        landAttackEnemy = GetComponentInParent<LandAttackEnemy>();
     }
 
     public void LogicUpdate()
     {
-        CurrentVelocity = enemy.RB.velocity;
+        CurrentVelocity = landAttackEnemy.RB.velocity;
     }
 
     public void SetVelocityZero()
     {
         workSpace.Set(0, 0);
-        enemy.RB.velocity = workSpace;
+        landAttackEnemy.RB.velocity = workSpace;
         CurrentVelocity = workSpace;
     }
 
     public void SetVelocity(float velocity, Vector2 angle, int direction)
     {
         workSpace.Set(angle.x * velocity * direction, angle.y * velocity);
-        enemy.RB.velocity = workSpace;
+        landAttackEnemy.RB.velocity = workSpace;
         CurrentVelocity = workSpace;
     }
     public void SetVelocityX(float velocity)
     {
         workSpace.Set(velocity, CurrentVelocity.y);
-        enemy.RB.velocity = workSpace;
+        landAttackEnemy.RB.velocity = workSpace;
         CurrentVelocity = workSpace;
     }
     public void SetVelocityY(float velocity)
     {
         workSpace.Set(CurrentVelocity.x, velocity);
-        enemy.RB.velocity = workSpace;
+        landAttackEnemy.RB.velocity = workSpace;
         CurrentVelocity = workSpace;
     }
 
     public void Flip()
     {
         FacingDirection *= -1;
-        enemy.RB.transform.Rotate(0f, 180f, 0f);
+        landAttackEnemy.RB.transform.Rotate(0f, 180f, 0f);
     }
 
     public void PlayerDirectionFlip(int direction)
@@ -59,7 +59,7 @@ public class LandAttack_Movement : MonoBehaviour
         if (FacingDirection != direction)
         {
             FacingDirection = direction;
-            enemy.RB.transform.Rotate(0f, 180f, 0f);
+            landAttackEnemy.RB.transform.Rotate(0f, 180f, 0f);
         }
     }
 }

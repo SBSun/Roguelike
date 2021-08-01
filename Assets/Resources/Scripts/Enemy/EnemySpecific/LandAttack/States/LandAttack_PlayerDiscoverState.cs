@@ -19,6 +19,7 @@ public class LandAttack_PlayerDiscoverState : EnemyState
     public override void Enter()
     {
         base.Enter();
+        landAttackEnemy.EnemyHpBar.ActiveHpBar();
     }
 
     public override void Exit()
@@ -37,6 +38,7 @@ public class LandAttack_PlayerDiscoverState : EnemyState
 
         if (!isPlayerDetected)
         {
+            landAttackEnemy.EnemyHpBar.InactiveHpBar();
             stateMachine.ChangeState(landAttackEnemy.IdleState);
         }
 

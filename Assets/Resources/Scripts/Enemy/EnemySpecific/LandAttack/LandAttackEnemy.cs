@@ -67,6 +67,9 @@ public class LandAttackEnemy : Enemy
         else
             CurrentHP -= details.damageAmount;
 
+        EnemyHpBar.SetHp(CurrentHP, enemyData.maxHP);
+        EnemyHpBar.ActiveHpBar();
+
         if (StateMachine.CurrentState== DamagedState)
         {
             Anim.SetTrigger("empty");
@@ -87,7 +90,7 @@ public class LandAttackEnemy : Enemy
     public override void Death()
     {
         base.Death();
-
+        EnemyHpBar.InactiveHpBar();
         StateMachine.ChangeState(DeathState);
     }
 }
