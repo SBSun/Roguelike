@@ -15,4 +15,4 @@ MonoBehaviour:
   enemyType: 0
   attackType: 1
   damagedType: 0
-  maxHP: 150
+  maxHP: 10

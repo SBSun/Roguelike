@@ -273,7 +273,7 @@ MonoBehaviour:
   idleStateData: {fileID: 11400000, guid: fbdf758bb15aaaa40b25f7a9cc8d95cb, type: 2}
   moveStateData: {fileID: 11400000, guid: 72f871b2ea31bbd4683aa0cc0a6433d8, type: 2}
   meleeAttackStateData: {fileID: 11400000, guid: 17fb977c6b4b7ff46a6c7780c01dcb92, type: 2}
-  damagedStateData: {fileID: 11400000, guid: be565644340af9d4b862c4c3525548e1, type: 2}
+  deathStateData: {fileID: 11400000, guid: 83f018a8590265346b5e6da12510e907, type: 2}
 --- !u!1 &4410650563179582178
 GameObject:
   m_ObjectHideFlags: 0

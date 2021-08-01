@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour, IDamageable
     public Animator Anim { get; private set; }
     public BoxCollider2D Collider { get; private set; }
 
-    public float CurrentHP { get; private set; }
+    public float CurrentHP { get; protected set; }
 
     [SerializeField]
     protected D_Enemy enemyData;
@@ -45,13 +45,7 @@ public class Enemy : MonoBehaviour, IDamageable
     public virtual void Damage(WeaponAttackDetails details)
     {
 
-        if (CurrentHP - details.damageAmount <= 0)
-        {
-            Death();
-            return;
-        }
-        else
-            CurrentHP -= details.damageAmount;
+
     }
 
     public virtual void Death()

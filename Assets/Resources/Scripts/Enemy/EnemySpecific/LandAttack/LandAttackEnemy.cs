@@ -10,10 +10,12 @@ public class LandAttackEnemy : Enemy
     public LandAttack_PlayerFollowState PlayerFollowState { get; private set; }
     public LandAttack_AttackState AttackState { get; private set; }
     public LandAttack_DamagedState DamagedState { get; private set; }
+    public LandAttack_DeathState DeathState { get; private set; }
 
     [SerializeField] private D_E_IdleState idleStateData;
     [SerializeField] private D_E_MoveState moveStateData;
     [SerializeField] private D_E_MeleeAttackState meleeAttackStateData;
+    [SerializeField] private D_E_DeathState deathStateData;
 
     public LandAttack_Movement Movement { get; private set; }
     public LandAttack_CollisionSense CollisionSense { get; private set; }
@@ -35,6 +37,7 @@ public class LandAttackEnemy : Enemy
         PlayerFollowState = new LandAttack_PlayerFollowState(this, StateMachine, "playerFollow", moveStateData); ;
         AttackState = new LandAttack_AttackState(this, StateMachine, "attack", meleeAttackStateData);
         DamagedState = new LandAttack_DamagedState(this, StateMachine, "damaged");
+        DeathState = new LandAttack_DeathState(this, StateMachine, "death", deathStateData);
     }
 
     protected override void Start()
@@ -55,6 +58,14 @@ public class LandAttackEnemy : Enemy
     public override void Damage(WeaponAttackDetails details)
     {
         base.Damage(details);
+
+        if (CurrentHP - details.damageAmount <= 0)
+        {
+            Death();
+            return;
+        }
+        else
+            CurrentHP -= details.damageAmount;
 
         if (StateMachine.CurrentState== DamagedState)
         {
@@ -77,6 +88,6 @@ public class LandAttackEnemy : Enemy
     {
         base.Death();
 
-
+        StateMachine.ChangeState(DeathState);
     }
 }
