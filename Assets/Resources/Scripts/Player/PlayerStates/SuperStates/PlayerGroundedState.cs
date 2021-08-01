@@ -59,7 +59,7 @@ public class PlayerGroundedState : PlayerState
         {
             stateMachine.ChangeState(player.SecondaryAttackState);
         }
-        else if(jumpInput && player.JumpState.CanJump())
+        else if(jumpInput && player.JumpState.CanJump() && !isTouchingCelling)
         {
             stateMachine.ChangeState(player.JumpState);
         }

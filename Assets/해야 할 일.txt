@@ -1,1 +1,1 @@
-Enemy는 Knockback 작업 거의 다 끝났고 이제 플레이어 DamagedState 생성해서 구현해야 함
+Crouch 상태 && 천장 닿아있는 상태에서 점프하면 버그 
