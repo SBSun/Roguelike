@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: D_Goblin_Death
   m_EditorClassIdentifier: 
   deathParticle: {fileID: 6914591987301602075, guid: 4ffd9870f04db654c8d3618d8951b5db, type: 3}
+  bloodSplash: {fileID: 3096170438629641705, guid: d02c62daa7eea954ab7f16f9d4f7a148, type: 3}
