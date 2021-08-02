@@ -5,15 +5,7 @@ using UnityEngine.UI;
 
 public class EnemyHpBar : MonoBehaviour
 {
-    public GameObject hpBar;
     public Image fill_Image;
-
-    private Canvas canvas;
-
-    private void Awake()
-    {
-        canvas = GetComponent<Canvas>();
-    }
 
     public void SetHp(float currentHp, float maxHp)
     {
@@ -22,8 +14,8 @@ public class EnemyHpBar : MonoBehaviour
 
     public void ActiveHpBar()
     {
-        hpBar.SetActive(true);
+        gameObject.SetActive(true);
     }
 
-    public void InactiveHpBar() => hpBar.SetActive(false);
+    public void InactiveHpBar() => gameObject.SetActive(false);
 }

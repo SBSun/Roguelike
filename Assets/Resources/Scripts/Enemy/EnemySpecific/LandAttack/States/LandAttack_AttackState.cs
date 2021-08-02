@@ -39,6 +39,7 @@ public class LandAttack_AttackState : EnemyAttackState
 
         if (isAnimationFinished)
         {
+            landAttackEnemy.EnemyHpBar.InactiveHpBar();
             stateMachine.ChangeState(landAttackEnemy.IdleState);
         }
         else if (!isPlayerInAttackArea)

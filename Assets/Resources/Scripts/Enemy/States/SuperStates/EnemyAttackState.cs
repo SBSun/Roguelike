@@ -19,6 +19,7 @@ public class EnemyAttackState : EnemyState
         base.Enter();
 
         isAnimationFinished = false;
+        enemy.EnemyHpBar.ActiveHpBar();
     }
 
     public override void Exit()

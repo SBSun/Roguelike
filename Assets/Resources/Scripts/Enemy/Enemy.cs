@@ -27,31 +27,36 @@ public class Enemy : MonoBehaviour, IDamageable
         RB = GetComponent<Rigidbody2D>();
         Anim = GetComponent<Animator>();
         Collider = GetComponent<BoxCollider2D>();
-        EnemyHpBar = GetComponentInChildren<EnemyHpBar>();
     }
 
     protected virtual void Start()
     {
         CurrentHP = enemyData.maxHP;
+        Managers.UI.EnemyHpBarCreate.HpBarCreate(this);
     }
 
     protected virtual void Update()
     {
         StateMachine.CurrentState.LogicUpdate();
+
+        EnemyHpBar.transform.position = Camera.main.WorldToScreenPoint((Vector2)Collider.bounds.center - new Vector2(0, Collider.bounds.extents.y + 0.5f));
     }
 
     protected virtual void FixedUpdate()
     {
         StateMachine.CurrentState.PhysicsUpdate();
     }
+
     public virtual void Damage(WeaponAttackDetails details)
     {
-
 
     }
 
     public virtual void Death()
     {
-        Debug.Log("Á×À½");
+
     }
+
+    public void SetEnemyHpBar(EnemyHpBar enemyHpBar) => EnemyHpBar = enemyHpBar;
+
 }
