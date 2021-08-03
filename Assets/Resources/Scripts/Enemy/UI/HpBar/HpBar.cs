@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemyHpBar : MonoBehaviour
+public class HpBar : MonoBehaviour
 {
     public Image fill_Image;
 

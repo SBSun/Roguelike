@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    private PlayerCore core;
+
     public Rigidbody2D RB { get; private set; }
     public BoxCollider2D Collider { get; private set; }
     public int FacingDirection { get; private set; }
@@ -14,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
+        core = GetComponentInParent<PlayerCore>();
         FacingDirection = 1;
         RB = GetComponentInParent<Rigidbody2D>();
         Collider = GetComponentInParent<BoxCollider2D>();

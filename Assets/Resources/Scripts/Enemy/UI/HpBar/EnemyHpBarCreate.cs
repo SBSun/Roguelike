@@ -9,7 +9,7 @@ public class EnemyHpBarCreate : MonoBehaviour
 
     public void HpBarCreate(Enemy enemy)
     {
-        EnemyHpBar hpBar = Instantiate(hpBarPrefab, enemy.transform.position, Quaternion.identity, transform).GetComponent<EnemyHpBar>();
+        HpBar hpBar = Instantiate(hpBarPrefab, enemy.transform.position, Quaternion.identity, transform).GetComponent<HpBar>();
         enemy.SetEnemyHpBar(hpBar);
     }
 }

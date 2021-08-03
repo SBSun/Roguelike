@@ -36,6 +36,7 @@ public class LandAttack_AttackState : EnemyAttackState
 
         isPlayerDetected = landAttackEnemy.CollisionSense.PlayerDetected;
         isPlayerInAttackArea = landAttackEnemy.CollisionSense.PlayerInAttackArea;
+        landAttackEnemy.Movement.SetVelocityX(0f);
 
         if (isAnimationFinished)
         {

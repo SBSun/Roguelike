@@ -18,7 +18,7 @@ public class LandAttack_DamagedState : EnemyDamagedState
     public override void Enter()
     {
         base.Enter();
-        landAttackEnemy.Movement.SetVelocity(damagedDetails.knockbackSpeed, damagedDetails.knockbackAngle, damagedDirection);
+        landAttackEnemy.Movement.SetVelocity(damagedDetails.knockbackStrength, damagedDetails.knockbackAngle, damagedDirection);
     }
 
     public override void Exit()

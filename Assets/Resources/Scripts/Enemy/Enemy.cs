@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour, IDamageable
     public Rigidbody2D RB { get; private set; }
     public Animator Anim { get; private set; }
     public BoxCollider2D Collider { get; private set; }
-    public EnemyHpBar EnemyHpBar { get; private set; }
+    public HpBar EnemyHpBar { get; private set; }
 
     public float CurrentHP { get; protected set; }
 
@@ -57,6 +57,6 @@ public class Enemy : MonoBehaviour, IDamageable
 
     }
 
-    public void SetEnemyHpBar(EnemyHpBar enemyHpBar) => EnemyHpBar = enemyHpBar;
+    public void SetEnemyHpBar(HpBar enemyHpBar) => EnemyHpBar = enemyHpBar;
 
 }

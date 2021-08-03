@@ -26,14 +26,12 @@ public class Player : MonoBehaviour, IDamageable
     #endregion
 
     #region 컴포넌트
+    public PlayerCore Core { get; private set; }
     public Rigidbody2D RB { get; private set; }
     public Animator Anim { get; private set; }
-
-
     public PlayerInputHandler InputHandler { get; private set; }
     public PlayerCollisionSense CollisionSense { get; private set; }
     public PlayerMovement Movement { get; private set; }
-    public PlayerHealthCondition HealthCondition { get; private set; }
 
     [SerializeField]
     private D_Player PlayerData;
@@ -43,11 +41,14 @@ public class Player : MonoBehaviour, IDamageable
 
     public WeaponManager WeaponManager { get; private set; }
     public SpriteFlash SpriteFlash { get; private set; }
+
+    public float CurrentHP { get; private set; }
     #endregion
 
     #region 유니티 콜백 함수
     private void Awake()
     {
+        Core = GetComponentInChildren<PlayerCore>();
         StateMachine = new PlayerStateMachine();
         IdleState = new PlayerIdleState(this, StateMachine, PlayerData, "idle");
         MoveState = new PlayerMoveState(this, StateMachine, PlayerData, "move");
@@ -76,7 +77,6 @@ public class Player : MonoBehaviour, IDamageable
         InputHandler = GetComponent<PlayerInputHandler>();
         CollisionSense = GetComponentInChildren<PlayerCollisionSense>();
         Movement = GetComponentInChildren<PlayerMovement>();
-        HealthCondition = GetComponentInChildren<PlayerHealthCondition>();
         DashDirectionIndicator = transform.Find("DashDirectionIndicator");
         WeaponInventory = GetComponentInChildren<WeaponInventory>();
         SpriteFlash = GetComponent<SpriteFlash>();
@@ -102,9 +102,7 @@ public class Player : MonoBehaviour, IDamageable
 
     public virtual void Damage(WeaponAttackDetails details)
     {
-        //Core.HealthCondition.DecreaseHP(amount);
-
-        if (HealthCondition.CurrentHP <= 0)
+        if (CurrentHP <= 0)
         {
             Death();
         }

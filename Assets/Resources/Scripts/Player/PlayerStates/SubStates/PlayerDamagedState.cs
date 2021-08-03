@@ -19,7 +19,7 @@ public class PlayerDamagedState : PlayerAbilityState
         base.Enter();
 
         isKnockbackStop = false;
-        player.Movement.SetVelocity(damagedDetails.knockbackSpeed, damagedDetails.knockbackAngle, damagedDirection);
+        player.Movement.SetVelocity(damagedDetails.knockbackStrength, damagedDetails.knockbackAngle, damagedDirection);
         player.SpriteFlash.OnFlash();
     }
 

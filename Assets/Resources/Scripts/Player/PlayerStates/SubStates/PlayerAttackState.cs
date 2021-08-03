@@ -26,7 +26,7 @@ public class PlayerAttackState : PlayerAbilityState
 
         setVelocity = false;
 
-        player.WeaponManager.CurrentWeapon.InitializeWeapon(this);
+        player.WeaponManager.CurrentWeapon.InitializeWeapon(this, player.Core);
         player.WeaponManager.CurrentWeapon.EnterWeapon();
     }
 

@@ -13,6 +13,8 @@ public class Weapon : MonoBehaviour
 
     protected PlayerAttackState state;
 
+    protected PlayerCore core;
+
     protected virtual void Awake()
     {
         baseAnimator = transform.Find("Base").GetComponent<Animator>();
@@ -78,8 +80,9 @@ public class Weapon : MonoBehaviour
         
     }
 
-    public void InitializeWeapon(PlayerAttackState state)
+    public void InitializeWeapon(PlayerAttackState state, PlayerCore core)
     {
         this.state = state;
+        this.core = core;
     }
 }
