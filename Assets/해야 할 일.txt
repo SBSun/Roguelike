@@ -1,0 +1,1 @@
+CoreComponent - Movement, Collisionsense, Combat 상위 클래스로 공통적인 변수, 함수등을 생성하고 Player, Enemy로 나누기
