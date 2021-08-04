@@ -59,4 +59,8 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public void SetEnemyHpBar(HpBar enemyHpBar) => EnemyHpBar = enemyHpBar;
 
+    public float GetMaxHp()
+    {
+        return enemyData.maxHP;
+    }
 }

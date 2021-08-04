@@ -17,8 +17,19 @@ public class LandAttackEnemy : Enemy
     [SerializeField] private D_E_MeleeAttackState meleeAttackStateData;
     [SerializeField] private D_E_DeathState deathStateData;
 
-    public LandAttack_Movement Movement { get; private set; }
-    public LandAttack_CollisionSense CollisionSense { get; private set; }
+    public LandEnemyMovement Movement
+    {
+        get => GenericNotImplementedError<LandEnemyMovement>.TryGet(movement, transform.name);
+        private set => movement = value;
+    }
+    public LandAttackEnemyCollisionSense CollisionSense
+    {
+        get => GenericNotImplementedError<LandAttackEnemyCollisionSense>.TryGet(collisionSenses, transform.name);
+        private set => collisionSenses = value;
+    }
+
+    private LandEnemyMovement movement;
+    private LandAttackEnemyCollisionSense collisionSenses;
 
     public AttackInfoToEnemy AttackInfo { get; private set; }
 
@@ -28,8 +39,8 @@ public class LandAttackEnemy : Enemy
         base.Awake();
 
         AttackInfo = GetComponent<AttackInfoToEnemy>();
-        Movement = GetComponentInChildren<LandAttack_Movement>();
-        CollisionSense = GetComponentInChildren<LandAttack_CollisionSense>();
+        Movement = GetComponentInChildren<LandEnemyMovement>();
+        CollisionSense = GetComponentInChildren<LandAttackEnemyCollisionSense>();
 
         IdleState = new LandAttack_IdleState(this, StateMachine, "idle", idleStateData);
         MoveState = new LandAttack_MoveState(this, StateMachine, "move", moveStateData);

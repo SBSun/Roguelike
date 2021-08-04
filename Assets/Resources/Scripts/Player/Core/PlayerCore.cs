@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerCore : MonoBehaviour
 {
+    public Player player { get; private set; }
+
     public PlayerMovement Movement
     {
         get => GenericNotImplementedError<PlayerMovement>.TryGet(movement, transform.parent.name);
@@ -31,10 +33,12 @@ public class PlayerCore : MonoBehaviour
         Movement = GetComponentInChildren<PlayerMovement>();
         CollisionSenses = GetComponentInChildren<PlayerCollisionSense>();
         Combat = GetComponentInChildren<PlayerCombat>();
+        player = GetComponentInParent<Player>();
     }
 
     public void LogicUpdate()
     {
         Movement.LogicUpdate();
+        Combat.LogicUpdate();
     }
 }

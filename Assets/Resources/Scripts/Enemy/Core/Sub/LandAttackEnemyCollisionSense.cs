@@ -2,53 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LandAttack_CollisionSense : MonoBehaviour
+public class LandAttackEnemyCollisionSense : LandMoveEnemyCollisionsense
 {
-    private Enemy enemy;
 
-    [SerializeField] private Transform topWallCheck;
-    [SerializeField] private Transform bottomWallCheck;
-    [SerializeField] private Transform topWallBackCheck;
-    [SerializeField] private Transform bottomWallBackCheck;
-    [SerializeField] private Transform cliffCheck;
-
-    [SerializeField] private float cliffCheckDistance;
-
-    [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private LayerMask whatIsPlayer;
     [SerializeField] private LayerMask whatIsGroundOrPlayer;
 
-    private RaycastHit2D hitInfo;
     private Vector2 recognizeBoxSize;
     [SerializeField] private BoxCollider2D attackArea;
 
     public Collider2D playerCol { get; private set; }
 
-
-    private void Awake()
-    {
-        enemy = GetComponentInParent<Enemy>();
-    }
-
     private void Start()
     {
         recognizeBoxSize.Set(15f, enemy.Collider.bounds.size.y);
-    }
-
-    //캐릭터 앞에 벽이 있는지 체크
-    public bool WallFront
-    {
-        get => Physics2D.OverlapArea(topWallCheck.position, bottomWallCheck.position, whatIsGround);
-    }
-    //캐릭터 뒤에 벽이 있는지 체크
-    public bool WallBack
-    {
-        get => Physics2D.OverlapArea(topWallBackCheck.position, bottomWallBackCheck.position, whatIsGround);
-    }
-
-    public bool Cliffing
-    {
-        get => !Physics2D.Raycast(cliffCheck.position, Vector2.down, cliffCheckDistance, whatIsGround);
     }
 
     public bool PlayerDetected

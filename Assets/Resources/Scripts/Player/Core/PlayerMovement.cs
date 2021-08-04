@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D RB { get; private set; }
     public BoxCollider2D Collider { get; private set; }
     public int FacingDirection { get; private set; }
+    public bool CanSetVelocity { get; set; }
     public Vector2 CurrentVelocity { get; private set; }
 
     private Vector2 workSpace;
@@ -20,44 +21,47 @@ public class PlayerMovement : MonoBehaviour
         FacingDirection = 1;
         RB = GetComponentInParent<Rigidbody2D>();
         Collider = GetComponentInParent<BoxCollider2D>();
+        CanSetVelocity = true;
     }
 
     public void LogicUpdate()
     {
         CurrentVelocity = RB.velocity;
     }
-
+    private void SetFinalVelocity()
+    {
+        if (CanSetVelocity)
+        {
+            RB.velocity = workSpace;
+            CurrentVelocity = workSpace;
+        }
+    }
     #region Set ÇÔ¼ö 
     public void SetVelocityZero()
     {
         workSpace.Set(0, 0);
-        RB.velocity = workSpace;
-        CurrentVelocity = workSpace;
+        SetFinalVelocity();
     }
     public void SetVelocity(float velocity, Vector2 angle, int direction)
     {
         angle.Normalize();
         workSpace.Set(angle.x * velocity * direction, angle.y * velocity);
-        RB.velocity = workSpace;
-        CurrentVelocity = workSpace;
+        SetFinalVelocity();
     }
     public void SetVelocity(float velocity, Vector2 direction)
     {
         workSpace = direction * velocity;
-        RB.velocity = workSpace;
-        CurrentVelocity = workSpace;
+        SetFinalVelocity();
     }
     public void SetVelocityX(float velocity)
     {
         workSpace.Set(velocity, CurrentVelocity.y);
-        RB.velocity = workSpace;
-        CurrentVelocity = workSpace;
+        SetFinalVelocity();
     }
     public void SetVelocityY(float velocity)
     {
         workSpace.Set(CurrentVelocity.x, velocity);
-        RB.velocity = workSpace;
-        CurrentVelocity = workSpace;
+        SetFinalVelocity();
     }
     public void SetGravityScale(float gravity)
     {

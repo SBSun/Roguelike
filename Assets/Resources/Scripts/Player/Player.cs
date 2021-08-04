@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour, IDamageable
+public class Player : MonoBehaviour
 {
     #region State 변수
     public PlayerStateMachine StateMachine { get; private set; }
@@ -42,7 +42,6 @@ public class Player : MonoBehaviour, IDamageable
     public WeaponManager WeaponManager { get; private set; }
     public SpriteFlash SpriteFlash { get; private set; }
 
-    public float CurrentHP { get; private set; }
     #endregion
 
     #region 유니티 콜백 함수
@@ -86,7 +85,7 @@ public class Player : MonoBehaviour, IDamageable
 
     private void Update()
     {
-        Movement.LogicUpdate();
+        Core.LogicUpdate();
         StateMachine.CurrentState.LogicUpdate();
     }
 
@@ -100,26 +99,13 @@ public class Player : MonoBehaviour, IDamageable
 
     private void AnimationFinishTrigger() => StateMachine.CurrentState.AnimationFinishTrigger();
 
-    public virtual void Damage(WeaponAttackDetails details)
+    public float GetMaxHp()
     {
-        if (CurrentHP <= 0)
-        {
-            Death();
-        }
-
-        int attackDirection;
-
-        if (details.attackPosition.x > transform.position.x)
-            attackDirection = -1;
-        else
-            attackDirection = 1;
-
-        DamagedState.SetDamagedAttackDetails(details, attackDirection);
-        StateMachine.ChangeState(DamagedState);
+        return PlayerData.maxHP;
     }
 
-    public virtual void Death()
+    public void SetMaxHp(float newMaxHp)
     {
-
+        PlayerData.maxHP = newMaxHp;
     }
 }

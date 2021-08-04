@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LandAttack_Movement : MonoBehaviour
+public class LandEnemyMovement : MonoBehaviour
 {
     private LandAttackEnemy landAttackEnemy;
 
