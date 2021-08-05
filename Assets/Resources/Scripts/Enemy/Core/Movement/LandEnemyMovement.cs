@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LandEnemyMovement : MonoBehaviour
 {
-    private LandAttackEnemy landAttackEnemy;
+    private Enemy enemy;
 
     public int FacingDirection { get; private set; }
     public Vector2 CurrentVelocity { get; private set; }
@@ -15,12 +15,12 @@ public class LandEnemyMovement : MonoBehaviour
     private void Awake()
     {
         FacingDirection = 1;
-        landAttackEnemy = GetComponentInParent<LandAttackEnemy>();
+        enemy = GetComponentInParent<Enemy>();
     }
 
     public void LogicUpdate()
     {
-        CurrentVelocity = landAttackEnemy.RB.velocity;
+        CurrentVelocity = enemy.RB.velocity;
     }
 
     public void SetVelocityZero()
@@ -49,7 +49,7 @@ public class LandEnemyMovement : MonoBehaviour
     {
         if(CanSetVelocity)
         {
-            landAttackEnemy.RB.velocity = workSpace;
+            enemy.RB.velocity = workSpace;
             CurrentVelocity = workSpace;
         }
     }
@@ -57,7 +57,7 @@ public class LandEnemyMovement : MonoBehaviour
     public void Flip()
     {
         FacingDirection *= -1;
-        landAttackEnemy.RB.transform.Rotate(0f, 180f, 0f);
+        enemy.RB.transform.Rotate(0f, 180f, 0f);
     }
 
     public void PlayerDirectionFlip(int direction)
@@ -65,7 +65,7 @@ public class LandEnemyMovement : MonoBehaviour
         if (FacingDirection != direction)
         {
             FacingDirection = direction;
-            landAttackEnemy.RB.transform.Rotate(0f, 180f, 0f);
+            enemy.RB.transform.Rotate(0f, 180f, 0f);
         }
     }
 }

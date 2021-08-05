@@ -18,7 +18,6 @@ public class LandAttack_DamagedState : EnemyDamagedState
     public override void Enter()
     {
         base.Enter();
-        landAttackEnemy.Movement.SetVelocity(damagedDetails.knockbackStrength, damagedDetails.knockbackAngle, damagedDirection);
     }
 
     public override void Exit()
@@ -33,12 +32,6 @@ public class LandAttack_DamagedState : EnemyDamagedState
         isTouchingWallFront = landAttackEnemy.CollisionSense.WallFront;
         isCliffing = landAttackEnemy.CollisionSense.Cliffing;
         isPlayerInAttackArea = landAttackEnemy.CollisionSense.PlayerInAttackArea;
-
-        if (Time.time >= startTime + damagedDetails.knockbackTime && !isKnockbackStop)
-        {
-            isKnockbackStop = true;
-            landAttackEnemy.Movement.SetVelocityZero();
-        }
 
         if (isStunTimeOver)
         {

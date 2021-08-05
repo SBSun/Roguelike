@@ -23,14 +23,14 @@ public class Enemy : MonoBehaviour, IDamageable
     protected virtual void Awake()
     {
         StateMachine = new EnemyStateMachine();
-     
-        RB = GetComponent<Rigidbody2D>();
-        Anim = GetComponent<Animator>();
-        Collider = GetComponent<BoxCollider2D>();
     }
 
     protected virtual void Start()
     {
+        RB = GetComponent<Rigidbody2D>();
+        Anim = GetComponent<Animator>();
+        Collider = GetComponent<BoxCollider2D>();
+
         CurrentHP = enemyData.maxHP;
         Managers.UI.EnemyHpBarCreate.HpBarCreate(this);
     }

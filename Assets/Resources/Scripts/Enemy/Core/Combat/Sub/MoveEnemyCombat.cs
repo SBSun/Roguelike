@@ -2,21 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCombat : Combat, IKnockbackable
+public class MoveEnemyCombat : Combat, IKnockbackable
 {
-    private PlayerCore core;
+    private LandEnemyMovement movement;
+
     public bool isKnockbackActive { get; private set; }
     private float knockbackStartTime;
 
     private void Awake()
     {
-        core = GetComponentInParent<PlayerCore>();
-        CurrentHP = core.player.GetMaxHp();
-    }
-
-    public void LogicUpdate()
-    {
-        CheckKnockback();
+        movement = transform.parent.GetComponentInChildren<LandEnemyMovement>();
     }
 
     public override void Damage(WeaponAttackDetails details)
@@ -31,13 +26,11 @@ public class PlayerCombat : Combat, IKnockbackable
             attackDirection = 1;
 
         Knockback(details.knockbackStrength, details.knockbackAngle, attackDirection);
-        core.player.StateMachine.ChangeState(core.player.DamagedState);
     }
 
     public override void Death()
     {
         base.Death();
-
     }
 
     public void Knockback(float strength, Vector2 angle, int direction)
@@ -53,8 +46,9 @@ public class PlayerCombat : Combat, IKnockbackable
         if (isKnockbackActive && core.Movement.CurrentVelocity.y <= 0.01f && core.CollisionSenses.Grounded)
         {
             isKnockbackActive = false;
-            core.Movement.CanSetVelocity = true; 
+            core.Movement.CanSetVelocity = true;
         }
     }
 
+    
 }
