@@ -28,7 +28,4 @@ public class D_Enemy : ScriptableObject
     public EnemyType enemyType;
     public AttackType attackType;
     public DamagedType damagedType;
-
-    [Header("Health Condition")]
-    public float maxHP = 100f;
 }

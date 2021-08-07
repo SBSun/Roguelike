@@ -2,46 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Combat : CoreComponent, IDamageable, IKnockbackable
+public class Combat : CoreComponent, IDamageable
 {
-    public float CurrentHP { get; protected set; }
+    public BoxCollider2D Collider { get; protected set; }
 
-    public bool isKnockbackActive { get; private set; }
-    private float knockbackStartTime;
-
-    public void LogicUpdate()
+    protected override void Awake()
     {
-        CheckKnockback();
+        base.Awake();
+
+        Collider = GetComponent<BoxCollider2D>();
     }
 
-    public void Damage(WeaponAttackDetails details)
+    public virtual void LogicUpdate()
     {
-        if(CurrentHP - details.damageAmount <= 0)
+
+    }
+
+    public virtual void Damage(WeaponAttackDetails details)
+    {
+        core.HealthCondition.DecreaseHP(details.damageAmount);
+
+        if (core.HealthCondition.CurrentHP <= 0)
         {
             Death();
             return;
         }
     }
 
-    public void Death()
+    public virtual void Death()
     {
-
+        return;
     }
 
-    public void Knockback(float strength, Vector2 angle, int direction)
-    {
-        core.Movement.SetVelocity(strength, angle, direction);
-        core.Movement.CanSetVelocity = false;
-        isKnockbackActive = true;
-        knockbackStartTime = Time.time;
-    }
-
-    private void CheckKnockback()
-    {
-        if (isKnockbackActive && core.Movement.CurrentVelocity.y <= 0.01f && core.CollisionSenses.Grounded)
-        {
-            isKnockbackActive = false;
-            core.Movement.CanSetVelocity = true;
-        }
-    }
 }

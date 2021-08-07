@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Animator))]
-public class Enemy : MonoBehaviour, IDamageable
+public class Enemy : MonoBehaviour
 {
 
     public EnemyStateMachine StateMachine { get; private set; }
     public Animator Anim { get; private set; }
-    public BoxCollider2D Collider { get; private set; }
     public HpBar EnemyHpBar { get; private set; }
+    public Core Core { get; protected set; }
 
     public float CurrentHP { get; protected set; }
 
@@ -21,15 +20,14 @@ public class Enemy : MonoBehaviour, IDamageable
 
     protected virtual void Awake()
     {
+        Core = GetComponentInChildren<Core>();
         StateMachine = new EnemyStateMachine();
     }
 
     protected virtual void Start()
     {
         Anim = GetComponent<Animator>();
-        Collider = GetComponent<BoxCollider2D>();
 
-        CurrentHP = enemyData.maxHP;
         Managers.UI.EnemyHpBarCreate.HpBarCreate(this);
     }
 
@@ -37,28 +35,11 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         StateMachine.CurrentState.LogicUpdate();
 
-        EnemyHpBar.transform.position = Camera.main.WorldToScreenPoint((Vector2)Collider.bounds.center - new Vector2(0, Collider.bounds.extents.y + 0.5f));
+        EnemyHpBar.transform.position = Camera.main.WorldToScreenPoint((Vector2)Core.Combat.Collider.bounds.center - new Vector2(0, Core.Combat.Collider.bounds.extents.y + 0.5f));
     }
 
     protected virtual void FixedUpdate()
     {
         StateMachine.CurrentState.PhysicsUpdate();
-    }
-
-    public virtual void Damage(WeaponAttackDetails details)
-    {
-
-    }
-
-    public virtual void Death()
-    {
-
-    }
-
-    public void SetEnemyHpBar(HpBar enemyHpBar) => EnemyHpBar = enemyHpBar;
-
-    public float GetMaxHp()
-    {
-        return enemyData.maxHP;
     }
 }

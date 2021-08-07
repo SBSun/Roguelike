@@ -17,20 +17,6 @@ public class LandAttackEnemy : Enemy
     [SerializeField] private D_E_MeleeAttackState meleeAttackStateData;
     [SerializeField] private D_E_DeathState deathStateData;
 
-    public LandEnemyMovement Movement
-    {
-        get => GenericNotImplementedError<LandEnemyMovement>.TryGet(movement, transform.name);
-        private set => movement = value;
-    }
-    public LandAttackEnemyCollisionSense CollisionSense
-    {
-        get => GenericNotImplementedError<LandAttackEnemyCollisionSense>.TryGet(collisionSenses, transform.name);
-        private set => collisionSenses = value;
-    }
-
-    private LandEnemyMovement movement;
-    private LandAttackEnemyCollisionSense collisionSenses;
-
     public AttackInfoToEnemy AttackInfo { get; private set; }
 
 
@@ -39,8 +25,6 @@ public class LandAttackEnemy : Enemy
         base.Awake();
 
         AttackInfo = GetComponent<AttackInfoToEnemy>();
-        Movement = GetComponentInChildren<LandEnemyMovement>();
-        CollisionSense = GetComponentInChildren<LandAttackEnemyCollisionSense>();
 
         IdleState = new LandAttack_IdleState(this, StateMachine, "idle", idleStateData);
         MoveState = new LandAttack_MoveState(this, StateMachine, "move", moveStateData);
@@ -62,46 +46,5 @@ public class LandAttackEnemy : Enemy
     protected override void Update()
     {
         base.Update();
-
-        Movement.LogicUpdate();
-    }
-
-    public override void Damage(WeaponAttackDetails details)
-    {
-        base.Damage(details);
-
-        if (CurrentHP - details.damageAmount <= 0)
-        {
-            Death();
-            return;
-        }
-        else
-            CurrentHP -= details.damageAmount;
-
-        EnemyHpBar.SetHp(CurrentHP, enemyData.maxHP);
-        EnemyHpBar.ActiveHpBar();
-
-        if (StateMachine.CurrentState== DamagedState)
-        {
-            Anim.SetTrigger("empty");
-            Anim.Rebind();
-        }
-
-        int attackDirection;
-
-        if (details.attackPosition.x > transform.position.x)
-            attackDirection = -1;
-        else
-            attackDirection = 1;
-
-        DamagedState.SetDamagedAttackDetails(details, attackDirection);
-        StateMachine.ChangeState(DamagedState);
-    }
-
-    public override void Death()
-    {
-        base.Death();
-        EnemyHpBar.InactiveHpBar();
-        StateMachine.ChangeState(DeathState);
     }
 }

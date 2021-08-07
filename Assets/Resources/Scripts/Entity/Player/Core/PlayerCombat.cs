@@ -4,17 +4,15 @@ using UnityEngine;
 
 public class PlayerCombat : Combat, IKnockbackable
 {
-    private PlayerCore core;
     public bool isKnockbackActive { get; private set; }
     private float knockbackStartTime;
 
-    private void Awake()
+    protected override void Awake()
     {
-        core = GetComponentInParent<PlayerCore>();
-        CurrentHP = core.player.GetMaxHp();
+        //CurrentHP = core.player.GetMaxHp();
     }
 
-    public void LogicUpdate()
+    public override void LogicUpdate()
     {
         CheckKnockback();
     }
@@ -23,15 +21,7 @@ public class PlayerCombat : Combat, IKnockbackable
     {
         base.Damage(details);
 
-        int attackDirection;
-
-        if (details.attackPosition.x > transform.position.x)
-            attackDirection = -1;
-        else
-            attackDirection = 1;
-
-        Knockback(details.knockbackStrength, details.knockbackAngle, attackDirection);
-        core.player.StateMachine.ChangeState(core.player.DamagedState);
+        //core.player.StateMachine.ChangeState(core.player.DamagedState);
     }
 
     public override void Death()
