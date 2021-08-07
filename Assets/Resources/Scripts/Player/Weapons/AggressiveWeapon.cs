@@ -65,8 +65,10 @@ public class AggressiveWeapon : Weapon
         foreach (IDamageable item in detectedDamageable)
             item.Damage(details);
 
+        int attackDirection = core.Movement.FacingDirection;
+
         foreach (IKnockbackable item in detectedKnockbackable)
-            item.Knockback(details.knockbackStrength, details.knockbackAngle, core.Movement.FacingDirection);
+            item.Knockback(details.knockbackStrength, details.knockbackAngle, attackDirection);
     }
 
     public void AddToDectected(Collider2D collider)

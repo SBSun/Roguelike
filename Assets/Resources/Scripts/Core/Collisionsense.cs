@@ -2,17 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Collisionsense : MonoBehaviour
+public class CollisionSense : CoreComponent
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Transform GroundCheck { get => groundCheck; protected set => groundCheck = value; }
+    public float GroundCheckRadius { get => groundCheckRadius; protected set => groundCheckRadius = value; }
+    public LayerMask WhatIsGround { get => whatIsGround; protected set => whatIsGround = value; }
 
-    // Update is called once per frame
-    void Update()
+    [SerializeField] protected Transform groundCheck;
+    [SerializeField] protected float groundCheckRadius;
+    [SerializeField] protected LayerMask whatIsGround;
+
+    //¶¥¿¡ ´ê¾Æ ÀÖ´ÂÁö Ã¼Å©
+    public bool Grounded
     {
-        
+        get => Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
     }
 }

@@ -2,9 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LandMoveEnemyCollisionsense : MonoBehaviour
+public class LandMoveEnemyCollisionsense : CollisionSense
 {
-    protected Enemy enemy;
+    public BoxCollider2D Collider { get; private set; }
+
+    protected override void Awake()
+    {
+        base.Awake();
+    }
 
     [SerializeField] protected Transform topWallCheck;
     [SerializeField] protected Transform bottomWallCheck;
@@ -14,14 +19,7 @@ public class LandMoveEnemyCollisionsense : MonoBehaviour
 
     [SerializeField] protected float cliffCheckDistance;
 
-    [SerializeField] protected LayerMask whatIsGround;
-
     protected RaycastHit2D hitInfo;
-
-    protected void Awake()
-    {
-        enemy = GetComponentInParent<Enemy>();
-    }
     
     //캐릭터 앞에 벽이 있는지 체크
     public bool WallFront

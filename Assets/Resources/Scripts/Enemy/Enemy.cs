@@ -10,7 +10,6 @@ public class Enemy : MonoBehaviour, IDamageable
 {
 
     public EnemyStateMachine StateMachine { get; private set; }
-    public Rigidbody2D RB { get; private set; }
     public Animator Anim { get; private set; }
     public BoxCollider2D Collider { get; private set; }
     public HpBar EnemyHpBar { get; private set; }
@@ -27,7 +26,6 @@ public class Enemy : MonoBehaviour, IDamageable
 
     protected virtual void Start()
     {
-        RB = GetComponent<Rigidbody2D>();
         Anim = GetComponent<Animator>();
         Collider = GetComponent<BoxCollider2D>();
 

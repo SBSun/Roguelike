@@ -4,15 +4,37 @@ using UnityEngine;
 
 public class Core : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public Movement Movement
     {
-        
+        get => GenericNotImplementedError<Movement>.TryGet(movement, transform.parent.name);
+        private set => movement = value;
+    }
+    public CollisionSense CollisionSenses
+    {
+        get => GenericNotImplementedError<CollisionSense>.TryGet(collisionSenses, transform.parent.name);
+        private set => collisionSenses = value;
+    }
+    public Combat Combat
+    {
+        get => GenericNotImplementedError<Combat>.TryGet(combat, transform.parent.name);
+        private set => combat = value;
     }
 
-    // Update is called once per frame
-    void Update()
+    private Movement movement;
+    private CollisionSense collisionSenses;
+    private Combat combat;
+
+    private void Awake()
     {
-        
+        Movement = GetComponentInChildren<Movement>();
+        CollisionSenses = GetComponentInChildren<CollisionSense>();
+        Combat = GetComponentInChildren<Combat>();
     }
+
+    public void LogicUpdate()
+    {
+        Movement.LogicUpdate();
+        Combat.LogicUpdate();
+    }
+
 }
