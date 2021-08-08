@@ -11,7 +11,6 @@ public class Enemy : MonoBehaviour
     public EnemyStateMachine StateMachine { get; private set; }
     public Animator Anim { get; private set; }
     public HpBar EnemyHpBar { get; private set; }
-    public Core Core { get; protected set; }
 
     public float CurrentHP { get; protected set; }
 

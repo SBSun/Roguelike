@@ -6,11 +6,6 @@ public class LandMoveEnemyCollisionsense : CollisionSense
 {
     public BoxCollider2D Collider { get; private set; }
 
-    protected override void Awake()
-    {
-        base.Awake();
-    }
-
     [SerializeField] protected Transform topWallCheck;
     [SerializeField] protected Transform bottomWallCheck;
     [SerializeField] protected Transform topWallBackCheck;

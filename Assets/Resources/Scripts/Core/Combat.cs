@@ -2,14 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Combat : CoreComponent, IDamageable
+public class Combat : MonoBehaviour, IDamageable
 {
     public BoxCollider2D Collider { get; protected set; }
 
-    protected override void Awake()
+    protected virtual void Awake()
     {
-        base.Awake();
-
         Collider = GetComponent<BoxCollider2D>();
     }
 

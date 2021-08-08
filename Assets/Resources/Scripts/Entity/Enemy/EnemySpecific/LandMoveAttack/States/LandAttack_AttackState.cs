@@ -20,8 +20,8 @@ public class LandAttack_AttackState : EnemyAttackState
     {
         base.Enter();
 
-        landAttackEnemy.Movement.SetVelocityX(0f);
-        landAttackEnemy.Movement.PlayerDirectionFlip(landAttackEnemy.CollisionSense.PlayerDirection);
+        landAttackEnemy.Core.Movement.SetVelocityX(0f);
+        landAttackEnemy.Core.Movement.PlayerDirectionFlip(landAttackEnemy.CollisionSense.PlayerDirection);
         isAnimationFinished = false;
     }
 

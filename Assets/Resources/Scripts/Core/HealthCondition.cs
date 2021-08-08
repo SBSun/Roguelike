@@ -2,15 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthCondition : CoreComponent
+public class HealthCondition : MonoBehaviour
 {
     public D_HealthCondition healthData { get; private set; }
     public float CurrentHP { get; protected set; }
 
-    protected override void Awake()
+    protected virtual void Awake()
     {
-        base.Awake();
-
         CurrentHP = healthData.maxHP;
     }
 
