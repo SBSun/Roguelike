@@ -26,10 +26,10 @@ public class PlayerInAirState : PlayerState
     {
         base.DoChecks();
 
-        isGrounded = player.CollisionSense.Grounded;
-        isTouchingWall = player.CollisionSense.WallFront;
-        isTouchingWallBack = player.CollisionSense.WallBack;
-        isTouchingLedge = player.CollisionSense.Ledge;
+        isGrounded = player.Core.CollisionSense.Grounded;
+        isTouchingWall = player.Core.CollisionSense.F;
+        isTouchingWallBack = player.Core.CollisionSense.WallBack;
+        isTouchingLedge = player.Core.CollisionSense.Ledge;
 
         if(isTouchingWall && !isTouchingLedge)
         {
@@ -68,7 +68,7 @@ public class PlayerInAirState : PlayerState
             stateMachine.ChangeState(player.SecondaryAttackState);
         }
         //땅에 착지 -> LandState
-        else if (isGrounded && player.Movement.CurrentVelocity.y < 0.01f)
+        else if (isGrounded && player.Core.Movement.CurrentVelocity.y < 0.01f)
         {
             stateMachine.ChangeState(player.LandState);
         }
@@ -96,7 +96,7 @@ public class PlayerInAirState : PlayerState
             stateMachine.ChangeState(player.WallGrabState);
         }
         //누른 좌우 방향과 캐릭터가 보고 있는 방향이 같고 && 캐릭터 앞에 벽이 있으면 -> WallSlideState
-        else if(isTouchingWall && xInput == player.Movement.FacingDirection && player.Movement.CurrentVelocity.y <= 0)
+        else if(isTouchingWall && xInput == player.Core.Movement.FacingDirection && player.Core.Movement.CurrentVelocity.y <= 0)
         {
             stateMachine.ChangeState(player.WallSlideState);
         }
@@ -107,11 +107,11 @@ public class PlayerInAirState : PlayerState
         //아무 상태 변환이 없음
         else
         {
-            player.Movement.CheckIfShouldFlip(xInput);
-            player.Movement.SetVelocityX(playerData.movementVelocity * xInput);
+            player.Core.Movement.CheckIfShouldFlip(xInput);
+            player.Core.Movement.SetVelocityX(playerData.movementVelocity * xInput);
 
-            player.Anim.SetFloat("yVelocity", player.Movement.CurrentVelocity.y);
-            player.Anim.SetFloat("xVelocity", Mathf.Abs(player.Movement.CurrentVelocity.x));
+            player.Anim.SetFloat("yVelocity", player.Core.Movement.CurrentVelocity.y);
+            player.Anim.SetFloat("xVelocity", Mathf.Abs(player.Core.Movement.CurrentVelocity.x));
         }
 
     }
@@ -128,10 +128,10 @@ public class PlayerInAirState : PlayerState
         {
             if (jumpInputStop)
             {
-                player.Movement.SetVelocityY(player.Movement.CurrentVelocity.y * playerData.variableJumpHeightMultiplier);
+                player.Core.Movement.SetVelocityY(player.Core.Movement.CurrentVelocity.y * playerData.variableJumpHeightMultiplier);
                 isJumping = false;
             }
-            else if (player.Movement.CurrentVelocity.y <= 0f)
+            else if (player.Core.Movement.CurrentVelocity.y <= 0f)
             {
                 isJumping = false;
             }

@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class LandAttack_PlayerDiscoverState : EnemyState
 {
-    protected LandAttackEnemy landAttackEnemy;
+    protected LandMoveAttackEnemy landMoveAttackEnemy;
 
     protected bool isTouchingWallFront;
     protected bool isCliffing;
     protected bool isPlayerDetected;
     protected bool isPlayerInAttackArea;
 
-    public LandAttack_PlayerDiscoverState(LandAttackEnemy landAttackEnemy, EnemyStateMachine stateMachine, string animBoolName) : base(landAttackEnemy, stateMachine, animBoolName)
+    public LandAttack_PlayerDiscoverState(LandMoveAttackEnemy landMoveAttackEnemy, EnemyStateMachine stateMachine, string animBoolName) : base(landMoveAttackEnemy, stateMachine, animBoolName)
     {
-        this.landAttackEnemy = landAttackEnemy;
+        this.landMoveAttackEnemy = landMoveAttackEnemy;
     }
 
     public override void Enter()
     {
         base.Enter();
-        landAttackEnemy.EnemyHpBar.ActiveHpBar();
+        landMoveAttackEnemy.EnemyHpBar.ActiveHpBar();
     }
 
     public override void Exit()
@@ -31,19 +31,19 @@ public class LandAttack_PlayerDiscoverState : EnemyState
     {
         base.LogicUpdate();
 
-        isTouchingWallFront = landAttackEnemy.CollisionSense.WallFront;
-        isCliffing = landAttackEnemy.CollisionSense.Cliffing;
-        isPlayerDetected = landAttackEnemy.CollisionSense.PlayerDetected;
-        isPlayerInAttackArea = landAttackEnemy.CollisionSense.PlayerInAttackArea;
+        isTouchingWallFront = landMoveAttackEnemy.Core.CollisionSense.WallFront;
+        isCliffing = landMoveAttackEnemy.Core.CollisionSense.Cliffing;
+        isPlayerDetected = landMoveAttackEnemy.Core.CollisionSense.PlayerDetected;
+        isPlayerInAttackArea = landMoveAttackEnemy.Core.CollisionSense.PlayerInAttackArea;
 
         if (!isPlayerDetected)
         {
-            landAttackEnemy.EnemyHpBar.InactiveHpBar();
-            stateMachine.ChangeState(landAttackEnemy.IdleState);
+            landMoveAttackEnemy.EnemyHpBar.InactiveHpBar();
+            stateMachine.ChangeState(landMoveAttackEnemy.IdleState);
         }
 
-        else if (isPlayerDetected && isPlayerInAttackArea && landAttackEnemy.AttackState.CheckAttackCoolTime())
-            stateMachine.ChangeState(landAttackEnemy.AttackState);
+        else if (isPlayerDetected && isPlayerInAttackArea && landMoveAttackEnemy.AttackState.CheckAttackCoolTime())
+            stateMachine.ChangeState(landMoveAttackEnemy.AttackState);
     }
 
 

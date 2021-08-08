@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerWallGrabState : PlayerTouchingWallState
 {
     private Vector2 holdPosition;
+
     public PlayerWallGrabState(Player player, PlayerStateMachine stateMachine, D_Player playerData, string animBoolName) : base(player, stateMachine, playerData, animBoolName)
     {
     }
@@ -12,14 +13,14 @@ public class PlayerWallGrabState : PlayerTouchingWallState
     {
         base.Enter();
         //포지션 고정
-        player.Movement.SetHoldPosition();
-        player.Movement.HoldPosition();
+        SetHoldPosition();
+        HoldPosition();
     }
 
     public override void Exit()
     {
         base.Exit();
-        player.Movement.SetGravityScale(playerData.defaultGravity);
+        player.SetGravityScale(playerData.defaultGravity);
     }
 
     public override void LogicUpdate()
@@ -28,7 +29,7 @@ public class PlayerWallGrabState : PlayerTouchingWallState
 
         if(!isExitingState)
         {
-            player.Movement.HoldPosition();
+            HoldPosition();
             if (yInput > 0) //Grab상태에서 방향키 윗키를 누르면 벽 오르기 상태로 변환
                 stateMachine.ChangeState(player.WallClimbState);
             else if (yInput < 0 || !grabInput)
@@ -36,10 +37,16 @@ public class PlayerWallGrabState : PlayerTouchingWallState
         }
     }
 
-
-
-    public override void PhysicsUpdate()
+    public void HoldPosition()
     {
-        base.PhysicsUpdate();
+        player.SetGravityScale(0);
+        player.transform.position = holdPosition;
+        player.Core.Movement.SetVelocityZero();
     }
+
+    public void SetHoldPosition()
+    {
+        holdPosition = player.transform.position;
+    }
+
 }

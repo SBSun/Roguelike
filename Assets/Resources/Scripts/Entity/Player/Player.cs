@@ -26,12 +26,11 @@ public class Player : MonoBehaviour
     #endregion
 
     #region 컴포넌트
-    public PlayerCore Core { get; private set; }
+    public Core Core { get; private set; }
     public Rigidbody2D RB { get; private set; }
     public Animator Anim { get; private set; }
+    public BoxCollider2D Collider { get; private set; }
     public PlayerInputHandler InputHandler { get; private set; }
-    public PlayerCollisionSense CollisionSense { get; private set; }
-    public PlayerMovement Movement { get; private set; }
 
     [SerializeField]
     private D_Player PlayerData;
@@ -44,10 +43,14 @@ public class Player : MonoBehaviour
 
     #endregion
 
+    #region Other Variables
+    private Vector2 workspace;
+    #endregion
+
     #region 유니티 콜백 함수
     private void Awake()
     {
-        Core = GetComponentInChildren<PlayerCore>();
+        Core = GetComponentInChildren<Core>();
         StateMachine = new PlayerStateMachine();
         IdleState = new PlayerIdleState(this, StateMachine, PlayerData, "idle");
         MoveState = new PlayerMoveState(this, StateMachine, PlayerData, "move");
@@ -74,8 +77,6 @@ public class Player : MonoBehaviour
         RB = GetComponent<Rigidbody2D>();
         Anim = GetComponent<Animator>();
         InputHandler = GetComponent<PlayerInputHandler>();
-        CollisionSense = GetComponentInChildren<PlayerCollisionSense>();
-        Movement = GetComponentInChildren<PlayerMovement>();
         DashDirectionIndicator = transform.Find("DashDirectionIndicator");
         WeaponInventory = GetComponentInChildren<WeaponInventory>();
         SpriteFlash = GetComponent<SpriteFlash>();
@@ -98,6 +99,22 @@ public class Player : MonoBehaviour
     private void AnimationTrigger() => StateMachine.CurrentState.AnimationTrigger();
 
     private void AnimationFinishTrigger() => StateMachine.CurrentState.AnimationFinishTrigger();
+
+    public void SetGravityScale(float gravity)
+    {
+        RB.gravityScale = gravity;
+    }
+
+    public void SetColliderHeight(float height)
+    {
+        Vector2 center = Collider.offset;
+        workspace.Set(Collider.size.x, height);
+
+        center.y += (height - Collider.size.y) / 2;
+
+        Collider.size = workspace;
+        Collider.offset = center;
+    }
 
     public float GetMaxHp()
     {

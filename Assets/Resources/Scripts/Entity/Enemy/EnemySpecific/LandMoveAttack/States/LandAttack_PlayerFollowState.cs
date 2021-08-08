@@ -6,7 +6,7 @@ public class LandAttack_PlayerFollowState : LandAttack_PlayerDiscoverState
 {
     private D_E_MoveState stateData;
 
-    public LandAttack_PlayerFollowState(LandAttackEnemy landAttackEnemy, EnemyStateMachine stateMachine, string animBoolName, D_E_MoveState stateData) : base(landAttackEnemy, stateMachine, animBoolName)
+    public LandAttack_PlayerFollowState(LandMoveAttackEnemy landMoveAttackEnemy, EnemyStateMachine stateMachine, string animBoolName, D_E_MoveState stateData) : base(landMoveAttackEnemy, stateMachine, animBoolName)
     {
         this.stateData = stateData;
     }
@@ -27,10 +27,10 @@ public class LandAttack_PlayerFollowState : LandAttack_PlayerDiscoverState
 
         if (isTouchingWallFront || isCliffing || isPlayerInAttackArea)
         {
-            stateMachine.ChangeState(landAttackEnemy.PlayerLookForState);
+            stateMachine.ChangeState(landMoveAttackEnemy.PlayerLookForState);
         }
 
-        landAttackEnemy.Core.Movement.PlayerDirectionFlip(landAttackEnemy.Core.CollisionSense.PlayerDirection);
-        landAttackEnemy.Core.Movement.SetVelocityX(stateData.movementVelocity * landAttackEnemy.Core.CollisionSense.PlayerDirection);
+        landMoveAttackEnemy.Core.Movement.PlayerDirectionFlip(landMoveAttackEnemy.Core.CollisionSense.PlayerDirection);
+        landMoveAttackEnemy.Core.Movement.SetVelocityX(stateData.movementVelocity * landMoveAttackEnemy.Core.CollisionSense.PlayerDirection);
     }
 }

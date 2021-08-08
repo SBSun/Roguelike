@@ -2,8 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LandMoveAttackEnemyCollisionSense : LandMoveEnemyCollisionsense
+public class EnemyCollisionSense : CollisionSense
 {
+    [SerializeField] protected Transform topWallCheck;
+    [SerializeField] protected Transform bottomWallCheck;
+    [SerializeField] protected Transform topWallBackCheck;
+    [SerializeField] protected Transform bottomWallBackCheck;
+    [SerializeField] protected Transform cliffCheck;
+
+    [SerializeField] protected float cliffCheckDistance;
+
+    protected RaycastHit2D hitInfo;
 
     [SerializeField] private LayerMask whatIsPlayer;
     [SerializeField] private LayerMask whatIsGroundOrPlayer;
@@ -16,6 +25,22 @@ public class LandMoveAttackEnemyCollisionSense : LandMoveEnemyCollisionsense
     private void Start()
     {
         recognizeBoxSize.Set(15f, core.Combat.Collider.bounds.size.y);
+    }
+
+    //캐릭터 앞에 벽이 있는지 체크
+    public bool WallFront
+    {
+        get => Physics2D.OverlapArea(topWallCheck.position, bottomWallCheck.position, whatIsGround);
+    }
+    //캐릭터 뒤에 벽이 있는지 체크
+    public bool WallBack
+    {
+        get => Physics2D.OverlapArea(topWallBackCheck.position, bottomWallBackCheck.position, whatIsGround);
+    }
+
+    public bool Cliffing
+    {
+        get => !Physics2D.Raycast(cliffCheck.position, Vector2.down, cliffCheckDistance, whatIsGround);
     }
 
     public bool PlayerDetected
@@ -49,7 +74,7 @@ public class LandMoveAttackEnemyCollisionSense : LandMoveEnemyCollisionsense
         {
             Collider2D col = Physics2D.OverlapBox(attackArea.bounds.center, attackArea.bounds.size, 0, whatIsPlayer);
 
-            if(col != null)
+            if (col != null)
             {
                 return true;
             }
@@ -78,7 +103,7 @@ public class LandMoveAttackEnemyCollisionSense : LandMoveEnemyCollisionsense
 
     private void OnDrawGizmos()
     {
-        if(core != null)
+        if (core != null)
         {
             Gizmos.DrawWireCube(core.Combat.Collider.bounds.center, recognizeBoxSize);
             Gizmos.DrawWireCube(attackArea.bounds.center, attackArea.bounds.size);

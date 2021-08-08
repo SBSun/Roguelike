@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LandAttack_PlayerLookForState : LandAttack_PlayerDiscoverState
 {
-    public LandAttack_PlayerLookForState(LandAttackEnemy landAttackEnemy, EnemyStateMachine stateMachine, string animBoolName) : base(landAttackEnemy, stateMachine, animBoolName)
+    public LandAttack_PlayerLookForState(LandMoveAttackEnemy landMoveAttackEnemy, EnemyStateMachine stateMachine, string animBoolName) : base(landMoveAttackEnemy, stateMachine, animBoolName)
     {
     }
 
@@ -12,7 +12,7 @@ public class LandAttack_PlayerLookForState : LandAttack_PlayerDiscoverState
     {
         base.Enter();
 
-        landAttackEnemy.Movement.SetVelocityZero();
+        landMoveAttackEnemy.Core.Movement.SetVelocityZero();
     }
 
     public override void Exit()
@@ -25,8 +25,8 @@ public class LandAttack_PlayerLookForState : LandAttack_PlayerDiscoverState
         base.LogicUpdate();
 
         if (!isTouchingWallFront && !isCliffing && !isPlayerInAttackArea)
-            stateMachine.ChangeState(landAttackEnemy.PlayerFollowState);
+            stateMachine.ChangeState(landMoveAttackEnemy.PlayerFollowState);
 
-        landAttackEnemy.Movement.SetVelocityZero();
+        landMoveAttackEnemy.Core.Movement.SetVelocityZero();
     }
 }

@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class LandAttack_DamagedState : EnemyDamagedState
 {
-    private LandAttackEnemy landAttackEnemy;
+    private LandMoveAttackEnemy landAttackEnemy;
 
     private bool isTouchingWallFront;
     private bool isCliffing;
     private bool isPlayerInAttackArea;
 
-    public LandAttack_DamagedState(LandAttackEnemy landAttackEnemy, EnemyStateMachine stateMachine, string animBoolName) : base(landAttackEnemy, stateMachine, animBoolName)
+    public LandAttack_DamagedState(LandMoveAttackEnemy landAttackEnemy, EnemyStateMachine stateMachine, string animBoolName) : base(landAttackEnemy, stateMachine, animBoolName)
     {
         this.landAttackEnemy = landAttackEnemy;
     }

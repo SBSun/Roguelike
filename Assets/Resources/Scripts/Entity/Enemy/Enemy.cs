@@ -7,10 +7,12 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class Enemy : MonoBehaviour
 {
-
-    public EnemyStateMachine StateMachine { get; private set; }
-    public Animator Anim { get; private set; }
-    public HpBar EnemyHpBar { get; private set; }
+    public EnemyStateMachine StateMachine { get; protected set; }
+    public EnemyCore Core { get; protected set; }
+    public Rigidbody2D RB { get; protected set; }
+    public BoxCollider2D Collider { get; protected set; }
+    public Animator Anim { get; protected set; }
+    public HpBar EnemyHpBar { get; protected set; }
 
     public float CurrentHP { get; protected set; }
 
@@ -19,13 +21,15 @@ public class Enemy : MonoBehaviour
 
     protected virtual void Awake()
     {
-        Core = GetComponentInChildren<Core>();
+        Core = GetComponentInChildren<EnemyCore>();
+        Anim = GetComponent<Animator>();
+        RB = GetComponent<Rigidbody2D>();
+        Collider = GetComponent<BoxCollider2D>();
         StateMachine = new EnemyStateMachine();
     }
 
     protected virtual void Start()
     {
-        Anim = GetComponent<Animator>();
 
         Managers.UI.EnemyHpBarCreate.HpBarCreate(this);
     }
@@ -40,5 +44,19 @@ public class Enemy : MonoBehaviour
     protected virtual void FixedUpdate()
     {
         StateMachine.CurrentState.PhysicsUpdate();
+    }
+
+    public void PlayerDirectionFlip(int direction)
+    {
+        if (Core.Movement.FacingDirection != direction)
+        {
+            Core.Movement.FacingDirection = direction;
+            RB.transform.Rotate(0f, 180f, 0f);
+        }
+    }
+
+    public void SetEnemyHpBar(HpBar hpBar)
+    {
+        EnemyHpBar = hpBar;
     }
 }

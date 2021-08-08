@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollisionSense : MonoBehaviour
+public class CollisionSense : CoreComponent
 {
     public Transform GroundCheck { get => groundCheck; protected set => groundCheck = value; }
     public float GroundCheckRadius { get => groundCheckRadius; protected set => groundCheckRadius = value; }

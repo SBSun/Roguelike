@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LandAttack_MoveState : EnemyState
 {
-    private LandAttackEnemy landAttackEnemy;
+    private LandMoveAttackEnemy landMoveAttackEnemy;
     private D_E_MoveState stateData;
 
     private bool isTouchingWallFront;
@@ -16,9 +16,9 @@ public class LandAttack_MoveState : EnemyState
 
     private int moveDirection;
 
-    public LandAttack_MoveState(LandAttackEnemy landAttackEnemy, EnemyStateMachine stateMachine, string animBoolName, D_E_MoveState stateData) : base(landAttackEnemy, stateMachine, animBoolName)
+    public LandAttack_MoveState(LandMoveAttackEnemy landMoveAttackEnemy, EnemyStateMachine stateMachine, string animBoolName, D_E_MoveState stateData) : base(landMoveAttackEnemy, stateMachine, animBoolName)
     {
-        this.landAttackEnemy = landAttackEnemy;
+        this.landMoveAttackEnemy = landMoveAttackEnemy;
         this.stateData = stateData;
     }
 
@@ -26,13 +26,13 @@ public class LandAttack_MoveState : EnemyState
     {
         base.Enter();
 
-        isTouchingWallBack = landAttackEnemy.CollisionSense.WallBack;
+        isTouchingWallBack = landMoveAttackEnemy.Core.CollisionSense.WallBack;
         isPlayerDetected = false;
 
         //뒤에 벽이 있으면 방향을 변경하지 않는다.
-        if (landAttackEnemy.CollisionSense.WallBack)
+        if (landMoveAttackEnemy.Core.CollisionSense.WallBack)
         {
-            moveDirection = landAttackEnemy.Movement.FacingDirection;
+            moveDirection = landMoveAttackEnemy.Core.Movement.FacingDirection;
         }
         else
             SetRandomMoveDirection();
@@ -44,29 +44,29 @@ public class LandAttack_MoveState : EnemyState
     {
         base.Exit();
 
-        landAttackEnemy.Movement.SetVelocityZero();
+        landMoveAttackEnemy.Core.Movement.SetVelocityZero();
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
 
-        isTouchingWallFront = landAttackEnemy.CollisionSense.WallFront;
-        isCliffing = landAttackEnemy.CollisionSense.Cliffing;
-        isPlayerDetected = landAttackEnemy.CollisionSense.PlayerDetected;
+        isTouchingWallFront = landMoveAttackEnemy.Core.CollisionSense.WallFront;
+        isCliffing = landMoveAttackEnemy.Core.CollisionSense.Cliffing;
+        isPlayerDetected = landMoveAttackEnemy.Core.CollisionSense.PlayerDetected;
 
-        landAttackEnemy.Movement.SetVelocityX(stateData.movementVelocity * moveDirection);
+        landMoveAttackEnemy.Core.Movement.SetVelocityX(stateData.movementVelocity * moveDirection);
 
         if (Time.time > startTime + moveTime)
-            stateMachine.ChangeState(landAttackEnemy.IdleState);
+            stateMachine.ChangeState(landMoveAttackEnemy.IdleState);
         //앞에 벽이 있거나 땅이 없으면
         else if (isTouchingWallFront || isCliffing)
         {
-            landAttackEnemy.Movement.Flip();
-            moveDirection = landAttackEnemy.Movement.FacingDirection;
+            landMoveAttackEnemy.Core.Movement.Flip();
+            moveDirection = landMoveAttackEnemy.Core.Movement.FacingDirection;
         }
         else if (isPlayerDetected)
-            stateMachine.ChangeState(landAttackEnemy.PlayerFollowState);
+            stateMachine.ChangeState(landMoveAttackEnemy.PlayerFollowState);
     }
 
     public override void PhysicsUpdate()
@@ -86,7 +86,7 @@ public class LandAttack_MoveState : EnemyState
         if (moveDirection == 0)
             moveDirection = -1;
 
-        if (moveDirection != landAttackEnemy.Movement.FacingDirection)
-            landAttackEnemy.Movement.Flip();
+        if (moveDirection != landMoveAttackEnemy.Core.Movement.FacingDirection)
+            landMoveAttackEnemy.Core.Movement.Flip();
     }
 }

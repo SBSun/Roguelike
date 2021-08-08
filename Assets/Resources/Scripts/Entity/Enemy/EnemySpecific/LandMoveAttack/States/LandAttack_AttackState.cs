@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class LandAttack_AttackState : EnemyAttackState
 {
-    private LandAttackEnemy landAttackEnemy;
+    private LandMoveAttackEnemy landMoveAttackEnemy;
     private D_E_MeleeAttackState stateData;
 
     private bool isPlayerDetected;
     private bool isPlayerInAttackArea;
 
-    public LandAttack_AttackState(LandAttackEnemy landAttackEnemy, EnemyStateMachine stateMachine, string animBoolName, D_E_MeleeAttackState stateData) : base(landAttackEnemy, stateMachine, animBoolName)
+    public LandAttack_AttackState(LandMoveAttackEnemy landMoveAttackEnemy, EnemyStateMachine stateMachine, string animBoolName, D_E_MeleeAttackState stateData) : base(landMoveAttackEnemy, stateMachine, animBoolName)
     {
-        this.landAttackEnemy = landAttackEnemy;
+        this.landMoveAttackEnemy = landMoveAttackEnemy;
         this.stateData = stateData;
     }
 
@@ -20,8 +20,8 @@ public class LandAttack_AttackState : EnemyAttackState
     {
         base.Enter();
 
-        landAttackEnemy.Core.Movement.SetVelocityX(0f);
-        landAttackEnemy.Core.Movement.PlayerDirectionFlip(landAttackEnemy.CollisionSense.PlayerDirection);
+        landMoveAttackEnemy.Core.Movement.SetVelocityX(0f);
+        landMoveAttackEnemy.Core.Movement.PlayerDirectionFlip(landMoveAttackEnemy.Core.CollisionSense.PlayerDirection);
         isAnimationFinished = false;
     }
 
@@ -34,14 +34,14 @@ public class LandAttack_AttackState : EnemyAttackState
     {
         base.LogicUpdate();
 
-        isPlayerDetected = landAttackEnemy.CollisionSense.PlayerDetected;
-        isPlayerInAttackArea = landAttackEnemy.CollisionSense.PlayerInAttackArea;
-        landAttackEnemy.Movement.SetVelocityX(0f);
+        isPlayerDetected = landMoveAttackEnemy.Core.CollisionSense.PlayerDetected;
+        isPlayerInAttackArea = landMoveAttackEnemy.Core.CollisionSense.PlayerInAttackArea;
+        landMoveAttackEnemy.Core.Movement.SetVelocityX(0f);
 
         if (isAnimationFinished)
         {
-            landAttackEnemy.EnemyHpBar.InactiveHpBar();
-            stateMachine.ChangeState(landAttackEnemy.IdleState);
+            landMoveAttackEnemy.EnemyHpBar.InactiveHpBar();
+            stateMachine.ChangeState(landMoveAttackEnemy.IdleState);
         }
         else if (!isPlayerInAttackArea)
         {
@@ -54,7 +54,7 @@ public class LandAttack_AttackState : EnemyAttackState
         if (playerDamageable != null)
         {
             WeaponAttackDetails attackDetails = stateData.AttackDetails;
-            attackDetails.attackPosition = landAttackEnemy.transform.position;
+            attackDetails.attackPosition = landMoveAttackEnemy.transform.position;
 
             playerDamageable.Damage(attackDetails);
         }

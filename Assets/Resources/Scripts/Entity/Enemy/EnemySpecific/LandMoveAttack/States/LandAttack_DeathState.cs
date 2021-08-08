@@ -6,21 +6,21 @@ public class LandAttack_DeathState : EnemyState
 {
     private D_E_DeathState stateData;
 
-    private LandAttackEnemy landAttackEnemy;
+    private LandMoveAttackEnemy landMoveAttackEnemy;
 
-    public LandAttack_DeathState(LandAttackEnemy landAttackEnemy, EnemyStateMachine stateMachine, string animBoolName, D_E_DeathState stateData) : base(landAttackEnemy, stateMachine, animBoolName)
+    public LandAttack_DeathState(LandMoveAttackEnemy landMoveAttackEnemy, EnemyStateMachine stateMachine, string animBoolName, D_E_DeathState stateData) : base(landMoveAttackEnemy, stateMachine, animBoolName)
     {
         this.stateData = stateData;
-        this.landAttackEnemy = landAttackEnemy;
+        this.landMoveAttackEnemy = landMoveAttackEnemy;
     }
 
     public override void Enter()
     {
         base.Enter();
 
-        GameObject.Instantiate(stateData.deathParticle, landAttackEnemy.transform.position, stateData.deathParticle.transform.rotation);
-        GameObject.Instantiate(stateData.bloodSplash, (Vector2)landAttackEnemy.Collider.bounds.center - new Vector2(0, landAttackEnemy.Collider.bounds.extents.y), stateData.bloodSplash.transform.rotation);
-        GameObject.Destroy(landAttackEnemy.gameObject);
+        GameObject.Instantiate(stateData.deathParticle, landMoveAttackEnemy.transform.position, stateData.deathParticle.transform.rotation);
+        GameObject.Instantiate(stateData.bloodSplash, (Vector2)landMoveAttackEnemy.Collider.bounds.center - new Vector2(0, landMoveAttackEnemy.Collider.bounds.extents.y), stateData.bloodSplash.transform.rotation);
+        GameObject.Destroy(landMoveAttackEnemy.gameObject);
     }
 
     public override void Exit()

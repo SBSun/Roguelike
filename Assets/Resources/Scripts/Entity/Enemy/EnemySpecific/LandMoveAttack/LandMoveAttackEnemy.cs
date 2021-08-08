@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LandAttackEnemy : Enemy
+public class LandMoveAttackEnemy : Enemy
 {
     public LandAttack_IdleState IdleState { get; private set; }
     public LandAttack_MoveState MoveState { get; private set; }

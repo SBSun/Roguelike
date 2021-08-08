@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class LandAttack_IdleState : EnemyState
 {
-    private LandAttackEnemy landAttackEnemy;
+    private LandMoveAttackEnemy landMoveAttackEnemy;
     private D_E_IdleState stateData;
 
     private float idleTime;
     private bool isPlayerDetected;  //플레이어가 영역안에 들어왔는지
 
-    public LandAttack_IdleState(LandAttackEnemy landAttackEnemy, EnemyStateMachine stateMachine, string animBoolName, D_E_IdleState stateData) : base(landAttackEnemy, stateMachine, animBoolName)
+    public LandAttack_IdleState(LandMoveAttackEnemy landMoveAttackEnemy, EnemyStateMachine stateMachine, string animBoolName, D_E_IdleState stateData) : base(landMoveAttackEnemy, stateMachine, animBoolName)
     {
-        this.landAttackEnemy = landAttackEnemy;
+        this.landMoveAttackEnemy = landMoveAttackEnemy;
         this.stateData = stateData;
     }
 
@@ -20,7 +20,7 @@ public class LandAttack_IdleState : EnemyState
     {
         base.Enter();
 
-        landAttackEnemy.Movement.SetVelocityZero();
+        landMoveAttackEnemy.Core.Movement.SetVelocityZero();
         isPlayerDetected = false;
         SetRandomIdleTime();
     }
@@ -32,16 +32,16 @@ public class LandAttack_IdleState : EnemyState
     {
         base.LogicUpdate();
 
-        isPlayerDetected = landAttackEnemy.CollisionSense.PlayerDetected;
-        landAttackEnemy.Movement.SetVelocityZero();
+        isPlayerDetected = landMoveAttackEnemy.Core.CollisionSense.PlayerDetected;
+        landMoveAttackEnemy.Core.Movement.SetVelocityZero();
 
         if (Time.time >= startTime + idleTime)
         {
-            stateMachine.ChangeState(landAttackEnemy.MoveState); //설정된 IdleTime이 지나면 MoveState로 변경
+            stateMachine.ChangeState(landMoveAttackEnemy.MoveState); //설정된 IdleTime이 지나면 MoveState로 변경
         }
         else if (isPlayerDetected)
         {
-            stateMachine.ChangeState(landAttackEnemy.PlayerLookForState);
+            stateMachine.ChangeState(landMoveAttackEnemy.PlayerLookForState);
         }
     }
     //얼마나 IdleState에 머무를지 결정
