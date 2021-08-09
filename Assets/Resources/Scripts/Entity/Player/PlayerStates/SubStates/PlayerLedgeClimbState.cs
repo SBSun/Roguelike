@@ -41,7 +41,7 @@ public class PlayerLedgeClimbState : PlayerState
         base.Enter();
 
         player.Core.Movement.SetVelocityZero();
-        player.SetGravityScale(0);
+        player.Core.Movement.SetGravityScale(0);
         player.transform.position = detectedPos;
         cornerPos = DetermineCornerPosition();
 
@@ -112,19 +112,19 @@ public class PlayerLedgeClimbState : PlayerState
     //올라갈 곳의 천장 높이가 캐릭터가 못들어갈 높이면 LedgeClimbCrouch 애니메이션으로 변경
     private void CheckForSpace()
     {
-        isTouchingCeiling = Physics2D.Raycast(cornerPos, Vector2.up, playerData.standColliderHeight,player.CollisionSense.WhatIsGround);
+        isTouchingCeiling = Physics2D.Raycast(cornerPos, Vector2.up, playerData.standColliderHeight,player.Core.CollisionSense.WhatIsGround);
         player.Anim.SetBool("isTouchingCeiling", isTouchingCeiling);
     }
 
     private Vector2 DetermineCornerPosition()
     {
         //캐릭터와 벽의 사이 길이 구하기
-        RaycastHit2D xHit = Physics2D.Raycast(player.CollisionSense.WallCheck.position, Vector2.right * player.Core.Movement.FacingDirection, player.CollisionSense.WallCheckDistance, player.CollisionSense.WhatIsGround);
+        RaycastHit2D xHit = Physics2D.Raycast(player.Core.CollisionSense.WallCheck.position, Vector2.right * player.Core.Movement.FacingDirection, player.Core.CollisionSense.WallCheckDistance, player.Core.CollisionSense.WhatIsGround);
         float xDist = xHit.distance;
         //캐릭터와 벽 사이 길이 + 0.01(무조건 땅에 닿게 하기 위해 더함) * 캐릭터 방향  
         workSpace.Set((xDist + 0.01f) * player.Core.Movement.FacingDirection, 0f);
         //ledgeCheck.y와 벽의 사이 길이 구하기
-        RaycastHit2D yHit = Physics2D.Raycast(player.CollisionSense.LedgeCheck.position + (Vector3)workSpace, Vector2.down, player.CollisionSense.LedgeCheck.position.y - player.CollisionSense.WallCheck.position.y, player.CollisionSense.WhatIsGround);
+        RaycastHit2D yHit = Physics2D.Raycast(player.Core.CollisionSense.LedgeCheck.position + (Vector3)workSpace, Vector2.down, player.Core.CollisionSense.LedgeCheck.position.y - player.Core.CollisionSense.WallCheck.position.y, player.Core.CollisionSense.WhatIsGround);
 
         workSpace.Set(yHit.point.x, yHit.point.y);
         return workSpace;

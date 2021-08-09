@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Movement : CoreComponent
+public class Movement : MonoBehaviour
 {
     public Rigidbody2D RB { get; protected set; }
 
@@ -14,10 +14,8 @@ public class Movement : CoreComponent
 
     protected Vector2 workspace;
 
-    protected override void Awake()
+    protected virtual void Awake()
     {
-        base.Awake();
-
         RB = GetComponentInParent<Rigidbody2D>();
         FacingDirection = 1;
         CanSetVelocity = true;
@@ -73,10 +71,4 @@ public class Movement : CoreComponent
         RB.transform.Rotate(0f, 180f, 0f);
     }
 
-    //좌우 방향키를 눌렀을 때 캐릭터의 이미지가 해당 방향을 향해 있는지 확인하고 Flip 실행
-    public void CheckIfShouldFlip(int xInput)
-    {
-        if (xInput != 0 && xInput != FacingDirection)
-            Flip();
-    }
 }

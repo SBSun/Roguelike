@@ -47,4 +47,9 @@ public class LandMoveAttackEnemy : Enemy
     {
         base.Update();
     }
+
+    public override void OnDamage()
+    {
+        StateMachine.ChangeState(DamagedState);
+    }
 }

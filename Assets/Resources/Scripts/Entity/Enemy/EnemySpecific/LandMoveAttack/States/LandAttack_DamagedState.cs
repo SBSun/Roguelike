@@ -29,9 +29,9 @@ public class LandAttack_DamagedState : EnemyDamagedState
     {
         base.LogicUpdate();
 
-        isTouchingWallFront = landAttackEnemy.CollisionSense.WallFront;
-        isCliffing = landAttackEnemy.CollisionSense.Cliffing;
-        isPlayerInAttackArea = landAttackEnemy.CollisionSense.PlayerInAttackArea;
+        isTouchingWallFront = landAttackEnemy.Core.CollisionSense.WallFront;
+        isCliffing = landAttackEnemy.Core.CollisionSense.Cliffing;
+        isPlayerInAttackArea = landAttackEnemy.Core.CollisionSense.PlayerInAttackArea;
 
         if (isStunTimeOver)
         {

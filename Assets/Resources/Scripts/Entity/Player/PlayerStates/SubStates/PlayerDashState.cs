@@ -55,7 +55,7 @@ public class PlayerDashState : PlayerAbilityState
             //Dash를 누른 상태에서 maxHoldTime 시간이 초과하거나 Dash를 떼면 대쉬 키를 누르고 
             if (isHolding)
             {
-                isGrounded = player.Core.CollisionSenses.Grounded;
+                isGrounded = player.Core.CollisionSense.Grounded;
 
                 if (isGrounded)
                 {

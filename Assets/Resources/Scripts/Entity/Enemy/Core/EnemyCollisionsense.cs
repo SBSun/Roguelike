@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class EnemyCollisionSense : CollisionSense
 {
+    private EnemyCore core;
+
+    private void Awake()
+    {
+        core = GetComponentInParent<EnemyCore>();
+    }
+
     [SerializeField] protected Transform topWallCheck;
     [SerializeField] protected Transform bottomWallCheck;
     [SerializeField] protected Transform topWallBackCheck;
@@ -24,7 +31,7 @@ public class EnemyCollisionSense : CollisionSense
 
     private void Start()
     {
-        recognizeBoxSize.Set(15f, core.Combat.Collider.bounds.size.y);
+        recognizeBoxSize.Set(15f, core.Enemy.Collider.bounds.size.y);
     }
 
     //캐릭터 앞에 벽이 있는지 체크
@@ -47,13 +54,13 @@ public class EnemyCollisionSense : CollisionSense
     {
         get
         {
-            Collider2D col = Physics2D.OverlapBox(core.Combat.Collider.bounds.center, recognizeBoxSize, 0, whatIsPlayer);
+            Collider2D col = Physics2D.OverlapBox(core.Enemy.Collider.bounds.center, recognizeBoxSize, 0, whatIsPlayer);
 
             if (col != null)
             {
                 playerCol = col;
-                hitInfo = Physics2D.Raycast(core.Combat.Collider.bounds.center, (col.transform.position - transform.position).normalized, Vector2.Distance(col.transform.position, transform.position), whatIsGroundOrPlayer);
-                Debug.DrawRay(core.Combat.Collider.bounds.center, (col.transform.position - transform.position).normalized * hitInfo.distance);
+                hitInfo = Physics2D.Raycast(core.Enemy.Collider.bounds.center, (col.transform.position - transform.position).normalized, Vector2.Distance(col.transform.position, transform.position), whatIsGroundOrPlayer);
+                Debug.DrawRay(core.Enemy.Collider.bounds.center, (col.transform.position - transform.position).normalized * hitInfo.distance);
 
                 if (hitInfo.collider.gameObject.layer == LayerMask.NameToLayer("Player"))
                 {
@@ -105,7 +112,7 @@ public class EnemyCollisionSense : CollisionSense
     {
         if (core != null)
         {
-            Gizmos.DrawWireCube(core.Combat.Collider.bounds.center, recognizeBoxSize);
+            Gizmos.DrawWireCube(core.Enemy.Collider.bounds.center, recognizeBoxSize);
             Gizmos.DrawWireCube(attackArea.bounds.center, attackArea.bounds.size);
         }
 

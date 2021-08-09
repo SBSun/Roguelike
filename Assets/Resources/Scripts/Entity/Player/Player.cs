@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
     #endregion
 
     #region 컴포넌트
-    public Core Core { get; private set; }
+    public PlayerCore Core { get; private set; }
     public Rigidbody2D RB { get; private set; }
     public Animator Anim { get; private set; }
     public BoxCollider2D Collider { get; private set; }
@@ -50,7 +50,7 @@ public class Player : MonoBehaviour
     #region 유니티 콜백 함수
     private void Awake()
     {
-        Core = GetComponentInChildren<Core>();
+        Core = GetComponentInChildren<PlayerCore>();
         StateMachine = new PlayerStateMachine();
         IdleState = new PlayerIdleState(this, StateMachine, PlayerData, "idle");
         MoveState = new PlayerMoveState(this, StateMachine, PlayerData, "move");
@@ -100,20 +100,9 @@ public class Player : MonoBehaviour
 
     private void AnimationFinishTrigger() => StateMachine.CurrentState.AnimationFinishTrigger();
 
-    public void SetGravityScale(float gravity)
+    public void OnDamage()
     {
-        RB.gravityScale = gravity;
-    }
-
-    public void SetColliderHeight(float height)
-    {
-        Vector2 center = Collider.offset;
-        workspace.Set(Collider.size.x, height);
-
-        center.y += (height - Collider.size.y) / 2;
-
-        Collider.size = workspace;
-        Collider.offset = center;
+        StateMachine.ChangeState(DamagedState);
     }
 
     public float GetMaxHp()

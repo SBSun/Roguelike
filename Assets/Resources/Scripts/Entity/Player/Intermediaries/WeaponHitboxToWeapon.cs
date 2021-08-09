@@ -13,6 +13,9 @@ public class WeaponHitboxToWeapon : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        weapon.AddToDectected(collision);
+        IDamageable damageable = collision.GetComponent<IDamageable>();
+
+        if(damageable != null)
+            weapon.AddToDectected(collision);
     }
 }

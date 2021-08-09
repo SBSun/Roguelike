@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class PlayerCollisionSense : CollisionSense
 {
+    private PlayerCore core;
+
+    protected void Awake()
+    {
+        core = GetComponentInParent<PlayerCore>();
+    }
 
     public Transform WallCheck { get => wallCheck; private set => wallCheck = value; }
     public Transform LedgeCheck { get => ledgeCheck; private set => ledgeCheck = value; }

@@ -20,7 +20,7 @@ public class PlayerWallGrabState : PlayerTouchingWallState
     public override void Exit()
     {
         base.Exit();
-        player.SetGravityScale(playerData.defaultGravity);
+        player.Core.Movement.SetGravityScale(playerData.defaultGravity);
     }
 
     public override void LogicUpdate()
@@ -39,7 +39,7 @@ public class PlayerWallGrabState : PlayerTouchingWallState
 
     public void HoldPosition()
     {
-        player.SetGravityScale(0);
+        player.Core.Movement.SetGravityScale(0);
         player.transform.position = holdPosition;
         player.Core.Movement.SetVelocityZero();
     }

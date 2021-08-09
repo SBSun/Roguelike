@@ -27,7 +27,7 @@ public class PlayerInAirState : PlayerState
         base.DoChecks();
 
         isGrounded = player.Core.CollisionSense.Grounded;
-        isTouchingWall = player.Core.CollisionSense.F;
+        isTouchingWall = player.Core.CollisionSense.WallFront;
         isTouchingWallBack = player.Core.CollisionSense.WallBack;
         isTouchingLedge = player.Core.CollisionSense.Ledge;
 
@@ -80,7 +80,7 @@ public class PlayerInAirState : PlayerState
         //점프 키 누름 && 캐릭터가 벽에 닿아 있으면 -> WallJumpState
         else if (jumpInput && (isTouchingWall || isTouchingWallBack))
         {
-            isTouchingWall = player.CollisionSense.WallFront;
+            isTouchingWall = player.Core.CollisionSense.WallFront;
             player.WallJumpState.DetermineWallJumpDirection(isTouchingWall);
             stateMachine.ChangeState(player.WallJumpState);
         }

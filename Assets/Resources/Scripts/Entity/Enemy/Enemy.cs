@@ -30,7 +30,6 @@ public class Enemy : MonoBehaviour
 
     protected virtual void Start()
     {
-
         Managers.UI.EnemyHpBarCreate.HpBarCreate(this);
     }
 
@@ -38,7 +37,7 @@ public class Enemy : MonoBehaviour
     {
         StateMachine.CurrentState.LogicUpdate();
 
-        EnemyHpBar.transform.position = Camera.main.WorldToScreenPoint((Vector2)Core.Combat.Collider.bounds.center - new Vector2(0, Core.Combat.Collider.bounds.extents.y + 0.5f));
+        EnemyHpBar.transform.position = Camera.main.WorldToScreenPoint((Vector2)Collider.bounds.center - new Vector2(0, Collider.bounds.extents.y + 0.5f));
     }
 
     protected virtual void FixedUpdate()
@@ -46,13 +45,9 @@ public class Enemy : MonoBehaviour
         StateMachine.CurrentState.PhysicsUpdate();
     }
 
-    public void PlayerDirectionFlip(int direction)
+    public virtual void OnDamage()
     {
-        if (Core.Movement.FacingDirection != direction)
-        {
-            Core.Movement.FacingDirection = direction;
-            RB.transform.Rotate(0f, 180f, 0f);
-        }
+
     }
 
     public void SetEnemyHpBar(HpBar hpBar)

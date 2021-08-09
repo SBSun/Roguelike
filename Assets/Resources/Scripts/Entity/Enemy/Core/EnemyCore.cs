@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class EnemyCore : MonoBehaviour
 {
-    public Movement Movement
+    public Enemy Enemy { get; private set; }
+
+    public EnemyMovement Movement
     {
-        get => GenericNotImplementedError<Movement>.TryGet(movement, transform.parent.name);
+        get => GenericNotImplementedError<EnemyMovement>.TryGet(movement, transform.parent.name);
         private set => movement = value;
     }
     public EnemyCollisionSense CollisionSense
@@ -14,21 +16,22 @@ public class EnemyCore : MonoBehaviour
         get => GenericNotImplementedError<EnemyCollisionSense>.TryGet(collisionSense, transform.parent.name);
         private set => collisionSense = value;
     }
-    public Combat Combat
+    public EnemyCombat Combat
     {
-        get => GenericNotImplementedError<Combat>.TryGet(combat, transform.parent.name);
+        get => GenericNotImplementedError<EnemyCombat>.TryGet(combat, transform.parent.name);
         private set => combat = value;
     }
 
-    private Movement movement;
+    private EnemyMovement movement;
     private EnemyCollisionSense collisionSense;
-    private Combat combat;
+    private EnemyCombat combat;
 
     protected virtual void Awake()
     {
-        Movement = GetComponentInChildren<Movement>();
+        Enemy = GetComponentInParent<Enemy>();
+        Movement = GetComponentInChildren<EnemyMovement>();
         CollisionSense = GetComponentInChildren<EnemyCollisionSense>();
-        Combat = GetComponentInChildren<Combat>();
+        Combat = GetComponentInChildren<EnemyCombat>();
     }
 
     public void LogicUpdate()
