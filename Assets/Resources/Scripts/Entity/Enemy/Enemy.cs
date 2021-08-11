@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
     public BoxCollider2D Collider { get; protected set; }
     public Animator Anim { get; protected set; }
     public HpBar EnemyHpBar { get; protected set; }
+    public SpriteFlash SpriteFlash { get; private set; }
 
     public float CurrentHP { get; protected set; }
 
@@ -26,6 +27,7 @@ public class Enemy : MonoBehaviour
         RB = GetComponent<Rigidbody2D>();
         Collider = GetComponent<BoxCollider2D>();
         StateMachine = new EnemyStateMachine();
+        SpriteFlash = GetComponent<SpriteFlash>();
     }
 
     protected virtual void Start()

@@ -6,8 +6,7 @@ public class EnemyCombat : Combat, IKnockbackable
 {
     private EnemyCore core;
 
-    public bool isKnockbackActive { get; private set; }
-    private float knockbackStartTime;
+    public float knockbackStartTime { get; private set; }
 
     protected override void Awake()
     {
@@ -23,24 +22,12 @@ public class EnemyCombat : Combat, IKnockbackable
 
     public void LogicUpdate()
     {
-        CheckKnockback();
+
     }
 
     public void Knockback(float strength, Vector2 angle, int direction)
     {
         core.Movement.SetVelocity(strength, angle, direction);
-        core.Movement.CanSetVelocity = false;
-        isKnockbackActive = true;
         knockbackStartTime = Time.time;
     }
-
-    private void CheckKnockback()
-    {
-        if (isKnockbackActive && core.Movement.CurrentVelocity.y <= 0.01f && core.CollisionSense.Grounded)
-        {
-            isKnockbackActive = false;
-            core.Movement.CanSetVelocity = true;
-        }
-    }
-
 }

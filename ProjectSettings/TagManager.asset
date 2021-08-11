@@ -16,11 +16,11 @@ TagManager:
   - 
   - Ground
   - Damageable
-  - Dead
+  - 
   - Player
   - Weapon
   - Enemy Weapon
-  - 
+  - Enemy
   - 
   - 
   - 

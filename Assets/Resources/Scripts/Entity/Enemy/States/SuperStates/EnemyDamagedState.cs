@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class EnemyDamagedState : EnemyState
 {
-    protected bool isStunTimeOver;
+    protected bool isKnockbackTimeOver;
+    protected bool isGrounded;
 
     protected WeaponAttackDetails damagedDetails; //맞은 공격의 정보
 
@@ -12,27 +13,34 @@ public class EnemyDamagedState : EnemyState
     {
     }
 
+    public override void DoChecks()
+    {
+        base.DoChecks();
+
+        isGrounded = enemy.Core.CollisionSense.Grounded;
+    }
+
     public override void Enter()
     {
         base.Enter();
-        isStunTimeOver = false;
+        isKnockbackTimeOver = false;
+        enemy.SpriteFlash.OnFlash();
     }
 
     public override void Exit()
     {
         base.Exit();
+        enemy.SpriteFlash.OffFlash();
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
 
-        if (Time.time >= startTime + damagedDetails.stunTime)
-            isStunTimeOver = true;
-    }
-
-    public void StunTimeOver()
-    {
-        isStunTimeOver = true;
+        if(isGrounded && enemy.Core.Movement.CurrentVelocity.y < 0.01f && Time.time >= enemy.Core.Combat.knockbackStartTime + damagedDetails.knockbackTime && !isKnockbackTimeOver)
+        {
+            isKnockbackTimeOver = true;
+            enemy.Core.Movement.SetVelocityZero();
+        }
     }
 }

@@ -1220,7 +1220,7 @@ GameObject:
   - component: {fileID: 488064729}
   - component: {fileID: 488064730}
   - component: {fileID: 488064731}
-  m_Layer: 9
+  m_Layer: 11
   m_Name: Combat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13326,6 +13326,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Goblin
       objectReference: {fileID: 0}
+    - target: {fileID: 483608044605205032, guid: 402e63aa5fa1b5e4b89b4b22361f4883, type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 483608044605205037, guid: 402e63aa5fa1b5e4b89b4b22361f4883, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -13622,6 +13626,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 120332749674313409, guid: 93b850d33bd44924daddc1bc107c1e0a, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 563443102551182740, guid: 93b850d33bd44924daddc1bc107c1e0a, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -13709,6 +13717,10 @@ PrefabInstance:
     - target: {fileID: 4410650563116086597, guid: 93b850d33bd44924daddc1bc107c1e0a, type: 3}
       propertyPath: m_Name
       value: Skeleton
+      objectReference: {fileID: 0}
+    - target: {fileID: 4410650563116086597, guid: 93b850d33bd44924daddc1bc107c1e0a, type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 4410650563116086597, guid: 93b850d33bd44924daddc1bc107c1e0a, type: 3}
       propertyPath: m_IsActive

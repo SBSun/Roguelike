@@ -75,6 +75,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         RB = GetComponent<Rigidbody2D>();
+        Collider = GetComponent<BoxCollider2D>();
         Anim = GetComponent<Animator>();
         InputHandler = GetComponent<PlayerInputHandler>();
         DashDirectionIndicator = transform.Find("DashDirectionIndicator");

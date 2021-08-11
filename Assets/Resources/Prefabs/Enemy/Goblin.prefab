@@ -148,7 +148,8 @@ GameObject:
   - component: {fileID: 973508278953438102}
   - component: {fileID: 3057996654197848927}
   - component: {fileID: 6600423038784174074}
-  m_Layer: 9
+  - component: {fileID: 745712021790350555}
+  m_Layer: 0
   m_Name: Goblin
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -318,6 +319,18 @@ MonoBehaviour:
   moveStateData: {fileID: 11400000, guid: eea1b403fc6f72f4885bb80610876e15, type: 2}
   meleeAttackStateData: {fileID: 11400000, guid: d12d326deb2cf5d4ca3ba66e7fca5d1e, type: 2}
   deathStateData: {fileID: 11400000, guid: d605938dd6e4665459ea63b51373946e, type: 2}
+--- !u!114 &745712021790350555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 483608044605205032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7e2db1c48368bc49934abba2f137d50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &483608044832966388
 GameObject:
   m_ObjectHideFlags: 0

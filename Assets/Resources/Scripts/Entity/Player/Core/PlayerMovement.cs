@@ -34,5 +34,4 @@ public class PlayerMovement : Movement
         core.Player.Collider.size = workspace;
         core.Player.Collider.offset = center;
     }
-
 }

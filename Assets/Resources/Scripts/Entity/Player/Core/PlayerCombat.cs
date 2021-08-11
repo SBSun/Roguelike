@@ -7,12 +7,13 @@ public class PlayerCombat : Combat, IKnockbackable
     private PlayerCore core;
 
     public bool isKnockbackActive { get; private set; }
-    private float knockbackStartTime;
+    public float knockbackStartTime { get; private set; }
 
     protected override void Awake()
     {
         base.Awake();
         core = GetComponentInParent<PlayerCore>();
+        isKnockbackActive = false;
     }
 
     public override void Damage(WeaponAttackDetails details)
