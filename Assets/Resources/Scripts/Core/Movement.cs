@@ -34,6 +34,7 @@ public class Movement : MonoBehaviour
 
     public void SetVelocity(float velocity, Vector2 angle, int direction)
     {
+        angle.Normalize();
         workspace.Set(angle.x * velocity * direction, angle.y * velocity);
         SetFinalVelocity();
     }

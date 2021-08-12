@@ -10,7 +10,6 @@ public class AggressiveWeapon : Weapon
     private List<IDamageable> detectedDamageable = new List<IDamageable>();
     private List<IKnockbackable> detectedKnockbackable = new List<IKnockbackable>();
 
-
     protected override void Awake()
     {
         base.Awake();
@@ -54,7 +53,8 @@ public class AggressiveWeapon : Weapon
     public override void AnimationFinishTrigger()
     {
         base.AnimationFinishTrigger();
-        detectedDamageable.Clear(); 
+        detectedDamageable.Clear();
+        detectedKnockbackable.Clear();
     }
 
     private void CheckMeleeAttack()

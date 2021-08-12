@@ -38,6 +38,7 @@ public class Enemy : MonoBehaviour
     protected virtual void Update()
     {
         StateMachine.CurrentState.LogicUpdate();
+        Core.LogicUpdate();
 
         EnemyHpBar.transform.position = Camera.main.WorldToScreenPoint((Vector2)Collider.bounds.center - new Vector2(0, Collider.bounds.extents.y + 0.5f));
     }
@@ -47,7 +48,12 @@ public class Enemy : MonoBehaviour
         StateMachine.CurrentState.PhysicsUpdate();
     }
 
-    public virtual void OnDamage()
+    public virtual void Damage()
+    {
+
+    }
+
+    public virtual void Death()
     {
 
     }

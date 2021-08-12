@@ -20,6 +20,7 @@ public class LandAttack_DeathState : EnemyState
 
         GameObject.Instantiate(stateData.deathParticle, landMoveAttackEnemy.transform.position, stateData.deathParticle.transform.rotation);
         GameObject.Instantiate(stateData.bloodSplash, (Vector2)landMoveAttackEnemy.Collider.bounds.center - new Vector2(0, landMoveAttackEnemy.Collider.bounds.extents.y), stateData.bloodSplash.transform.rotation);
+        GameObject.Destroy(enemy.EnemyHpBar.gameObject);
         GameObject.Destroy(landMoveAttackEnemy.gameObject);
     }
 

@@ -48,8 +48,16 @@ public class LandMoveAttackEnemy : Enemy
         base.Update();
     }
 
-    public override void OnDamage()
+    public override void Damage()
     {
+        if (StateMachine.CurrentState == DamagedState)
+            Anim.SetTrigger("empty");
+
         StateMachine.ChangeState(DamagedState);
+    }
+
+    public override void Death()
+    {
+        StateMachine.ChangeState(DeathState);
     }
 }

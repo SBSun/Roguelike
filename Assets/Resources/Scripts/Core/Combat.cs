@@ -6,7 +6,9 @@ using UnityEngine;
 public class Combat : MonoBehaviour, IDamageable
 {
     public BoxCollider2D Collider { get; private set; }
-    [SerializeField] private D_HealthCondition healthData;
+    [SerializeField] protected D_HealthCondition healthData;
+    protected WeaponAttackDetails damagedDetails;
+
     public float CurrentHP { get; protected set; }
 
     protected virtual void Awake()
@@ -33,6 +35,7 @@ public class Combat : MonoBehaviour, IDamageable
 
     public virtual void Damage(WeaponAttackDetails details)
     {
+        damagedDetails = details;
         DecreaseHP(details.damageAmount);
     
         if (CurrentHP <= 0)
@@ -44,7 +47,7 @@ public class Combat : MonoBehaviour, IDamageable
 
     public virtual void Death()
     {
-        return;
+
     }
 
     

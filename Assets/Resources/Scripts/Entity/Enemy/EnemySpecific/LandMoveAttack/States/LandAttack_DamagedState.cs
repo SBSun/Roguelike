@@ -33,7 +33,7 @@ public class LandAttack_DamagedState : EnemyDamagedState
         isCliffing = landAttackEnemy.Core.CollisionSense.Cliffing;
         isPlayerInAttackArea = landAttackEnemy.Core.CollisionSense.PlayerInAttackArea;
 
-        if (isKnockbackTimeOver)
+        if (!enemy.Core.Combat.isKnockbackable)
         {
             if (isTouchingWallFront || isCliffing || isPlayerInAttackArea)
                 stateMachine.ChangeState(landAttackEnemy.PlayerLookForState);

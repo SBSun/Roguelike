@@ -9,6 +9,8 @@ public struct WeaponAttackDetails
     public float movementSpeed;
     [Header("공격의 데미지")]
     public float damageAmount;
+    [Header("공격 기절 시간")]
+    public float stunTime;
     [Header("공격의 쿨타임")]
     public float attackCoolTime;
     [Header("Knockback 지속시간")]
