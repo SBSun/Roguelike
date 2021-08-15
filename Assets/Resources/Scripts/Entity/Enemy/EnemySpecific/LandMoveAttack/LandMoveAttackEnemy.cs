@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LandMoveAttackEnemy : Enemy
+public class LandMoveAttackEnemy : AttackEnemy
 {
     public LandAttack_IdleState IdleState { get; private set; }
     public LandAttack_MoveState MoveState { get; private set; }
@@ -40,7 +40,7 @@ public class LandMoveAttackEnemy : Enemy
         base.Start();
 
         AttackInfo.AttackState = AttackState;
-        StateMachine.Initialize(IdleState);
+        RandomStartState();
     }
 
     protected override void Update()
@@ -60,4 +60,22 @@ public class LandMoveAttackEnemy : Enemy
     {
         StateMachine.ChangeState(DeathState);
     }
+
+    //Idle, Move 중 하나로 시작
+    private void RandomStartState()
+    {
+        int rand = Random.Range(0, 2);
+
+        switch(rand)
+        {
+            case 0:
+                StateMachine.Initialize(IdleState);
+                break;
+
+            case 1:
+                StateMachine.Initialize(MoveState);
+                break;
+        }
+    }
+
 }
