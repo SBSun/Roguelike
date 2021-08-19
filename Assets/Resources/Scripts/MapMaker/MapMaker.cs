@@ -7,12 +7,12 @@ public class MapMaker : EditorWindow
 {
     static MapMaker mapMaker;
 
-    static List<GameObject> allPrefabs = new List<GameObject>();
+    static Dictionary<int, List<GameObject>> allPrefabs = new Dictionary<int, List<GameObject>>();
 
-    int selGridInt = 0;
+    static int selGridInt = 0;
 
     [MenuItem("CustomEditor/Map Maker")]
-    public static void ShowWindow()
+    public static void ShowWindow(GameData)
     {
         mapMaker = (MapMaker)GetWindow(typeof(MapMaker));
         mapMaker.Show();
@@ -24,58 +24,19 @@ public class MapMaker : EditorWindow
     //Update와 같은 역할
     private void OnGUI()
     {
-        EditorGUILayout.BeginVertical();
-
-        EditorGUILayout.LabelField("Select a prefab:");
-
-        //If prefabs have been loaded
-
-
-        if (allPrefabs != null && allPrefabs.Count > 0)
-        {
-
-
-            GUIContent[] content = new GUIContent[allPrefabs.Count];
-
-            for (int i = 0; i < allPrefabs.Count; i++)
-            {
-                if (allPrefabs[i] != null && allPrefabs[i].name != "")
-                    content[i] = new GUIContent(Resources.Load<Texture2D>("Sprites/Entity/Enemy/" + allPrefabs[i].name + "/" + allPrefabs[i].name));
-
-
-                if (content[i] == null)
-                    content[i] = GUIContent.none;
-            }
-
-            //creates selection grid
-            EditorGUI.BeginChangeCheck();
-
-            
-            //prevents from error if object are deleted by user
-            while (selGridInt >= allPrefabs.Count)
-                selGridInt--;
-
-            selGridInt = GUILayout.SelectionGrid(selGridInt, content, 3, GUILayout.Height(50 * (Mathf.Ceil(allPrefabs.Count / (float)3))), GUILayout.Width(this.position.width));
-
-            /*
-            if (EditorGUI.EndChangeCheck())
-            {
-
-                ChangeGizmoTile();
-
-
-            }
-
-            curPrefab = allPrefabs[selGridInt];*/
-        }
+        
     }
 
+
+    
+    /*
     private void OnFocus()
     {
         LoadPrefabs();
         Debug.Log("MapMaker Activated");
     }
 
+    
     //Prefab 가져오기
     private void LoadPrefabs()
     {
@@ -90,5 +51,5 @@ public class MapMaker : EditorWindow
         }
 
         Debug.Log(allPrefabs.Count);
-    }
+    }*/
 }
