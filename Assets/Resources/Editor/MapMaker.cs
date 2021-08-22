@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-public class MapMaker : EditorWindow
+public class MapMaker : ExtendedEditorWindow
 {
     static MapMaker mapMaker;
 
@@ -12,19 +12,18 @@ public class MapMaker : EditorWindow
     static int selGridInt = 0;
 
     [MenuItem("CustomEditor/Map Maker")]
-    public static void ShowWindow(GameData)
+    public static void ShowMapMaker(MapMakerData data)
     {
-        mapMaker = (MapMaker)GetWindow(typeof(MapMaker));
+        mapMaker = GetWindow<MapMaker>("Map Maker Editor");
+        mapMaker.serializedObject = new SerializedObject(data); 
         mapMaker.Show();
-
-        mapMaker.minSize = new Vector2(100, 100);
-        mapMaker.titleContent = new GUIContent("MapMaker 2D");
     }
 
     //Update와 같은 역할
     private void OnGUI()
     {
-        
+        currentProperty = serializedObject.FindProperty("details");
+        DrawProperties(currentProperty, true);
     }
 
 

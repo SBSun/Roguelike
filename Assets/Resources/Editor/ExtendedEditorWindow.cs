@@ -12,11 +12,15 @@ public class ExtendedEditorWindow : EditorWindow
     {
         string lastPropPath = string.Empty;
 
+
         foreach (SerializedProperty p in prop)
         {
-            if(p.isArray && p.propertyType == SerializedPropertyType.Generic)
+            Debug.Log(p.isArray);
+            //프로퍼티가 배열이면 
+            if (p.isArray && p.propertyType == SerializedPropertyType.Generic)
             {
                 EditorGUILayout.BeginHorizontal();
+                //isExpanded 해당 프로퍼티가 확장되어 있는 상태인지
                 p.isExpanded = EditorGUILayout.Foldout(p.isExpanded, p.displayName);
                 EditorGUILayout.EndHorizontal();
 
