@@ -8,7 +8,7 @@ public class AttackInfoToEnemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        AttackState.SetPlayerDamageable(collision.GetComponent<IDamageable>());
+        AttackState.SetPlayerCombat(collision.GetComponent<PlayerCombat>());
     }
 
     private void TriggerAttack()

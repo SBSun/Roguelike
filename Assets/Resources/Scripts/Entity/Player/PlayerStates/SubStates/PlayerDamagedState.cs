@@ -25,7 +25,7 @@ public class PlayerDamagedState : PlayerAbilityState
     {
         base.LogicUpdate();
 
-        if(!player.Core.Combat.isKnockbackActive)
+        if(!player.Core.Combat.isKnockbackable)
         {
             player.SpriteFlash.OffFlash();
             isAbilityDone = true;

@@ -6,14 +6,14 @@ public class PlayerCombat : Combat, IKnockbackable
 {
     private PlayerCore core;
 
-    public bool isKnockbackActive { get; private set; }
+    public bool isKnockbackable { get; private set; }
     public float knockbackStartTime { get; private set; }
 
     protected override void Awake()
     {
         base.Awake();
         core = GetComponentInParent<PlayerCore>();
-        isKnockbackActive = false;
+        isKnockbackable = false;
     }
 
     public override void Damage(WeaponAttackDetails details)
@@ -31,16 +31,20 @@ public class PlayerCombat : Combat, IKnockbackable
     {
         core.Movement.SetVelocity(strength, angle, direction);
         core.Movement.CanSetVelocity = false;
-        isKnockbackActive = true;
+        isKnockbackable = true;
         knockbackStartTime = Time.time;
     }
 
     private void CheckKnockback()
     {
-        if (isKnockbackActive && core.Movement.CurrentVelocity.y <= 0.01f && core.CollisionSense.Grounded)
+        if (Time.time >= knockbackStartTime + damagedDetails.knockbackTime && isKnockbackable)
         {
-            isKnockbackActive = false;
             core.Movement.CanSetVelocity = true;
+            core.Movement.SetVelocityZero();
+            core.Player.SpriteFlash.OffFlash();
+
+            if (core.CollisionSense.Grounded && core.Movement.CurrentVelocity.y < 0.01f && Time.time >= knockbackStartTime + damagedDetails.stunTime)
+                isKnockbackable = false;
         }
     }
 

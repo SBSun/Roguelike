@@ -8,6 +8,9 @@ public class ExtendedEditorWindow : EditorWindow
     protected SerializedObject serializedObject;
     protected SerializedProperty currentProperty;
 
+    private string selectedPropertyPath;
+    protected SerializedProperty selectedProperty;
+
     protected void DrawProperties(SerializedProperty prop, bool drawChildren)
     {
         string lastPropPath = string.Empty;
@@ -37,6 +40,34 @@ public class ExtendedEditorWindow : EditorWindow
                 lastPropPath = p.propertyPath;
                 EditorGUILayout.PropertyField(p, drawChildren);
             }
+        }
+    }
+
+    protected void DrawSlidebar(SerializedProperty prop)
+    {
+        foreach  (SerializedProperty p in prop)
+        {
+            if(GUILayout.Button(p.displayName))
+            {
+                selectedPropertyPath = p.propertyPath;
+            }
+        }
+
+        if(!string.IsNullOrEmpty(selectedPropertyPath))
+        {
+            selectedProperty = serializedObject.FindProperty(selectedPropertyPath);
+        }
+    }
+
+    protected void DrawField(string propName, bool relative)
+    {
+        if(relative && currentProperty != null)
+        {
+            EditorGUILayout.PropertyField(currentProperty.FindPropertyRelative(propName), true);
+        }
+        else if(serializedObject != null)
+        {
+            EditorGUILayout.PropertyField(serializedObject.FindProperty(propName), true);
         }
     }
 }

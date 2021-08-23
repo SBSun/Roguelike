@@ -45,18 +45,22 @@ public class LandAttack_AttackState : EnemyAttackState
         }
         else if (!isPlayerInAttackArea)
         {
-            SetPlayerDamageable(null);
+            SetPlayerCombat(null);
         }
     }
 
     public override void TriggerAttack()
     {
-        if (playerDamageable != null)
+        if (playerCombat != null)
         {
             WeaponAttackDetails attackDetails = stateData.AttackDetails;
             attackDetails.attackPosition = landMoveAttackEnemy.transform.position;
 
-            playerDamageable.Damage(attackDetails);
+            playerCombat.Damage(attackDetails);
+
+            int attackDirection = enemy.Core.Movement.FacingDirection;
+
+            playerCombat.Knockback(attackDetails.knockbackStrength, attackDetails.knockbackAngle, attackDirection);
         }
     }
 

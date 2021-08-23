@@ -317,12 +317,12 @@ MonoBehaviour:
   enemyData: {fileID: 11400000, guid: 07d765a6c5319974ab47b6b4eece10e1, type: 2}
   whatIsPlayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2048
   whatIsGroundOrPlayer:
     serializedVersion: 2
-    m_Bits: 0
-  recognizeBoxSize: {x: 0, y: 0}
-  attackArea: {fileID: 0}
+    m_Bits: 2304
+  recognizeBoxSize: {x: 15, y: 2.3}
+  attackArea: {fileID: 1720431873263771844}
   idleStateData: {fileID: 11400000, guid: 5cb93194191f99d419669e90bc0b1a1d, type: 2}
   moveStateData: {fileID: 11400000, guid: eea1b403fc6f72f4885bb80610876e15, type: 2}
   meleeAttackStateData: {fileID: 11400000, guid: d12d326deb2cf5d4ca3ba66e7fca5d1e, type: 2}

@@ -13,7 +13,7 @@ public class AssetHandler
         MapMakerData data = EditorUtility.InstanceIDToObject(instanceId) as MapMakerData;
         if(data != null)
         {
-            MapMaker.ShowMapMaker(data);
+            MapMakerEditorWindow.ShowMapMaker(data);
             return true;
         }
         return false;
@@ -27,7 +27,7 @@ public class MapMakerCustomEditor : Editor
     {
         if(GUILayout.Button("Open Editor"))
         {
-            MapMaker.ShowMapMaker((MapMakerData)target);
+            MapMakerEditorWindow.ShowMapMaker((MapMakerData)target);
         }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyAttackState : EnemyState
 {
-    protected IDamageable playerDamageable;
+    public PlayerCombat playerCombat;
     public AttackInfoToEnemy attackInfo { get; private set; }
     public bool isAnimationFinished { get; protected set; }
     protected float lastAttackTime;
@@ -43,8 +43,8 @@ public class EnemyAttackState : EnemyState
         isAnimationFinished = true;
     }
 
-    public void SetPlayerDamageable(IDamageable damageable)
+    public void SetPlayerCombat(PlayerCombat playerCombat)
     {
-        playerDamageable = damageable;
+        this.playerCombat = playerCombat;
     }
 }
