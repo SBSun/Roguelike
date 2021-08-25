@@ -63,11 +63,16 @@ public class ExtendedEditorWindow : EditorWindow
     {
         if(relative && currentProperty != null)
         {
-            EditorGUILayout.PropertyField(currentProperty.FindPropertyRelative(propName), true);
+            EditorGUILayout.PropertyField(currentProperty.FindPropertyRelative(propName), false  );
         }
         else if(serializedObject != null)
         {
             EditorGUILayout.PropertyField(serializedObject.FindProperty(propName), true);
         }
+    }
+
+    protected void Apply()
+    {
+        serializedObject.ApplyModifiedProperties();
     }
 }

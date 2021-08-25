@@ -32,7 +32,7 @@ public class MapMakerEditorWindow : ExtendedEditorWindow
 
         EditorGUILayout.EndVertical();
 
-        EditorGUILayout.BeginVertical("box", GUILayout.ExpandHeight(true));
+        EditorGUILayout.BeginVertical("box", GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
 
         if(selectedProperty != null)
         {
@@ -45,14 +45,16 @@ public class MapMakerEditorWindow : ExtendedEditorWindow
 
         EditorGUILayout.EndVertical();
         EditorGUILayout.EndHorizontal();
+
+        Apply();
     }
 
     private void DrawSelectedPropertiesPanel()
     {
         currentProperty = selectedProperty;
 
-        EditorGUILayout.BeginHorizontal("box", GUILayout.MinWidth(400), GUILayout.ExpandWidth(true));
-        EditorGUILayout.BeginVertical("box", GUILayout.ExpandHeight(true));
+        EditorGUILayout.BeginHorizontal("box");
+        EditorGUILayout.BeginVertical("box");
 
         DrawField("type", true);
         DrawField("name", true);
