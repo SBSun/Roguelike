@@ -21,7 +21,7 @@ public class LandAttack_MoveState : EnemyState
         this.landMoveAttackEnemy = landMoveAttackEnemy;
         this.stateData = stateData;
     }
-
+    
     public override void Enter()
     {
         base.Enter();

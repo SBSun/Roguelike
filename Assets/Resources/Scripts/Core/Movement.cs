@@ -16,9 +16,9 @@ public class Movement : MonoBehaviour
 
     protected virtual void Awake()
     {
-        RB = GetComponentInParent<Rigidbody2D>();
         FacingDirection = 1;
         CanSetVelocity = true;
+        RB = transform.parent.parent.GetComponent<Rigidbody2D>();
     }
 
     public void LogicUpdate()
