@@ -82,7 +82,7 @@ public class Player : MonoBehaviour
         WeaponInventory = GetComponentInChildren<WeaponInventory>();
         SpriteFlash = GetComponent<SpriteFlash>();
 
-        StateMachine.Initialize(IdleState);
+        StateMachine.Initialize(InAirState);
     }
 
     private void Update()

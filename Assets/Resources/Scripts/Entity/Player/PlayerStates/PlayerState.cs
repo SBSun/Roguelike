@@ -32,6 +32,7 @@ public class PlayerState
         startTime = Time.time;
         isAnimationFinished = false; //새로운 상태로 변경 될 때 애니메이션 시작
         isExitingState = false;
+
     }
 
     //해당 State가 끝날 때 한 번 실행

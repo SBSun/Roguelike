@@ -184,6 +184,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -602,7 +603,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1761306701100117461}
-  - component: {fileID: 3346897377967327655}
+  - component: {fileID: 5516361424284871071}
   m_Layer: 0
   m_Name: CollsionSense
   m_TagString: Untagged
@@ -624,7 +625,7 @@ Transform:
   m_Father: {fileID: 972244458312149074}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3346897377967327655
+--- !u!114 &5516361424284871071
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

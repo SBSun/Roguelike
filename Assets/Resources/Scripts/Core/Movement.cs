@@ -24,6 +24,7 @@ public class Movement : MonoBehaviour
     public void LogicUpdate()
     {
         CurrentVelocity = RB.velocity;
+        Debug.Log( CanSetVelocity );
     }
 
     public void SetVelocityZero()
