@@ -21,7 +21,7 @@ public class LandAttack_AttackState : EnemyAttackState
         base.Enter();
 
         landMoveAttackEnemy.Core.Movement.SetVelocityX(0f);
-        landMoveAttackEnemy.Core.Movement.PlayerDirectionFlip(landMoveAttackEnemy.PlayerDirection);
+        landMoveAttackEnemy.Core.Movement.PlayerDirectionFlip(landMoveAttackEnemy.Core.CollisionSense.PlayerDirection);
         isAnimationFinished = false;
     }
 
@@ -34,8 +34,8 @@ public class LandAttack_AttackState : EnemyAttackState
     {
         base.LogicUpdate();
 
-        isPlayerDetected = landMoveAttackEnemy.PlayerDetected;
-        isPlayerInAttackArea = landMoveAttackEnemy.PlayerInAttackArea;
+        isPlayerDetected = landMoveAttackEnemy.Core.CollisionSense.PlayerDetected;
+        isPlayerInAttackArea = landMoveAttackEnemy.Core.CollisionSense.PlayerInAttackArea;
         landMoveAttackEnemy.Core.Movement.SetVelocityX(0f);
 
         if (isAnimationFinished)

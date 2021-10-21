@@ -33,8 +33,8 @@ public class LandAttack_PlayerDiscoverState : EnemyState
 
         isTouchingWallFront = landMoveAttackEnemy.Core.CollisionSense.WallFront;
         isCliffing = landMoveAttackEnemy.Core.CollisionSense.Cliffing;
-        isPlayerDetected = landMoveAttackEnemy.PlayerDetected;
-        isPlayerInAttackArea = landMoveAttackEnemy.PlayerInAttackArea;
+        isPlayerDetected = landMoveAttackEnemy.Core.CollisionSense.PlayerDetected;
+        isPlayerInAttackArea = landMoveAttackEnemy.Core.CollisionSense.PlayerInAttackArea;
 
         if (!isPlayerDetected)
         {

@@ -32,7 +32,7 @@ public class LandAttack_IdleState : EnemyState
     {
         base.LogicUpdate();
 
-        isPlayerDetected = landMoveAttackEnemy.PlayerDetected;
+        isPlayerDetected = landMoveAttackEnemy.Core.CollisionSense.PlayerDetected;
         landMoveAttackEnemy.Core.Movement.SetVelocityZero();
 
         if (Time.time >= startTime + idleTime)

@@ -53,7 +53,7 @@ public class LandAttack_MoveState : EnemyState
 
         isTouchingWallFront = landMoveAttackEnemy.Core.CollisionSense.WallFront;
         isCliffing = landMoveAttackEnemy.Core.CollisionSense.Cliffing;
-        isPlayerDetected = landMoveAttackEnemy.PlayerDetected;
+        isPlayerDetected = landMoveAttackEnemy.Core.CollisionSense.PlayerDetected;
 
         landMoveAttackEnemy.Core.Movement.SetVelocityX(stateData.movementVelocity * moveDirection);
 

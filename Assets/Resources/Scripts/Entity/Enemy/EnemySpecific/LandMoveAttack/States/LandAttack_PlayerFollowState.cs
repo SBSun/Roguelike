@@ -30,7 +30,7 @@ public class LandAttack_PlayerFollowState : LandAttack_PlayerDiscoverState
             stateMachine.ChangeState(landMoveAttackEnemy.PlayerLookForState);
         }
 
-        landMoveAttackEnemy.Core.Movement.PlayerDirectionFlip(landMoveAttackEnemy.PlayerDirection);
-        landMoveAttackEnemy.Core.Movement.SetVelocityX(stateData.movementVelocity * landMoveAttackEnemy.PlayerDirection);
+        landMoveAttackEnemy.Core.Movement.PlayerDirectionFlip(landMoveAttackEnemy.Core.CollisionSense.PlayerDirection);
+        landMoveAttackEnemy.Core.Movement.SetVelocityX(stateData.movementVelocity * landMoveAttackEnemy.Core.CollisionSense.PlayerDirection);
     }
 }
